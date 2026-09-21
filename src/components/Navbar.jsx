@@ -1,0 +1,150 @@
+import React, { useState, useEffect } from 'react';
+import { ChevronDown, X, ArrowUpRight } from 'lucide-react';
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleDropdown = (name) => {
+    setActiveDropdown(prev => (prev === name ? null : name));
+  };
+
+  return (
+    <header className={`nb-header ${scrolled ? 'scrolled' : ''}`}>
+      <div className="nav-container">
+        {/* Brand Logo */}
+        <a href="/" className="nav-brand" aria-label="Brandboosters Home">
+          <img 
+            src="/brandboosters-logo-opt.png" 
+            alt="Brandboosters" 
+            className="brand-logo brandboosters-logo"
+          />
+        </a>
+
+        {/* Desktop Navigation Links */}
+        <nav className="nav-menu-desktop" aria-label="Main Navigation">
+          <a href="#work" className="nav-link">
+            Work
+          </a>
+
+          {/* Services Dropdown */}
+          <div 
+            className={`dropdown-parent ${activeDropdown === 'services' ? 'active' : ''}`}
+            onMouseEnter={() => setActiveDropdown('services')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <button 
+              className="nav-link has-dropdown" 
+              onClick={() => toggleDropdown('services')}
+              aria-expanded={activeDropdown === 'services'}
+            >
+              Services <ChevronDown className="dropdown-chevron" size={14} />
+            </button>
+            <div className="nav-dropdown-menu wide-menu">
+              <div>
+                <div className="dropdown-group-title">Research</div>
+                <a href="#research" className="dropdown-item">Qualitative Research</a>
+                <a href="#usability" className="dropdown-item">Usability Testing</a>
+                <a href="#quantitative" className="dropdown-item">Quantitative Research</a>
+                <a href="#competitor" className="dropdown-item">Competitor Analysis</a>
+              </div>
+              <div>
+                <div className="dropdown-group-title">Strategy</div>
+                <a href="#design-thinking" className="dropdown-item">Design Thinking</a>
+                <a href="#product-roadmap" className="dropdown-item">Product Roadmap</a>
+                <a href="#growth-strategy" className="dropdown-item">Growth Strategy</a>
+                <a href="#service-design" className="dropdown-item">Service Design</a>
+              </div>
+              <div>
+                <div className="dropdown-group-title">Design</div>
+                <a href="#user-journey" className="dropdown-item">User Journeys</a>
+                <a href="#wireframing" className="dropdown-item">Wireframing & IA</a>
+                <a href="#visual-design" className="dropdown-item">Visual Design & Systems</a>
+                <a href="#motion" className="dropdown-item">Animation & Micro-interactions</a>
+              </div>
+            </div>
+          </div>
+
+          {/* Clients Dropdown */}
+          <div 
+            className={`dropdown-parent ${activeDropdown === 'clients' ? 'active' : ''}`}
+            onMouseEnter={() => setActiveDropdown('clients')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <button 
+              className="nav-link has-dropdown"
+              onClick={() => toggleDropdown('clients')}
+              aria-expanded={activeDropdown === 'clients'}
+            >
+              Clients <ChevronDown className="dropdown-chevron" size={14} />
+            </button>
+            <div className="nav-dropdown-menu">
+              <div className="dropdown-group-title">Key Industries</div>
+              <a href="#fintech" className="dropdown-item">BFSI & Fintech</a>
+              <a href="#enterprise" className="dropdown-item">Enterprise & SaaS</a>
+              <a href="#retail" className="dropdown-item">Retail & E-commerce</a>
+              <a href="#healthcare" className="dropdown-item">Healthcare & MedTech</a>
+              <a href="#impact" className="dropdown-item">Client Impact Stories</a>
+            </div>
+          </div>
+
+          <a href="#about" className="nav-link">
+            About
+          </a>
+
+          <a href="#blogs" className="nav-link">
+            Blogs
+          </a>
+        </nav>
+
+        {/* Contact CTA */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <a href="#contact" className="nav-contact-btn">
+            Contact
+          </a>
+
+          {/* Mobile Hamburger Toggle */}
+          <button 
+            className={`mobile-toggle ${mobileMenuOpen ? 'open' : ''}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Navigation Menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer */}
+      <div className={`mobile-drawer ${mobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-nav-links">
+          <a href="#work" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Work</a>
+          <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Services</a>
+          <a href="#clients" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Clients</a>
+          <a href="#about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
+          <a href="#blogs" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Blogs</a>
+        </div>
+        <div>
+          <a 
+            href="#contact" 
+            className="nav-contact-btn" 
+            style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </header>
+  );
+}
