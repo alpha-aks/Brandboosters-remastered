@@ -54,6 +54,11 @@ export default function FeaturedWork() {
             {/* Apple Glass Specular Top Highlight */}
             <div className="ref-canvas-specular" />
 
+            {/* Top-Left Puzzle Number Badge */}
+            <div className="puzzle-box-badge" aria-hidden="true">
+              <span className="puzzle-box-num">{item.puzzleNum}</span>
+            </div>
+
             {/* Center Brand Identity: Uniform White Frosted Liquid Glass Box with Real Logo & Animated Orb */}
             <div className="ref-brand-centerpiece">
               {/* Dynamic Animated Glowing Liquid Orb behind Logo */}
