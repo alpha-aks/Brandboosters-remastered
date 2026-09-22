@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { PROJECTS } from '../data/projectsData';
 
 export default function FeaturedWork() {
   const navigate = useNavigate();
   const [flippedCards, setFlippedCards] = useState({});
-  // Mobile active project slider index (0 to 5)
-  const [mobileIndex, setMobileIndex] = useState(0);
 
   const toggleFlip = (id, e) => {
     if (e) {
@@ -25,30 +18,19 @@ export default function FeaturedWork() {
     }));
   };
 
-  const nextMobileCard = (e) => {
-    if (e) e.stopPropagation();
-    setMobileIndex((prev) => (prev < PROJECTS.length - 1 ? prev + 1 : 0));
-  };
-
-  const prevMobileCard = (e) => {
-    if (e) e.stopPropagation();
-    setMobileIndex((prev) => (prev > 0 ? prev - 1 : PROJECTS.length - 1));
-  };
-
-  // Helper to render the single card component (used on both desktop grid and mobile card view)
-  const renderCard = (item, isMobileView = false) => {
+  const renderCard = (item) => {
     const isFlipped = !!flippedCards[item.id];
 
     return (
-      <div
+      <div 
         key={item.id}
-        className={`puzzle-ref-card-wrapper ${item.gridClass} ${isMobileView ? 'mobile-active-wrapper' : ''}`}
+        className={`puzzle-ref-card-wrapper ${item.gridClass}`}
       >
         {/* Apple Liquid Glass Card Frame */}
         <div className="puzzle-ref-canvas-frame">
-
+          
           {/* ===== FRONT VIEW: Brand Showcase ===== */}
-          <div
+          <div 
             className={`puzzle-ref-canvas card-layer card-layer-front ${item.brandTheme} ${isFlipped ? 'layer-is-hidden' : 'layer-is-active'}`}
             onClick={() => navigate(item.routePath)}
             role="button"
@@ -56,6 +38,19 @@ export default function FeaturedWork() {
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(item.routePath); }}
             aria-label={`View ${item.client} Case Study`}
           >
+            {/* 3D Tactile Textured Background Cover */}
+            {item.textureImg && (
+              <div className="featured-card-texture-layer" aria-hidden="true">
+                <img 
+                  src={item.textureImg} 
+                  alt="" 
+                  className="featured-card-texture-img"
+                  loading="lazy"
+                />
+                <div className="featured-card-texture-overlay" />
+              </div>
+            )}
+
             {/* Apple Glass Specular Top Highlight */}
             <div className="ref-canvas-specular" />
 
@@ -69,9 +64,9 @@ export default function FeaturedWork() {
                 {item.textLogo ? (
                   <span className="featured-brand-caps-logo">{item.textLogo}</span>
                 ) : item.logoSrc ? (
-                  <img
-                    src={item.logoSrc}
-                    alt={`${item.client} Official Logo`}
+                  <img 
+                    src={item.logoSrc} 
+                    alt={`${item.client} Official Logo`} 
                     className={`client-logo-img ${item.slug || ''}`}
                     loading="lazy"
                   />
@@ -82,7 +77,7 @@ export default function FeaturedWork() {
             </div>
 
             {/* Bottom-Right "Show Overview" Button */}
-            <button
+            <button 
               type="button"
               className="card-show-overview-btn"
               onClick={(e) => {
@@ -98,8 +93,8 @@ export default function FeaturedWork() {
             </button>
           </div>
 
-          {/* ===== BACK VIEW: Overview & Highlights (Mobile Switchable) ===== */}
-          <div
+          {/* ===== BACK VIEW: Overview & Highlights ===== */}
+          <div 
             className={`puzzle-ref-canvas card-layer card-layer-back ${item.brandTheme} ${isFlipped ? 'layer-is-active' : 'layer-is-hidden'}`}
             onClick={() => navigate(item.routePath)}
             role="button"
@@ -112,7 +107,7 @@ export default function FeaturedWork() {
 
             {/* Top Bar with Left Arrow: Back to Brand Card */}
             <div className="card-back-header">
-              <button
+              <button 
                 type="button"
                 className="card-flip-arrow-btn flip-to-front"
                 onClick={(e) => toggleFlip(item.id, e)}
@@ -154,8 +149,8 @@ export default function FeaturedWork() {
 
             {/* Bottom Footer on Back: Open Full Page */}
             <div className="card-back-footer">
-              <button
-                type="button"
+              <button 
+                type="button" 
                 className="card-open-modal-btn"
                 onClick={(e) => { e.stopPropagation(); navigate(item.routePath); }}
               >
@@ -170,36 +165,6 @@ export default function FeaturedWork() {
     );
   };
 
-  // Touch swipe support for smooth mobile card switching
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-
-  const minSwipeDistance = 45;
-
-  const handleTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-    if (isLeftSwipe) {
-      setMobileIndex((prev) => (prev < PROJECTS.length - 1 ? prev + 1 : 0));
-    } else if (isRightSwipe) {
-      setMobileIndex((prev) => (prev > 0 ? prev - 1 : PROJECTS.length - 1));
-    }
-  };
-
-  const activeMobileItem = PROJECTS[mobileIndex] || PROJECTS[0];
-  const isCurrentMobileFlipped = !!flippedCards[activeMobileItem.id];
-
   return (
     <section className="featured-work-section puzzle-work-section" id="work" aria-label="Featured Work and Portfolio">
       {/* Floating luminous orbs for Apple liquid glass background depth */}
@@ -210,115 +175,10 @@ export default function FeaturedWork() {
         <div className="puzzle-orb orb-amber-warm" />
         <div className="puzzle-orb orb-indigo-deep" />
       </div>
-
       <div className="puzzle-work-container">
-        {/* DESKTOP PUZZLE BENTO GRID */}
-        <div className="puzzle-ref-grid desktop-only-grid">
-          {PROJECTS.map((item) => renderCard(item, false))}
-        </div>
-
-        {/* PHONE / MOBILE DEDICATED FULL CARD EXPERIENCE */}
-        <div className="mobile-only-showcase">
-          {/* Mobile Top Controls Bar: Prev/Next Buttons + Front/Back Face Switcher */}
-          <div className="mobile-card-controls-bar">
-            <button
-              type="button"
-              className="mobile-nav-arrow-btn"
-              onClick={prevMobileCard}
-              aria-label="Previous project"
-            >
-              <ChevronLeft size={18} />
-              <span>Prev</span>
-            </button>
-
-            {/* Front (Brand) vs Back (Overview) 1-Tap Toggle */}
-            <div className="mobile-face-toggle-pill" role="tablist" aria-label="Card face switch">
-              <button
-                type="button"
-                className={`face-toggle-btn ${!isCurrentMobileFlipped ? 'active' : ''}`}
-                onClick={(e) => {
-                  if (isCurrentMobileFlipped) toggleFlip(activeMobileItem.id, e);
-                }}
-              >
-                Brand
-              </button>
-              <button
-                type="button"
-                className={`face-toggle-btn ${isCurrentMobileFlipped ? 'active' : ''}`}
-                onClick={(e) => {
-                  if (!isCurrentMobileFlipped) toggleFlip(activeMobileItem.id, e);
-                }}
-              >
-                Overview
-              </button>
-            </div>
-
-            <button
-              type="button"
-              className="mobile-nav-arrow-btn"
-              onClick={nextMobileCard}
-              aria-label="Next project"
-            >
-              <span>Next</span>
-              <ChevronRight size={18} />
-            </button>
-          </div>
-
-          {/* Mobile Single Active Card Canvas Frame */}
-          <div
-            className="mobile-card-active-viewport"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            {/* Side Floating Left Arrow */}
-            <button
-              type="button"
-              className="mobile-floating-side-arrow side-arrow-left"
-              onClick={prevMobileCard}
-              aria-label="Previous card"
-            >
-              <ChevronLeft size={22} />
-            </button>
-
-            {renderCard(activeMobileItem, true)}
-
-            {/* Side Floating Right Arrow */}
-            <button
-              type="button"
-              className="mobile-floating-side-arrow side-arrow-right"
-              onClick={nextMobileCard}
-              aria-label="Next card"
-            >
-              <ChevronRight size={22} />
-            </button>
-          </div>
-
-          {/* Mobile Status & Swipe Helper */}
-          <div className="mobile-swipe-status-bar">
-            <div className="mobile-card-counter">
-              <span className="counter-curr">0{mobileIndex + 1}</span>
-              <span className="counter-sep">/</span>
-              <span className="counter-total">0{PROJECTS.length}</span>
-            </div>
-            <span className="mobile-swipe-hint">Swipe or tap arrows to explore</span>
-          </div>
-
-          {/* Mobile Direct Jump Pills */}
-          <div className="mobile-project-pills-row" role="tablist" aria-label="Select project">
-            {PROJECTS.map((p, idx) => (
-              <button
-                key={p.id}
-                type="button"
-                className={`mobile-project-tab-pill ${idx === mobileIndex ? 'active' : ''}`}
-                onClick={() => setMobileIndex(idx)}
-                role="tab"
-                aria-selected={idx === mobileIndex}
-              >
-                {p.client}
-              </button>
-            ))}
-          </div>
+        {/* Adaptive Puzzle Bento Grid (Desktop & Mobile) */}
+        <div className="puzzle-ref-grid">
+          {PROJECTS.map((item) => renderCard(item))}
         </div>
       </div>
     </section>
