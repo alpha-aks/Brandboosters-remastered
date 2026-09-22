@@ -39,6 +39,42 @@ const SvgYoutube = () => (
   </svg>
 );
 
+// Location configuration: Primary (Navi Mumbai) and Secondary (Ahmedabad)
+const LOCATIONS = [
+  {
+    id: 'mumbai',
+    label: 'Navi Mumbai',
+    type: 'Headquarters',
+    tag: 'Primary Location',
+    badge: 'HQ',
+    title: 'Sector 22, Vashi',
+    city: 'Navi Mumbai, Maharashtra',
+    pincode: '400703',
+    mapTitle: 'Our Office (HQ)',
+    street1: 'SECTOR 22 • VASHI • NAVI MUMBAI',
+    street2: 'PALM BEACH ROAD',
+    street3: 'SION - PANVEL HIGHWAY',
+    waterName: 'THANE CREEK',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=Sector+22+Vashi+Navi+Mumbai'
+  },
+  {
+    id: 'ahmedabad',
+    label: 'Ahmedabad',
+    type: 'Branch Office',
+    tag: 'Secondary Location',
+    badge: 'Branch',
+    title: 'Ayodhya Nagar',
+    city: 'Ahmedabad, Gujarat',
+    pincode: '380026',
+    mapTitle: 'Ahmedabad Studio',
+    street1: 'AYODHYA NAGAR • AHMEDABAD',
+    street2: 'SABARMATI RIVERFRONT',
+    street3: 'SARKHEJ - GANDHINAGAR HWY',
+    waterName: 'SABARMATI RIVER',
+    googleMapUrl: 'https://www.google.com/maps/search/?api=1&query=Ayodhya+Nagar+Ahmedabad'
+  }
+];
+
 export default function Contact() {
   const [formState, setFormState] = useState({
     fullName: '',
@@ -49,6 +85,9 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [mapZoom, setMapZoom] = useState(1);
+  const [activeLocId, setActiveLocId] = useState('mumbai');
+
+  const activeLoc = LOCATIONS.find(loc => loc.id === activeLocId) || LOCATIONS[0];
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -181,26 +220,62 @@ export default function Contact() {
                   </a>
 
                   {/* Channel 2: Call Us */}
-                  <a href="tel:+15551234567" className="contact-channel-item">
+                  <a href="tel:+919820012345" className="contact-channel-item">
                     <div className="channel-icon-wrap">
                       <Phone size={20} color="#2563eb" />
                     </div>
                     <div className="channel-details">
                       <span className="channel-label">Call Us</span>
-                      <strong className="channel-val">+1 (555) 123-4567</strong>
-                      <span className="channel-sub">Mon - Fri, 9am - 6pm (EST)</span>
+                      <strong className="channel-val">+91 98200 12345</strong>
+                      <span className="channel-sub">Mon - Sat, 10am - 7pm (IST)</span>
                     </div>
                   </a>
 
-                  {/* Channel 3: Office Location */}
-                  <div className="contact-channel-item">
+                  {/* Channel 3: Primary Office Location (Navi Mumbai) */}
+                  <div 
+                    className={`contact-channel-item channel-location-interactive ${activeLocId === 'mumbai' ? 'active' : ''}`}
+                    onClick={() => {
+                      setActiveLocId('mumbai');
+                      document.getElementById('contact-map-wrapper')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="View Navi Mumbai Office on Map"
+                  >
                     <div className="channel-icon-wrap">
                       <MapPin size={20} color="#2563eb" />
                     </div>
                     <div className="channel-details">
-                      <span className="channel-label">Office Location</span>
-                      <strong className="channel-val">123 Creative Lane</strong>
-                      <span className="channel-sub">San Francisco, CA 94107</span>
+                      <div className="channel-label-row">
+                        <span className="channel-label">Headquarters</span>
+                        <span className="channel-loc-pill">Primary</span>
+                      </div>
+                      <strong className="channel-val">Sector 22, Vashi</strong>
+                      <span className="channel-sub">Navi Mumbai, Maharashtra 400703</span>
+                    </div>
+                  </div>
+
+                  {/* Channel 4: Secondary Office Location (Ahmedabad) */}
+                  <div 
+                    className={`contact-channel-item channel-location-interactive ${activeLocId === 'ahmedabad' ? 'active' : ''}`}
+                    onClick={() => {
+                      setActiveLocId('ahmedabad');
+                      document.getElementById('contact-map-wrapper')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="View Ahmedabad Office on Map"
+                  >
+                    <div className="channel-icon-wrap">
+                      <MapPin size={20} color="#2563eb" />
+                    </div>
+                    <div className="channel-details">
+                      <div className="channel-label-row">
+                        <span className="channel-label">Branch Office</span>
+                        <span className="channel-loc-pill branch">Secondary</span>
+                      </div>
+                      <strong className="channel-val">Ayodhya Nagar</strong>
+                      <span className="channel-sub">Ahmedabad, Gujarat 380026</span>
                     </div>
                   </div>
                 </div>
@@ -312,9 +387,34 @@ export default function Contact() {
         </section>
 
         {/* ==========================================================================
-           3. MAP SECTION: Architectural Map Container with Central Pinned Location
+           3. INTERACTIVE ARCHITECTURAL MAP SECTION WITH DUAL LOCATION TABS
            ========================================================================== */}
-        <section className="contact-map-section" aria-label="Our Location">
+        <section className="contact-map-section" id="contact-map-wrapper" aria-label="Our Locations">
+          {/* Dual Location Switcher Tabs */}
+          <div className="map-locations-header-bar">
+            <div className="map-locations-pills" role="tablist" aria-label="Office Locations">
+              {LOCATIONS.map((loc) => {
+                const isActive = activeLocId === loc.id;
+                return (
+                  <button
+                    key={loc.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    className={`map-loc-tab-btn ${isActive ? 'active' : ''}`}
+                    onClick={() => setActiveLocId(loc.id)}
+                  >
+                    <MapPin size={14} />
+                    <span>{loc.title}, {loc.label}</span>
+                    <span className={`loc-badge-tag ${loc.badge.toLowerCase()}`}>
+                      {loc.badge}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="contact-map-container">
             
             {/* Architectural Stylized SVG Street Map Visual */}
@@ -327,36 +427,48 @@ export default function Contact() {
                 viewBox="0 0 1200 480" 
                 preserveAspectRatio="xMidYMid slice" 
                 xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
               >
-                <defs>
-                  <linearGradient id="mapBgGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#e8f3fe"/>
-                    <stop offset="45%" stopColor="#e3effc"/>
-                    <stop offset="100%" stopColor="#dbeafe"/>
-                  </linearGradient>
-                  <linearGradient id="bayWaterGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#bfdbfe"/>
-                    <stop offset="100%" stopColor="#93c5fd"/>
-                  </linearGradient>
-                  <pattern id="streetGridPattern" width="60" height="60" patternUnits="userSpaceOnUse">
-                    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="4"/>
-                  </pattern>
-                </defs>
+                {/* Land Base */}
+                <rect width="1200" height="500" fill="#f1f5f9"/>
 
-                {/* Base Landmass */}
-                <rect width="1200" height="480" fill="url(#mapBgGrad)" />
-
-                {/* Coastal Water Bay shape on right edge */}
+                {/* Waterfront / Bay / River Simulation */}
                 <path 
-                  d="M 920 0 Q 860 120 890 240 T 840 480 L 1200 480 L 1200 0 Z" 
-                  fill="url(#bayWaterGrad)" 
-                  opacity="0.45"
+                  d="M 850 0 C 890 120 780 220 840 340 C 880 420 950 470 1200 500 L 1200 0 Z" 
+                  fill="#dbeafe" 
+                  opacity="0.85"
+                />
+                <path 
+                  d="M 870 0 C 910 130 800 230 860 350 C 900 430 970 470 1200 500 L 1200 0 Z" 
+                  fill="#bfdbfe" 
+                  opacity="0.35"
                 />
 
-                {/* Urban City Blocks Grid */}
-                <rect width="1200" height="480" fill="url(#streetGridPattern)" />
+                {/* City Blocks Grid Simulation */}
+                <g fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1" opacity="0.6">
+                  <rect x="40" y="30" width="100" height="60" rx="4"/>
+                  <rect x="160" y="30" width="140" height="60" rx="4"/>
+                  <rect x="40" y="110" width="90" height="120" rx="4"/>
+                  <rect x="150" y="110" width="130" height="80" rx="4"/>
+                  <rect x="300" y="50" width="110" height="90" rx="4"/>
+                  <rect x="430" y="40" width="160" height="70" rx="4"/>
+                  <rect x="610" y="50" width="120" height="80" rx="4"/>
 
-                {/* Major Highways & Avenues */}
+                  <rect x="160" y="210" width="120" height="100" rx="4"/>
+                  <rect x="300" y="160" width="90" height="150" rx="4"/>
+                  <rect x="410" y="130" width="140" height="90" rx="4"/>
+                  <rect x="570" y="150" width="160" height="110" rx="4"/>
+
+                  <rect x="50" y="250" width="90" height="160" rx="4"/>
+                  <rect x="160" y="330" width="110" height="110" rx="4"/>
+                  <rect x="290" y="330" width="150" height="110" rx="4"/>
+                  <rect x="460" y="240" width="120" height="130" rx="4"/>
+                  <rect x="600" y="280" width="140" height="150" rx="4"/>
+
+                  <rect x="750" y="380" width="100" height="80" rx="4"/>
+                </g>
+
+                {/* Major Highways & Arterial Roads */}
                 <path d="M 0 140 Q 400 160 850 110 T 1200 90" fill="none" stroke="#ffffff" strokeWidth="12" opacity="0.95"/>
                 <path d="M 0 140 Q 400 160 850 110 T 1200 90" fill="none" stroke="#cbd5e1" strokeWidth="6" opacity="0.4"/>
 
@@ -370,10 +482,11 @@ export default function Contact() {
                 <path d="M 310 220 Q 360 210 390 260 T 330 310 Z" fill="#dcfce7" opacity="0.65"/>
                 <path d="M 720 180 Q 770 160 800 210 T 750 250 Z" fill="#dcfce7" opacity="0.6"/>
 
-                {/* Street Names Simulation */}
-                <text x="180" y="130" fill="#94a3b8" fontSize="10" fontFamily="sans-serif" letterSpacing="2" opacity="0.8">CREATIVE BOULEVARD</text>
-                <text x="440" y="320" fill="#94a3b8" fontSize="9" fontFamily="sans-serif" letterSpacing="1.5" opacity="0.8">MARKET STREET</text>
-                <text x="740" y="100" fill="#94a3b8" fontSize="9" fontFamily="sans-serif" letterSpacing="1.5" opacity="0.8">EMBARCADERO</text>
+                {/* Street Names Simulation dynamically matched to selected location */}
+                <text x="160" y="130" fill="#94a3b8" fontSize="10" fontFamily="sans-serif" letterSpacing="2" opacity="0.85">{activeLoc.street1}</text>
+                <text x="440" y="320" fill="#94a3b8" fontSize="9" fontFamily="sans-serif" letterSpacing="1.5" opacity="0.85">{activeLoc.street2}</text>
+                <text x="730" y="100" fill="#94a3b8" fontSize="9" fontFamily="sans-serif" letterSpacing="1.5" opacity="0.85">{activeLoc.street3}</text>
+                <text x="960" y="240" fill="#60a5fa" fontSize="9" fontFamily="sans-serif" letterSpacing="1.5" opacity="0.75">{activeLoc.waterName}</text>
               </svg>
             </div>
 
@@ -383,12 +496,21 @@ export default function Contact() {
               <div className="map-office-card">
                 <div className="map-office-header">
                   <MapPin size={13} color="#2563eb" />
-                  <span>Our Office</span>
+                  <span>{activeLoc.mapTitle}</span>
                 </div>
                 <div className="map-office-body">
-                  <strong>123 Creative Lane</strong>
-                  <span>San Francisco, CA 94107</span>
+                  <strong>{activeLoc.title}</strong>
+                  <span>{activeLoc.city}</span>
                 </div>
+                <a 
+                  href={activeLoc.googleMapUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="map-office-gmaps-link"
+                >
+                  <span>Open in Google Maps</span>
+                  <ArrowRight size={11} />
+                </a>
               </div>
 
               {/* Pulsing Blue Location Target Dot */}

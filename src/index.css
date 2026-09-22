@@ -6756,6 +6756,49 @@ button {
   color: #94a3b8;
 }
 
+.channel-location-interactive {
+  cursor: pointer;
+  padding: 0.55rem 0.75rem;
+  margin: -0.55rem -0.75rem;
+  border-radius: 18px;
+  transition: all 0.25s ease;
+}
+
+.channel-location-interactive:hover {
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.channel-location-interactive.active {
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.channel-label-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.channel-label-row .channel-label {
+  margin-bottom: 0;
+}
+
+.channel-loc-pill {
+  font-size: 0.68rem;
+  font-weight: 750;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  letter-spacing: 0.03em;
+}
+
+.channel-loc-pill.branch {
+  background: rgba(14, 165, 233, 0.1);
+  color: #0284c7;
+}
+
 /* Right Form Box */
 .contact-form-box {
   background: #ffffff;
@@ -6896,9 +6939,66 @@ button {
   cursor: not-allowed;
 }
 
-/* 3. Map Section */
+/* 3. Map Section with Dual Location Switcher */
 .contact-map-section {
   margin-bottom: 5.5rem;
+}
+
+.map-locations-header-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.map-locations-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 31, 63, 0.04);
+  padding: 0.35rem 0.45rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(0, 31, 63, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 31, 63, 0.03);
+}
+
+.map-loc-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.map-loc-tab-btn:hover {
+  color: #001f3f;
+}
+
+.map-loc-tab-btn.active {
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 4px 16px rgba(0, 31, 63, 0.1);
+}
+
+.loc-badge-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  letter-spacing: 0.04em;
+}
+
+.map-loc-tab-btn.active .loc-badge-tag {
+  background: #2563eb;
+  color: #ffffff;
 }
 
 .contact-map-container {
@@ -6978,6 +7078,28 @@ button {
   font-size: 0.82rem;
   color: #64748b;
   font-weight: 500;
+}
+
+.map-office-gmaps-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-decoration: none;
+  margin-top: 0.45rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.08);
+  pointer-events: auto;
+  transition: all 0.2s ease;
+}
+
+.map-office-gmaps-link:hover {
+  background: #2563eb;
+  color: #ffffff;
 }
 
 /* Pulsing Blue Location Target Dot */
