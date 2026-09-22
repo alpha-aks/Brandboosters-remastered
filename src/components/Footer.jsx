@@ -153,46 +153,6 @@ function LargeExplodingGlobe() {
       const st = stateRef.current;
       st.rotY += 0.0045;
 
-      // Soft ambient liquid-glass aura of the globe (Yellow & Blue)
-      const aura = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.25, R * 0.08, cx, cy, R * 1.18);
-      aura.addColorStop(0, 'rgba(255, 209, 5, 0.15)');
-      aura.addColorStop(0.42, 'rgba(37, 99, 235, 0.09)');
-      aura.addColorStop(0.85, 'rgba(37, 99, 235, 0.02)');
-      aura.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, R * 1.12, 0, Math.PI * 2);
-      ctx.fillStyle = aura;
-      ctx.fill();
-
-      // Outer delicate orbital ring
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(37, 99, 235, 0.2)';
-      ctx.lineWidth = 1.4;
-      ctx.stroke();
-
-      // Parallels (latitude rings)
-      for (let lat = -60; lat <= 60; lat += 25) {
-        const phi = (lat * Math.PI) / 180;
-        const rLat = R * Math.cos(phi);
-        const yLat = cy - R * Math.sin(phi);
-        ctx.beginPath();
-        ctx.ellipse(cx, yLat, rLat, rLat * 0.22, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(37, 99, 235, 0.08)';
-        ctx.lineWidth = 0.9;
-        ctx.stroke();
-      }
-
-      // Meridian longitude rings
-      for (let m = 0; m < 5; m++) {
-        const angle = st.rotY + (m * Math.PI) / 5;
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, Math.abs(Math.cos(angle)) * R, R, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(37, 99, 235, 0.06)';
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-
       // 3D rotation matrix
       const cosY = Math.cos(st.rotY);
       const sinY = Math.sin(st.rotY);
@@ -287,43 +247,6 @@ function LargeExplodingGlobe() {
         if (!isMobile) ctx.shadowBlur = 0;
       }
 
-      // Modern 4-point glowing star emblem on the right perimeter
-      const starX = cx + R * 0.76;
-      const starY = cy - R * 0.18;
-      const starPulse = 1 + Math.sin(st.rotY * 4.5) * 0.14;
-      const starSize = 26 * starPulse;
-
-      const starGrad = ctx.createRadialGradient(starX, starY, 2, starX, starY, starSize * 1.6);
-      starGrad.addColorStop(0, 'rgba(255, 209, 5, 0.5)');
-      starGrad.addColorStop(0.5, 'rgba(37, 99, 235, 0.28)');
-      starGrad.addColorStop(1, 'rgba(37, 99, 235, 0)');
-      ctx.fillStyle = starGrad;
-      ctx.beginPath();
-      ctx.arc(starX, starY, starSize * 1.6, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 4-pointed diamond star
-      ctx.save();
-      ctx.translate(starX, starY);
-      ctx.beginPath();
-      ctx.moveTo(0, -starSize);
-      ctx.quadraticCurveTo(0, 0, starSize, 0);
-      ctx.quadraticCurveTo(0, 0, 0, starSize);
-      ctx.quadraticCurveTo(0, 0, -starSize, 0);
-      ctx.quadraticCurveTo(0, 0, 0, -starSize);
-      ctx.closePath();
-      const starFill = ctx.createLinearGradient(-starSize, -starSize, starSize, starSize);
-      starFill.addColorStop(0, '#ffd105');
-      starFill.addColorStop(0.5, '#60a5fa');
-      starFill.addColorStop(1, '#2563eb');
-      ctx.fillStyle = starFill;
-      if (!isMobile) {
-        ctx.shadowColor = '#ffd105';
-        ctx.shadowBlur = 12;
-      }
-      ctx.fill();
-      ctx.restore();
-
       animId = requestAnimationFrame(render);
     };
 
@@ -402,7 +325,7 @@ function LargeExplodingGlobe() {
       />
       <div className="globe-interactive-pill">
         <span className="globe-glow-dot" />
-        <span>Hover to Explode Globe</span>
+        <span>Hover to Explode</span>
       </div>
     </div>
   );
