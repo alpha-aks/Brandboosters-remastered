@@ -13,6 +13,7 @@ import Clients from './components/Clients';
 import ChatWidget from './components/ChatWidget';
 import GlobalAmbientOrbs from './components/GlobalAmbientOrbs';
 import ProjectCaseStudy from './pages/ProjectCaseStudy';
+import Contact from './pages/Contact';
 
 function HomePage() {
   const location = useLocation();
@@ -87,6 +88,8 @@ function App() {
       <Route path="/shree-rudra-divine" element={<ProjectCaseStudy slug="shree-rudra" />} />
       <Route path="/maxo" element={<ProjectCaseStudy slug="maxo" />} />
       <Route path="/maxo-architecture" element={<ProjectCaseStudy slug="maxo" />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/contact-us" element={<Contact />} />
       <Route path="/work/:projectSlug" element={<ProjectCaseStudy />} />
       <Route path="/:projectSlug" element={<ProjectCaseStudy />} />
     </Routes>

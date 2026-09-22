@@ -111,7 +111,7 @@ export default function Navbar() {
 
         {/* Contact CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <a href={getLink('#contact')} className="nav-contact-btn">
+          <a href="/contact" className="nav-contact-btn">
             Contact
           </a>
 
@@ -139,7 +139,7 @@ export default function Navbar() {
         </div>
         <div>
           <a 
-            href={getLink('#contact')} 
+            href="/contact" 
             className="nav-contact-btn" 
             style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }}
             onClick={() => setMobileMenuOpen(false)}

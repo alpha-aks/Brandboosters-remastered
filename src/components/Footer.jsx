@@ -373,7 +373,7 @@ export default function Footer() {
               
               {/* Start a Project + 4 Individual Circular AI Model Buttons */}
               <div className="cta-and-ai-row">
-                <a href="#contact" className="liquid-glass-cta-btn">
+                <a href="/contact" className="liquid-glass-cta-btn">
                   <span>Start a Project</span>
                   <ArrowUpRight size={15} className="cta-arrow" />
                 </a>
@@ -412,7 +412,7 @@ export default function Footer() {
                 <li><a href="#services">Services</a></li>
                 <li><a href="#work">Case Studies</a></li>
                 <li><a href="#work">Founder's Note</a></li>
-                <li><a href="#contact">Enterprise Retainers</a></li>
+                <li><a href="/contact">Enterprise Retainers</a></li>
               </ul>
             </div>
 
@@ -423,8 +423,8 @@ export default function Footer() {
                 <li><a href="#process">5D Blueprint</a></li>
                 <li><a href="#services">SaaS Engine</a></li>
                 <li><a href="#testimonials">Client Proof</a></li>
-                <li><a href="#contact">Studio / Press</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/contact">Studio / Press</a></li>
+                <li><a href="/contact">Contact</a></li>
               </ul>
             </div>
 

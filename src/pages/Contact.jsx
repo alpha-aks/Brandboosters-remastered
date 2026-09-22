@@ -1,0 +1,546 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Send, 
+  ArrowRight, 
+  CheckCircle2, 
+  Globe, 
+  Plus, 
+  Minus,
+  Sparkles
+} from 'lucide-react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
+// Clean SVG social icons
+const SvgLinkedin = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+);
+
+const SvgTwitter = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+
+const SvgInstagram = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+  </svg>
+);
+
+const SvgYoutube = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+
+export default function Contact() {
+  const [formState, setFormState] = useState({
+    fullName: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [mapZoom, setMapZoom] = useState(1);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate instantaneous smooth submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormState({
+        fullName: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      setTimeout(() => setIsSubmitted(false), 5000);
+    }, 900);
+  };
+
+  const handleZoomIn = () => {
+    setMapZoom(prev => Math.min(prev + 0.2, 1.6));
+  };
+
+  const handleZoomOut = () => {
+    setMapZoom(prev => Math.max(prev - 0.2, 0.8));
+  };
+
+  const scrollToForm = () => {
+    const el = document.getElementById('contact-form-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="contact-page-wrapper">
+      {/* Universal Website Navbar */}
+      <Navbar />
+
+      <main className="contact-page-main">
+        {/* ==========================================================================
+           1. HERO SECTION: "Let's Build Something Great Together" + Floating Message Card
+           ========================================================================== */}
+        <section className="contact-hero-container">
+          <div className="contact-hero-grid">
+            
+            {/* Left Column: Heading & Subtitle */}
+            <div className="contact-hero-text">
+              <div className="contact-pill-badge">
+                <span className="pill-dot" />
+                <span>Contact Us</span>
+              </div>
+
+              <h1 className="contact-main-heading">
+                Let's Build<br />
+                Something<br />
+                <span className="contact-heading-gradient">Great Together</span>
+              </h1>
+
+              <p className="contact-hero-lead">
+                Have a project in mind, a question, or just want to say hello? We'd love to hear from you. 
+                Send us a message and we'll get back to you as soon as possible.
+              </p>
+            </div>
+
+            {/* Right Column: Floating 3D Message Showcase Card */}
+            <div className="contact-hero-graphic-wrap">
+              {/* Radiant Ambient Orb Glow */}
+              <div className="contact-floating-aura" aria-hidden="true" />
+
+              {/* Ambient Accent Dots */}
+              <div className="ambient-accent-dot dot-yellow" aria-hidden="true" />
+              <div className="ambient-accent-dot dot-green" aria-hidden="true" />
+              <div className="ambient-accent-dot dot-blue" aria-hidden="true" />
+
+              {/* Floating Liquid Glass Drop Message Card */}
+              <div className="contact-floating-message-card" onClick={scrollToForm} role="button" tabIndex={0}>
+                <div className="floating-card-glass-sheen" />
+                <div className="floating-card-icon-box">
+                  <Send size={18} color="#ffffff" className="send-icon-tilt" />
+                </div>
+                <div className="floating-card-body">
+                  <h4 className="floating-card-title">Drop us a message</h4>
+                  <span className="floating-card-sub">We're here to help</span>
+                </div>
+                <div className="floating-card-arrow-circle">
+                  <ArrowRight size={14} color="#ffffff" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* ==========================================================================
+           2. MAIN "GET IN TOUCH" CONTAINER (Info Left + Form Right)
+           ========================================================================== */}
+        <section className="contact-form-section" id="contact-form-section">
+          <div className="contact-card-outer">
+            <div className="contact-card-glass-specular" />
+
+            <div className="contact-card-inner-grid">
+              
+              {/* Left Column: Get in Touch & Contact Channels */}
+              <div className="contact-info-col">
+                <h2 className="get-in-touch-title">Get in Touch</h2>
+                <p className="get-in-touch-subtitle">
+                  Fill out the form and we'll get back to you shortly.
+                </p>
+
+                <div className="contact-channels-list">
+                  {/* Channel 1: Email Us */}
+                  <a href="mailto:hello@brandboosters.in" className="contact-channel-item">
+                    <div className="channel-icon-wrap">
+                      <Mail size={20} color="#2563eb" />
+                    </div>
+                    <div className="channel-details">
+                      <span className="channel-label">Email Us</span>
+                      <strong className="channel-val">hello@brandboosters.in</strong>
+                      <span className="channel-sub">We reply within 24 hours</span>
+                    </div>
+                  </a>
+
+                  {/* Channel 2: Call Us */}
+                  <a href="tel:+15551234567" className="contact-channel-item">
+                    <div className="channel-icon-wrap">
+                      <Phone size={20} color="#2563eb" />
+                    </div>
+                    <div className="channel-details">
+                      <span className="channel-label">Call Us</span>
+                      <strong className="channel-val">+1 (555) 123-4567</strong>
+                      <span className="channel-sub">Mon - Fri, 9am - 6pm (EST)</span>
+                    </div>
+                  </a>
+
+                  {/* Channel 3: Office Location */}
+                  <div className="contact-channel-item">
+                    <div className="channel-icon-wrap">
+                      <MapPin size={20} color="#2563eb" />
+                    </div>
+                    <div className="channel-details">
+                      <span className="channel-label">Office Location</span>
+                      <strong className="channel-val">123 Creative Lane</strong>
+                      <span className="channel-sub">San Francisco, CA 94107</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Form Container Box */}
+              <div className="contact-form-box">
+                {isSubmitted && (
+                  <div className="contact-form-success-banner" role="alert">
+                    <CheckCircle2 size={20} color="#10b981" />
+                    <div>
+                      <strong>Message received!</strong>
+                      <p>Thank you for reaching out. We will get back to you within 24 hours.</p>
+                    </div>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="contact-form-element">
+                  
+                  {/* Full Name */}
+                  <div className="form-group">
+                    <label htmlFor="fullName" className="form-label">
+                      Full Name <span className="req-star">*</span>
+                    </label>
+                    <input 
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      className="form-input"
+                      placeholder="Your name"
+                      value={formState.fullName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  {/* Email Address */}
+                  <div className="form-group">
+                    <label htmlFor="email" className="form-label">
+                      Email Address <span className="req-star">*</span>
+                    </label>
+                    <input 
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="form-input"
+                      placeholder="you@company.com"
+                      value={formState.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  {/* Subject Dropdown */}
+                  <div className="form-group">
+                    <label htmlFor="subject" className="form-label">
+                      Subject
+                    </label>
+                    <div className="form-select-wrap">
+                      <select 
+                        id="subject"
+                        name="subject"
+                        className="form-select"
+                        value={formState.subject}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select a topic</option>
+                        <option value="Design & UX/UI Modernization">Design & UX/UI Modernization</option>
+                        <option value="Full-Stack Web & App Engineering">Full-Stack Web & App Engineering</option>
+                        <option value="Performance Marketing & Ad Scaling">Performance Marketing & Ad Scaling</option>
+                        <option value="Enterprise Architecture & Retainers">Enterprise Architecture & Retainers</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div className="form-group">
+                    <label htmlFor="message" className="form-label">
+                      Message <span className="req-star">*</span>
+                    </label>
+                    <textarea 
+                      id="message"
+                      name="message"
+                      rows="4"
+                      className="form-textarea"
+                      placeholder="Tell us about your project..."
+                      value={formState.message}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button 
+                    type="submit" 
+                    className={`contact-submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                    disabled={isSubmitting}
+                  >
+                    <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                    <ArrowRight size={16} />
+                  </button>
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+           3. MAP SECTION: Architectural Map Container with Central Pinned Location
+           ========================================================================== */}
+        <section className="contact-map-section" aria-label="Our Location">
+          <div className="contact-map-container">
+            
+            {/* Architectural Stylized SVG Street Map Visual */}
+            <div 
+              className="architectural-map-canvas" 
+              style={{ transform: `scale(${mapZoom})`, transformOrigin: 'center center' }}
+            >
+              <svg 
+                className="vector-map-svg" 
+                viewBox="0 0 1200 480" 
+                preserveAspectRatio="xMidYMid slice" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <linearGradient id="mapBgGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#e8f3fe"/>
+                    <stop offset="45%" stopColor="#e3effc"/>
+                    <stop offset="100%" stopColor="#dbeafe"/>
+                  </linearGradient>
+                  <linearGradient id="bayWaterGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#bfdbfe"/>
+                    <stop offset="100%" stopColor="#93c5fd"/>
+                  </linearGradient>
+                  <pattern id="streetGridPattern" width="60" height="60" patternUnits="userSpaceOnUse">
+                    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="4"/>
+                  </pattern>
+                </defs>
+
+                {/* Base Landmass */}
+                <rect width="1200" height="480" fill="url(#mapBgGrad)" />
+
+                {/* Coastal Water Bay shape on right edge */}
+                <path 
+                  d="M 920 0 Q 860 120 890 240 T 840 480 L 1200 480 L 1200 0 Z" 
+                  fill="url(#bayWaterGrad)" 
+                  opacity="0.45"
+                />
+
+                {/* Urban City Blocks Grid */}
+                <rect width="1200" height="480" fill="url(#streetGridPattern)" />
+
+                {/* Major Highways & Avenues */}
+                <path d="M 0 140 Q 400 160 850 110 T 1200 90" fill="none" stroke="#ffffff" strokeWidth="12" opacity="0.95"/>
+                <path d="M 0 140 Q 400 160 850 110 T 1200 90" fill="none" stroke="#cbd5e1" strokeWidth="6" opacity="0.4"/>
+
+                <path d="M 120 0 Q 350 280 620 480" fill="none" stroke="#ffffff" strokeWidth="10" opacity="0.95"/>
+                <path d="M 120 0 Q 350 280 620 480" fill="none" stroke="#cbd5e1" strokeWidth="5" opacity="0.35"/>
+
+                <path d="M 380 0 L 820 480" fill="none" stroke="#ffffff" strokeWidth="8" opacity="0.9"/>
+                <path d="M 700 0 L 320 480" fill="none" stroke="#ffffff" strokeWidth="8" opacity="0.9"/>
+
+                {/* Park & Green Belts */}
+                <path d="M 310 220 Q 360 210 390 260 T 330 310 Z" fill="#dcfce7" opacity="0.65"/>
+                <path d="M 720 180 Q 770 160 800 210 T 750 250 Z" fill="#dcfce7" opacity="0.6"/>
+
+                {/* Street Names Simulation */}
+                <text x="180" y="130" fill="#94a3b8" fontSize="10" fontFamily="sans-serif" letterSpacing="2" opacity="0.8">CREATIVE BOULEVARD</text>
+                <text x="440" y="320" fill="#94a3b8" fontSize="9" fontFamily="sans-serif" letterSpacing="1.5" opacity="0.8">MARKET STREET</text>
+                <text x="740" y="100" fill="#94a3b8" fontSize="9" fontFamily="sans-serif" letterSpacing="1.5" opacity="0.8">EMBARCADERO</text>
+              </svg>
+            </div>
+
+            {/* Central Pinned Office Badge with Ripple Wave */}
+            <div className="map-office-pin-wrapper">
+              {/* Location Badge Card */}
+              <div className="map-office-card">
+                <div className="map-office-header">
+                  <MapPin size={13} color="#2563eb" />
+                  <span>Our Office</span>
+                </div>
+                <div className="map-office-body">
+                  <strong>123 Creative Lane</strong>
+                  <span>San Francisco, CA 94107</span>
+                </div>
+              </div>
+
+              {/* Pulsing Blue Location Target Dot */}
+              <div className="map-pulse-anchor">
+                <div className="pulse-ripple ring-1" />
+                <div className="pulse-ripple ring-2" />
+                <div className="pulse-core-dot" />
+              </div>
+            </div>
+
+            {/* Zoom Controls (+ / -) */}
+            <div className="map-zoom-controls" aria-label="Map Zoom">
+              <button 
+                type="button" 
+                className="zoom-btn" 
+                onClick={handleZoomIn} 
+                aria-label="Zoom In"
+              >
+                <Plus size={16} />
+              </button>
+              <button 
+                type="button" 
+                className="zoom-btn" 
+                onClick={handleZoomOut} 
+                aria-label="Zoom Out"
+              >
+                <Minus size={16} />
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        {/* ==========================================================================
+           4. "FOLLOW US & STAY CONNECTED" SECTION
+           ========================================================================== */}
+        <section className="contact-follow-section">
+          <div className="contact-follow-pill">
+            <span>Other Ways</span>
+          </div>
+
+          <h2 className="contact-follow-heading">Follow Us & Stay Connected</h2>
+          <p className="contact-follow-sub">
+            Get the latest updates, new projects and insights from our team.
+          </p>
+
+          <div className="contact-social-icons-row" role="group" aria-label="Social Profiles">
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-social-btn" 
+              aria-label="LinkedIn"
+            >
+              <SvgLinkedin />
+            </a>
+            <a 
+              href="https://twitter.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-social-btn" 
+              aria-label="Twitter / X"
+            >
+              <SvgTwitter />
+            </a>
+            <a 
+              href="https://instagram.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-social-btn" 
+              aria-label="Instagram"
+            >
+              <SvgInstagram />
+            </a>
+            <a 
+              href="https://brandboosters.in" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-social-btn" 
+              aria-label="Website"
+            >
+              <Globe size={18} />
+            </a>
+            <a 
+              href="https://youtube.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-social-btn" 
+              aria-label="YouTube"
+            >
+              <SvgYoutube />
+            </a>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+           5. BOTTOM CTA BANNER: "Got a project in mind?" + 3D Glass Graphics
+           ========================================================================== */}
+        <section className="contact-bottom-banner-section">
+          <div className="contact-bottom-banner-card">
+            <div className="banner-glass-specular" />
+
+            {/* Left Content */}
+            <div className="banner-content-side">
+              <div className="banner-top-pill">
+                <span>Ready to talk?</span>
+              </div>
+
+              <h2 className="banner-heading">
+                Got a project<br />
+                in mind?
+              </h2>
+
+              <p className="banner-subtitle">
+                Let's turn your idea into something amazing.
+              </p>
+
+              <button 
+                type="button" 
+                className="banner-action-btn"
+                onClick={scrollToForm}
+              >
+                <span>Start a Project</span>
+                <ArrowRight size={15} />
+              </button>
+            </div>
+
+            {/* Right Side: 3D Frosted Glass Shape & Send Capsule Graphic */}
+            <div className="banner-graphic-side" aria-hidden="true">
+              <div className="banner-ambient-glow" />
+              
+              {/* 3D Glass Pill Capsule Container */}
+              <div className="banner-3d-capsule-glass">
+                <div className="capsule-inner-specular" />
+                <div className="capsule-mint-cylinder" />
+                <div className="capsule-blue-sphere sphere-1" />
+                <div className="capsule-blue-sphere sphere-2" />
+                
+                {/* Floating Telegram / Send Icon Square */}
+                <div className="banner-float-send-chip">
+                  <Send size={18} color="#2563eb" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+
+      {/* Universal Website Footer */}
+      <Footer />
+    </div>
+  );
+}
