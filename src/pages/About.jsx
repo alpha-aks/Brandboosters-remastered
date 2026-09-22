@@ -138,10 +138,167 @@ export default function About() {
                   <span>About Us</span>
                 </div>
 
-                <h1 className="about-main-title">
-                  We're a Creative Team on a Mission to{' '}
-                  <span className="about-title-gradient-creative">Build What Matters</span>
-                </h1>
+                {/* Yellow & Blue Animated Moving Rocket Showcase (Replacing "We're a Creative Team on a Mission to Build What Matters") */}
+                <div 
+                  className={`yellow-blue-rocket-stage ${knobMode === 2 ? 'hyperdrive-mode' : 'cruise-mode'}`}
+                  onClick={toggleDial}
+                  title="Click to boost rocket speed!"
+                  role="region"
+                  aria-label="Moving Yellow and Blue BrandBoosters Rocket"
+                >
+                  {/* Moving Rocket Flight Arena */}
+                  <div className="rocket-motion-arena">
+                    
+                    {/* Cosmic Speedlines and Stardust Particles */}
+                    <div className="rocket-cosmic-backdrop">
+                      <span className="cosmic-star star-1">✦</span>
+                      <span className="cosmic-star star-2">✦</span>
+                      <span className="cosmic-star star-3">✦</span>
+                      <div className="speedline speedline-1" />
+                      <div className="speedline speedline-2" />
+                      <div className="speedline speedline-3" />
+                    </div>
+
+                    {/* The Detailed Vector Yellow & Blue Rocket */}
+                    <div className="rocket-ship-wrapper">
+                      <svg className="yellow-blue-rocket-svg" viewBox="0 0 320 180" fill="none">
+                        <defs>
+                          {/* Gradients for Navy/Blue Fuselage */}
+                          <linearGradient id="rocketBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#001f3f" />
+                            <stop offset="50%" stopColor="#0b2e59" />
+                            <stop offset="100%" stopColor="#1e40af" />
+                          </linearGradient>
+
+                          {/* Gradients for Yellow Accents & Wings */}
+                          <linearGradient id="rocketYellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#fff085" />
+                            <stop offset="45%" stopColor="#ffd105" />
+                            <stop offset="100%" stopColor="#f59e0b" />
+                          </linearGradient>
+
+                          {/* Thruster Outer Blue Flame */}
+                          <linearGradient id="thrusterBlueFlame" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.95" />
+                            <stop offset="60%" stopColor="#2563eb" stopOpacity="0.8" />
+                            <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0" />
+                          </linearGradient>
+
+                          {/* Thruster Inner Yellow Core Flame */}
+                          <linearGradient id="thrusterYellowFlame" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                            <stop offset="40%" stopColor="#ffd105" stopOpacity="0.95" />
+                            <stop offset="100%" stopColor="#ea580c" stopOpacity="0.2" />
+                          </linearGradient>
+
+                          {/* Cockpit Window Glare */}
+                          <linearGradient id="cockpitGlassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#e0f2fe" />
+                            <stop offset="40%" stopColor="#38bdf8" />
+                            <stop offset="100%" stopColor="#0284c7" />
+                          </linearGradient>
+                        </defs>
+
+                        {/* --- Animated Thruster Exhaust Flames (Behind Rocket) --- */}
+                        <g className="rocket-thruster-group">
+                          {/* Outer Cyan/Blue Plasma Flame */}
+                          <path 
+                            className="outer-plasma-flame"
+                            d="M 108,102 C 85,116 35,138 20,146 C 45,126 80,114 98,92 Z"
+                            fill="url(#thrusterBlueFlame)"
+                          />
+
+                          {/* Inner Golden/Yellow Fire Cone */}
+                          <path 
+                            className="inner-core-flame"
+                            d="M 105,100 C 88,110 52,126 44,132 C 60,118 84,110 96,94 Z"
+                            fill="url(#thrusterYellowFlame)"
+                          />
+
+                          {/* Animated Exhaust Smoke Puffs */}
+                          <circle cx="48" cy="138" r="8" className="smoke-puff puff-1" fill="rgba(56, 189, 248, 0.4)" />
+                          <circle cx="28" cy="150" r="12" className="smoke-puff puff-2" fill="rgba(255, 209, 5, 0.35)" />
+                          <circle cx="10" cy="162" r="16" className="smoke-puff puff-3" fill="rgba(37, 99, 235, 0.2)" />
+                        </g>
+
+                        {/* --- Rocket Structure --- */}
+                        {/* Metal Exhaust Nozzle */}
+                        <polygon points="98,92 108,102 92,108 84,98" fill="#334155" stroke="#1e293b" strokeWidth="2" />
+
+                        {/* Bottom Stabilizer Fin (Vibrant Golden Yellow) */}
+                        <path 
+                          d="M 124,106 L 98,142 C 92,145 88,140 92,134 L 110,102 Z" 
+                          fill="url(#rocketYellowGrad)" 
+                          stroke="#001f3f" 
+                          strokeWidth="2.5"
+                        />
+
+                        {/* Top Stabilizer Fin (Vibrant Golden Yellow) */}
+                        <path 
+                          d="M 148,68 L 126,30 C 122,25 116,28 118,34 L 132,74 Z" 
+                          fill="url(#rocketYellowGrad)" 
+                          stroke="#001f3f" 
+                          strokeWidth="2.5"
+                        />
+
+                        {/* Aerodynamic Fuselage Body (Deep Navy & Royal Blue) */}
+                        <path 
+                          d="M 235,42 C 220,38 150,65 106,96 C 102,100 102,104 106,106 C 138,114 205,92 235,42 Z" 
+                          fill="url(#rocketBodyGrad)" 
+                          stroke="#001f3f" 
+                          strokeWidth="3"
+                        />
+
+                        {/* Upper Surface Reflection Sheen */}
+                        <path 
+                          d="M 230,44 C 205,42 165,58 128,78 C 158,62 205,48 230,44 Z" 
+                          fill="rgba(255, 255, 255, 0.35)" 
+                        />
+
+                        {/* Nose Cone Cap (Vibrant Golden Yellow #ffd105) */}
+                        <path 
+                          d="M 235,42 C 222,46 208,52 202,56 C 214,68 226,76 235,42 Z" 
+                          fill="url(#rocketYellowGrad)" 
+                          stroke="#001f3f" 
+                          strokeWidth="2.5"
+                        />
+
+                        {/* Body Racing Stripe (Golden Yellow Accent) */}
+                        <path 
+                          d="M 172,70 L 160,82 C 163,83 166,83 169,82 L 180,70 Z" 
+                          fill="#ffd105" 
+                        />
+
+                        {/* Circular Cockpit Porthole Glass Window */}
+                        <circle cx="178" cy="68" r="16" fill="#001f3f" stroke="#ffd105" strokeWidth="3.5" />
+                        <circle cx="178" cy="68" r="12" fill="url(#cockpitGlassGrad)" />
+                        <ellipse cx="175" cy="64" rx="6" ry="3" fill="rgba(255, 255, 255, 0.65)" transform="rotate(-30 175 64)" />
+
+                        {/* Center Stabilizer Fin (Vibrant Golden Yellow Wing) */}
+                        <path 
+                          d="M 142,88 L 118,118 C 114,122 110,120 112,114 L 132,84 Z" 
+                          fill="url(#rocketYellowGrad)" 
+                          stroke="#001f3f" 
+                          strokeWidth="2.5"
+                        />
+                      </svg>
+                    </div>
+
+                    {/* Dynamic Flight Status Badge */}
+                    <div className="rocket-flight-status-pill">
+                      <span className="status-live-light" />
+                      <span className="status-label-bold">
+                        {knobMode === 2 ? '⚡ HYPER-VELOCITY ENGINE: 1200W' : '✦ CRUISE VELOCITY: ACTIVE'}
+                      </span>
+                    </div>
+
+                  </div>
+
+                  {/* Accessible Hero Heading for SEO */}
+                  <h1 className="visually-hidden">
+                    BrandBoosters Creative Digital Studio - Launching High-Velocity Products
+                  </h1>
+                </div>
 
                 <p className="about-main-lead">
                   We are BrandBoosters — a digital studio focused on turning bold ideas 
