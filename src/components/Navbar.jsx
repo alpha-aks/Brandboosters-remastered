@@ -119,7 +119,14 @@ export default function Navbar() {
             </div>
           </div>
 
-          <a href={getLink('#about')} className="nav-link">
+          <a 
+            href="/about" 
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateWithTransition('/about');
+            }}
+          >
             About
           </a>
 
@@ -167,7 +174,17 @@ export default function Navbar() {
           </a>
           <a href={getLink('#services')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Services</a>
           <a href={getLink('#clients')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Clients</a>
-          <a href={getLink('#about')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
+          <a 
+            href="/about" 
+            className="mobile-nav-link" 
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              navigateWithTransition('/about');
+            }}
+          >
+            About
+          </a>
           <a href={getLink('#blogs')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Blogs</a>
         </div>
         <div>

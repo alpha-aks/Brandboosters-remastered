@@ -15,6 +15,7 @@ import GlobalAmbientOrbs from './components/GlobalAmbientOrbs';
 import ProjectCaseStudy from './pages/ProjectCaseStudy';
 import Contact from './pages/Contact';
 import Work from './pages/Work';
+import About from './pages/About';
 import { PageTransitionProvider } from './components/PageTransition';
 
 function HomePage() {
@@ -95,6 +96,8 @@ function App() {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/work" element={<Work />} />
         <Route path="/works" element={<Work />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/about-us" element={<About />} />
         <Route path="/work/:projectSlug" element={<ProjectCaseStudy />} />
         <Route path="/:projectSlug" element={<ProjectCaseStudy />} />
       </Routes>
