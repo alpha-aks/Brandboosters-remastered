@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Puzzle } from 'lucide-react';
 import { PROJECTS } from '../data/projectsData';
 
 export default function FeaturedWork() {
@@ -56,7 +56,8 @@ export default function FeaturedWork() {
 
             {/* Top-Left Puzzle Number Badge */}
             <div className="puzzle-box-badge" aria-hidden="true">
-              <span className="puzzle-box-num">{item.puzzleNum}</span>
+              <Puzzle size={11} className="puzzle-badge-icon" />
+              <span className="puzzle-box-num">PIECE {item.puzzleNum}</span>
             </div>
 
             {/* Center Brand Identity: Uniform White Frosted Liquid Glass Box with Real Logo & Animated Orb */}

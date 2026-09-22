@@ -896,37 +896,49 @@ button {
 }
 
 /* ==========================================================================
-   FEATURED WORK / SELECTED WORKS - REFERENCE PUZZLE SHOWCASE
+   FEATURED WORK / SELECTED WORKS - REFERENCE PUZZLE SHOWCASE (LAPTOP & DESKTOP)
    ========================================================================== */
 .puzzle-ref-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.6rem;
-  max-width: 1240px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.8rem 1.6rem;
+  max-width: 1360px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
 }
 
-/* Balanced, Unsquished Puzzle Box Dimensions */
+/* Interlocking Puzzle Piece Spans for Laptop & Desktop Screens */
 .puzzle-ref-card-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.puzzle-piece-large,
-.puzzle-piece-medium,
-.puzzle-piece-compact,
+/* Row 1: Kore Mobile (Span 7) + Eddie's Liquor (Span 5) = 12 */
+.puzzle-piece-large {
+  grid-column: span 7;
+}
+
+.puzzle-piece-medium {
+  grid-column: span 5;
+}
+
+/* Row 2: Benoy Arch (Span 4) + TransportX (Span 4) + Shree Rudra (Span 4) = 12 */
+.puzzle-piece-compact {
+  grid-column: span 4;
+}
+
+/* Row 3: Maxo Architecture Panorama (Span 12) = 12 */
 .puzzle-piece-panorama {
-  grid-column: span 1;
+  grid-column: span 12;
 }
 
 .puzzle-ref-canvas-frame {
   position: relative;
   width: 100%;
-  height: 290px;
-  border-radius: 26px;
+  height: 355px;
+  border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 16px 45px rgba(0, 15, 35, 0.08), inset 0 1px 1.5px rgba(255, 255, 255, 0.45);
   border: 1.5px solid rgba(255, 255, 255, 0.18);
@@ -935,34 +947,57 @@ button {
   cursor: pointer;
 }
 
+/* Proportional Heights for the Puzzle Rhythm on Laptop Screen */
+.puzzle-piece-large .puzzle-ref-canvas-frame,
+.puzzle-piece-medium .puzzle-ref-canvas-frame {
+  height: 355px;
+}
+
+.puzzle-piece-compact .puzzle-ref-canvas-frame {
+  height: 330px;
+}
+
+.puzzle-piece-panorama .puzzle-ref-canvas-frame {
+  height: 380px;
+}
+
 .puzzle-ref-canvas-frame:hover {
   transform: translateY(-5px);
   box-shadow: 0 26px 65px rgba(0, 15, 35, 0.16), inset 0 1px 2px rgba(255, 255, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.38);
 }
 
-/* Top-Left Puzzle Number Pill Badge */
+/* Top-Left Puzzle Number Pill Badge with Jigsaw Indicator */
 .puzzle-box-badge {
   position: absolute;
   top: 1.15rem;
   left: 1.25rem;
   z-index: 6;
-  background: rgba(0, 15, 35, 0.72);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 15, 35, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.26);
   border-radius: 999px;
-  padding: 0.28rem 0.7rem;
+  padding: 0.3rem 0.75rem;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
   pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.puzzle-badge-icon {
+  color: #ffd105;
+  flex-shrink: 0;
 }
 
 .puzzle-box-num {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 /* Card Layers: Front Brand Face & Back Overview Face (100% Reliable on Mobile & Safari) */
@@ -1812,20 +1847,22 @@ button {
 /* ==========================================================================
    FEATURED WORK - RESPONSIVE PUZZLE BENTO GRID FOR TABLET & MOBILE
    ========================================================================== */
-/* Tablet (901px to 1120px) */
-@media (max-width: 1120px) and (min-width: 901px) {
+/* Tablet (901px to 1024px) */
+@media (max-width: 1024px) and (min-width: 901px) {
   .puzzle-ref-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.35rem 1.2rem;
   }
   .puzzle-piece-large,
   .puzzle-piece-medium,
-  .puzzle-piece-compact,
-  .puzzle-piece-panorama {
+  .puzzle-piece-compact {
     grid-column: span 1;
   }
+  .puzzle-piece-panorama {
+    grid-column: span 2;
+  }
   .puzzle-ref-canvas-frame {
-    height: 270px;
+    height: 280px;
   }
 }
 
@@ -2231,20 +2268,7 @@ button {
   font-weight: 500;
 }
 
-@media (max-width: 1024px) {
-  .puzzle-piece-large,
-  .puzzle-piece-medium {
-    grid-column: span 6;
-  }
-  
-  .puzzle-piece-compact {
-    grid-column: span 6;
-  }
-  
-  .puzzle-piece-panorama {
-    grid-column: span 12;
-  }
-}
+
 
 @media (max-width: 768px) {
   .puzzle-work-section {
