@@ -112,8 +112,9 @@ function LargeExplodingGlobe() {
     // Massive sphere radius for impact in the right corner
     const R = Math.min(W, H) * 0.42;
 
-    // Fibonacci sphere point distribution (540 uniform points)
-    const NUM_DOTS = 540;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    // Scale particle points for mobile (180 points maintains perfect sphere density at 300px width with 3x less GPU math)
+    const NUM_DOTS = isMobile ? 180 : 540;
     const goldenRatio = (1 + Math.sqrt(5)) / 2;
     const dots = [];
 
@@ -139,9 +140,15 @@ function LargeExplodingGlobe() {
     }
 
     stateRef.current.particles = dots;
-    let animId;
+    let animId = null;
+    let isVisible = false;
 
     const render = () => {
+      if (!isVisible) {
+        animId = null;
+        return;
+      }
+
       ctx.clearRect(0, 0, W, H);
       const st = stateRef.current;
       st.rotY += 0.0045;
@@ -265,22 +272,22 @@ function LargeExplodingGlobe() {
 
         if (pt.isYellow) {
           ctx.fillStyle = `rgba(255, 209, 5, ${alpha})`;
-          if (clampedDepth > 0.6) {
+          if (!isMobile && clampedDepth > 0.6) {
             ctx.shadowColor = '#ffd105';
             ctx.shadowBlur = 7;
           }
         } else {
           ctx.fillStyle = `rgba(37, 99, 235, ${alpha})`;
-          if (clampedDepth > 0.65) {
+          if (!isMobile && clampedDepth > 0.65) {
             ctx.shadowColor = '#2563eb';
             ctx.shadowBlur = 5;
           }
         }
         ctx.fill();
-        ctx.shadowBlur = 0;
+        if (!isMobile) ctx.shadowBlur = 0;
       }
 
-      // Modern 4-point glowing star emblem on the right perimeter (matching reference image)
+      // Modern 4-point glowing star emblem on the right perimeter
       const starX = cx + R * 0.76;
       const starY = cy - R * 0.18;
       const starPulse = 1 + Math.sin(st.rotY * 4.5) * 0.14;
@@ -310,18 +317,50 @@ function LargeExplodingGlobe() {
       starFill.addColorStop(0.5, '#60a5fa');
       starFill.addColorStop(1, '#2563eb');
       ctx.fillStyle = starFill;
-      ctx.shadowColor = '#ffd105';
-      ctx.shadowBlur = 12;
+      if (!isMobile) {
+        ctx.shadowColor = '#ffd105';
+        ctx.shadowBlur = 12;
+      }
       ctx.fill();
       ctx.restore();
 
       animId = requestAnimationFrame(render);
     };
 
-    render();
+    const startAnimation = () => {
+      if (!animId) {
+        animId = requestAnimationFrame(render);
+      }
+    };
+
+    const stopAnimation = () => {
+      if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    };
+
+    // IntersectionObserver: only run RAF when canvas is visible in viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            isVisible = true;
+            startAnimation();
+          } else {
+            isVisible = false;
+            stopAnimation();
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(canvas);
 
     return () => {
-      if (animId) cancelAnimationFrame(animId);
+      observer.disconnect();
+      stopAnimation();
     };
   }, []);
 

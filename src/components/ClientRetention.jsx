@@ -43,7 +43,7 @@ export default function ClientRetention() {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Autoplay initialization with graceful fallback
+  // Autoplay initialization with graceful fallback & off-screen pausing for performance
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -63,7 +63,26 @@ export default function ClientRetention() {
       }
     };
 
-    startPlayback();
+    // IntersectionObserver: only play when section is in view, pause when scrolled away
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startPlayback();
+          } else {
+            if (video && !video.paused) {
+              video.pause();
+              setIsPlaying(false);
+            }
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     const unlockPlayback = () => {
       if (video.paused) {
@@ -75,6 +94,7 @@ export default function ClientRetention() {
     window.addEventListener('scroll', unlockPlayback, { once: true, passive: true });
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('touchstart', unlockPlayback);
       window.removeEventListener('scroll', unlockPlayback);
     };

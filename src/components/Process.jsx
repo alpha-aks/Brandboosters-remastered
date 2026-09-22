@@ -1,203 +1,121 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import AmbientOrbs from './AmbientOrbs';
+import React, { useState } from 'react';
 
-const FIVE_D_STEPS = [
+const WORKFLOW_STEPS = [
   {
-    id: 'discover',
     num: '01',
-    dName: 'Discover',
-    accentHex: '#2563eb', // Electric Cobalt Blue
-    auraColor: 'rgba(37, 99, 235, 0.4)',
-    img: '/discover-5d.jpg',
-    desc: 'Deep-dive brand audit, market intelligence, customer mapping, and technical leverage discovery.'
+    name: 'Discover',
+    tag: 'Research & Signals',
+    desc: 'Uncovering core brand truths, competitor positioning, audience pain points, and technical leverage before touching design.',
+    outputs: ['Stakeholder discovery', 'Market & competitor intel', 'User journey mapping']
   },
   {
-    id: 'define',
     num: '02',
-    dName: 'Define',
-    accentHex: '#ffd105', // Radiant Yellow
-    auraColor: 'rgba(255, 209, 5, 0.45)',
-    img: '/define-5d.jpg',
-    desc: 'Surgical blueprinting, information architecture, user journeys, and conversion funnels.'
+    name: 'Define',
+    tag: 'Strategy & Architecture',
+    desc: 'Distilling insights into a concrete product roadmap, information architecture, and high-impact conversion funnels.',
+    outputs: ['Information architecture', 'Feature prioritization', 'Technical blueprint']
   },
   {
-    id: 'design',
     num: '03',
-    dName: 'Design',
-    accentHex: '#06b6d4', // Sky Cyan Blue
-    auraColor: 'rgba(6, 182, 212, 0.4)',
-    img: '/design-5d.jpg',
-    desc: 'High-converting living interfaces encased in modern liquid glass, micro-animations, and design tokens.'
+    name: 'Design',
+    tag: 'UI/UX & Systems',
+    desc: 'Crafting living digital interfaces, bespoke design tokens, fluid typography, and delightful micro-interactions.',
+    outputs: ['Design systems & tokens', 'Interactive prototypes', 'Micro-interactions']
   },
   {
-    id: 'develop',
     num: '04',
-    dName: 'Develop',
-    accentHex: '#f59e0b', // Warm Amber Gold
-    auraColor: 'rgba(245, 158, 11, 0.4)',
-    img: '/develop-5d.jpg',
-    desc: 'Clean, lightning-fast React / Vite architecture with sub-second Core Web Vitals and enterprise reliability.'
+    name: 'Develop',
+    tag: 'Clean Engineering',
+    desc: 'Engineering with sub-second performance, responsive layouts, modular React code, and enterprise-grade reliability.',
+    outputs: ['Modern React / Vite architecture', 'Sub-second CWV optimization', 'Cross-browser fidelity']
   },
   {
-    id: 'deliver',
     num: '05',
-    dName: 'Deliver',
-    accentHex: '#001f3f', // Deep Royal Navy Blue
-    auraColor: 'rgba(0, 31, 63, 0.5)',
-    img: '/deliver-5d.jpg',
-    desc: 'Zero-downtime cloud launch, automated SEO indexing, telemetry analytics, and continuous scale.'
+    name: 'Deliver',
+    tag: 'Launch & Scale',
+    desc: 'Executing a zero-downtime deployment, automated SEO indexing, telemetry analytics, and seamless handover.',
+    outputs: ['Pre-flight QA & testing', 'Cloud deployment & SEO', 'Analytics & growth telemetry']
   }
 ];
 
 const Process = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-  const minSwipeDistance = 45;
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const nextCards = () => {
-    setCurrentIndex((prev) => (prev + 1) % FIVE_D_STEPS.length);
-  };
-
-  const prevCards = () => {
-    setCurrentIndex((prev) => (prev - 1 + FIVE_D_STEPS.length) % FIVE_D_STEPS.length);
-  };
-
-  const handleTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    if (distance > minSwipeDistance) {
-      nextCards();
-    } else if (distance < -minSwipeDistance) {
-      prevCards();
-    }
-  };
-
-  // On phone show a single card, on desktop show 2 cards in continuous loop
-  const visibleCards = isMobile
-    ? [FIVE_D_STEPS[currentIndex]]
-    : [FIVE_D_STEPS[currentIndex], FIVE_D_STEPS[(currentIndex + 1) % FIVE_D_STEPS.length]];
+  const [activeStep, setActiveStep] = useState(null);
 
   return (
-    <section className="process-section-wrapper" id="process" aria-label="The 5Ds of BRANDBOOSTERS">
-      {/* Base Layer: Signature Yellow & Blue Liquid Glass Orbs */}
-      <AmbientOrbs variant="process-orbs" />
-
-      <div className="process-container">
-        {/* Clean Minimal Section Header Matching Reference Image */}
-        <div className="process-header-block process-header-clean">
-          <h2 className="process-main-heading">Process</h2>
+    <section className="minimal-process-section" id="process" aria-label="Our Ideating Workflow">
+      <div className="minimal-process-container">
+        {/* Minimalist Section Header */}
+        <div className="minimal-process-header">
+          <span className="minimal-process-eyebrow">HOW WE WORK</span>
+          <h2 className="minimal-process-title">Process</h2>
+          <p className="minimal-process-lead">
+            A structured, human-led ideation and engineering pipeline designed to turn raw ideas into market-defining products.
+          </p>
         </div>
 
-        {/* 2-at-a-Time Linear Showcase with Left and Right Arrows */}
-        <div 
-          className="process-2col-carousel-stage"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Left Arrow Button */}
-          <button 
-            type="button" 
-            className="process-flanking-arrow-btn arrow-left" 
-            onClick={prevCards}
-            aria-label="Previous step"
-          >
-            <ChevronLeft size={24} />
-          </button>
+        {/* Minimalist Workflow Track with Directional Arrows */}
+        <div className="minimal-workflow-track" role="list">
+          {WORKFLOW_STEPS.map((step, index) => {
+            const isHovered = activeStep === index;
+            const hasArrow = index < WORKFLOW_STEPS.length - 1;
 
-          {/* Cards Viewport: 2 Cards Visible Side by Side */}
-          <div className="process-2cards-viewport">
-            {visibleCards.map((step, cardSlot) => (
-              <article 
-                key={`${step.id}-${cardSlot}-${currentIndex}`} 
-                className="linear-duo-card"
-                style={{ '--card-accent': step.accentHex }}
+            return (
+              <div 
+                key={step.num}
+                className={`minimal-workflow-step ${isHovered ? 'is-highlighted' : ''}`}
+                onMouseEnter={() => setActiveStep(index)}
+                onMouseLeave={() => setActiveStep(null)}
+                role="listitem"
               >
-                {/* Modern 3D Eye-Catching Texture Cover */}
-                <div className="linear-duo-media">
-                  <img 
-                    src={step.img} 
-                    alt={`${step.dName} 3D tactile texture`} 
-                    className="linear-duo-texture-img"
-                    loading="lazy"
-                  />
-                  <div className="linear-duo-media-overlay" />
-
-                  {/* Step Number Badge */}
-                  <div className="linear-duo-num-badge">
-                    <span className="step-num">{step.num}</span>
+                {/* Step Connector Line & Directional Arrow */}
+                <div className="minimal-step-meta-row">
+                  <div className="minimal-step-indicator">
+                    <span className="minimal-step-num">{step.num}</span>
+                    <span className="minimal-step-dot" />
                   </div>
 
-                  {/* Dynamic Color Aura Behind Cover */}
-                  <div 
-                    className="linear-duo-glow-aura" 
-                    style={{ background: step.auraColor }} 
-                    aria-hidden="true" 
-                  />
+                  {hasArrow && (
+                    <div className="minimal-step-arrow-link" aria-hidden="true">
+                      <span className="minimal-arrow-line" />
+                      <svg 
+                        className="minimal-arrow-icon" 
+                        width="18" 
+                        height="10" 
+                        viewBox="0 0 18 10" 
+                        fill="none"
+                      >
+                        <path 
+                          d="M1 5h14m-4-4l4 4-4 4" 
+                          stroke="currentColor" 
+                          strokeWidth="1.5" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                        />
+                      </svg>
+                    </div>
+                  )}
                 </div>
 
-                {/* Minimal Card Information: Title and Description only */}
-                <div className="linear-duo-body">
-                  <h3 className="linear-duo-title">{step.dName}</h3>
-                  <p className="linear-duo-desc">{step.desc}</p>
+                {/* Step Content */}
+                <div className="minimal-step-body">
+                  <span className="minimal-step-tag">{step.tag}</span>
+                  <h3 className="minimal-step-name">{step.name}</h3>
+                  <p className="minimal-step-desc">{step.desc}</p>
+
+                  {/* Outputs List */}
+                  <ul className="minimal-step-outputs">
+                    {step.outputs.map((item) => (
+                      <li key={item} className="minimal-output-item">
+                        <span className="output-dash">—</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                {/* Specular Apple Glass Top Border */}
-                <div className="linear-duo-specular-edge" aria-hidden="true" />
-              </article>
-            ))}
-          </div>
-
-          {/* Right Arrow Button */}
-          <button 
-            type="button" 
-            className="process-flanking-arrow-btn arrow-right" 
-            onClick={nextCards}
-            aria-label="Next step"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </div>
-
-        {/* Bottom Pagination Dots Indicator */}
-        <div className="process-indicators-row" aria-label="Step indicators">
-          {FIVE_D_STEPS.map((step, idx) => {
-            const isActive = idx === currentIndex || idx === (currentIndex + 1) % FIVE_D_STEPS.length;
-            return (
-              <button
-                key={step.id}
-                type="button"
-                className={`process-indicator-dot ${isActive ? 'is-active' : ''}`}
-                onClick={() => setCurrentIndex(idx)}
-                aria-label={`Jump to step ${step.num} ${step.dName}`}
-              >
-                <span className="dot-label">{step.num}</span>
-              </button>
+              </div>
             );
           })}
         </div>
-
       </div>
     </section>
   );

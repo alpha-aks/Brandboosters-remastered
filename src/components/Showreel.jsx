@@ -37,6 +37,8 @@ export default function Showreel() {
     blur.setAttribute('playsinline', '');
     blur.setAttribute('webkit-playsinline', '');
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
     const startVideos = async () => {
       try {
         main.muted = true;
@@ -47,27 +49,38 @@ export default function Showreel() {
         setIsPlaying(false);
       }
 
-      try {
-        blur.muted = true;
-        await blur.play();
-      } catch (err) {
-        // Handled silently
+      // Only decode & play background blurred video on desktop (>768px) to protect mobile GPU
+      if (!isMobile && blur) {
+        try {
+          blur.muted = true;
+          await blur.play();
+        } catch (err) {
+          // Handled silently
+        }
       }
     };
 
     // Immediate attempt on mount
     startVideos();
 
-    // IntersectionObserver: trigger when visible
+    // IntersectionObserver: trigger when visible and PAUSE when off-screen to save hardware decoders
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             startVideos();
+          } else {
+            if (main && !main.paused) {
+              main.pause();
+            }
+            if (blur && !blur.paused) {
+              blur.pause();
+            }
+            setIsPlaying(false);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) {
@@ -87,7 +100,7 @@ export default function Showreel() {
     // Synchronize play / pause states cleanly without thrashing seek
     const handleMainPlay = () => {
       setIsPlaying(true);
-      if (blur && blur.paused) {
+      if (!isMobile && blur && blur.paused) {
         blur.play().catch(() => {});
       }
     };
@@ -101,6 +114,7 @@ export default function Showreel() {
 
     // Low-frequency gentle drift correction (only if drift > 1.2s and at most once per 4s)
     const handleTimeUpdate = () => {
+      if (isMobile) return;
       const now = Date.now();
       if (now - lastSyncTimeRef.current > 4000) {
         if (Math.abs(main.currentTime - blur.currentTime) > 1.2) {
@@ -126,8 +140,17 @@ export default function Showreel() {
     };
   }, []);
 
-  // 2. Parallax scroll expansion effect on the liquid glass player
+  // 2. Parallax scroll expansion effect on the liquid glass player (Desktop Only)
   useEffect(() => {
+    // Skip heavy continuous scroll style updates on mobile devices to prevent throttling
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      if (containerRef.current) {
+        containerRef.current.style.transform = 'none';
+        containerRef.current.style.borderRadius = '24px';
+      }
+      return;
+    }
+
     let ticking = false;
 
     const handleScroll = () => {
@@ -243,19 +266,21 @@ export default function Showreel() {
       id="showreel" 
       aria-label="Brand Showreel"
     >
-      {/* 70% Blurred Video replacing the black background across entire section */}
+      {/* 70% Blurred Video replacing the black background across entire section (Desktop Only for GPU optimization) */}
       <div className="section-fullscreen-blur-bg" aria-hidden="true">
         <video
           ref={blurVideoRef}
           className="fullscreen-blur-video"
-          autoPlay
+          autoPlay={typeof window !== 'undefined' && window.innerWidth > 768}
           loop
           muted
           playsInline
-          preload="auto"
-          src={VIDEO_SRC}
+          preload={typeof window !== 'undefined' && window.innerWidth > 768 ? 'auto' : 'none'}
+          src={typeof window !== 'undefined' && window.innerWidth > 768 ? VIDEO_SRC : undefined}
         >
-          <source src={VIDEO_SRC} type="video/mp4" />
+          {typeof window !== 'undefined' && window.innerWidth > 768 && (
+            <source src={VIDEO_SRC} type="video/mp4" />
+          )}
         </video>
         <div className="fullscreen-blur-frost" />
       </div>

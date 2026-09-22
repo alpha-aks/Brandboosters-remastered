@@ -18,6 +18,9 @@ export default function Navbar() {
     setActiveDropdown(prev => (prev === name ? null : name));
   };
 
+  const isHome = typeof window !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === '');
+  const getLink = (hash) => (isHome ? hash : `/${hash}`);
+
   return (
     <header className={`nb-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
@@ -32,7 +35,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation Links */}
         <nav className="nav-menu-desktop" aria-label="Main Navigation">
-          <a href="#work" className="nav-link">
+          <a href={getLink('#work')} className="nav-link">
             Work
           </a>
 
@@ -52,24 +55,24 @@ export default function Navbar() {
             <div className="nav-dropdown-menu wide-menu">
               <div>
                 <div className="dropdown-group-title">Research</div>
-                <a href="#research" className="dropdown-item">Qualitative Research</a>
-                <a href="#usability" className="dropdown-item">Usability Testing</a>
-                <a href="#quantitative" className="dropdown-item">Quantitative Research</a>
-                <a href="#competitor" className="dropdown-item">Competitor Analysis</a>
+                <a href={getLink('#research')} className="dropdown-item">Qualitative Research</a>
+                <a href={getLink('#usability')} className="dropdown-item">Usability Testing</a>
+                <a href={getLink('#quantitative')} className="dropdown-item">Quantitative Research</a>
+                <a href={getLink('#competitor')} className="dropdown-item">Competitor Analysis</a>
               </div>
               <div>
                 <div className="dropdown-group-title">Strategy</div>
-                <a href="#design-thinking" className="dropdown-item">Design Thinking</a>
-                <a href="#product-roadmap" className="dropdown-item">Product Roadmap</a>
-                <a href="#growth-strategy" className="dropdown-item">Growth Strategy</a>
-                <a href="#service-design" className="dropdown-item">Service Design</a>
+                <a href={getLink('#design-thinking')} className="dropdown-item">Design Thinking</a>
+                <a href={getLink('#product-roadmap')} className="dropdown-item">Product Roadmap</a>
+                <a href={getLink('#growth-strategy')} className="dropdown-item">Growth Strategy</a>
+                <a href={getLink('#service-design')} className="dropdown-item">Service Design</a>
               </div>
               <div>
                 <div className="dropdown-group-title">Design</div>
-                <a href="#user-journey" className="dropdown-item">User Journeys</a>
-                <a href="#wireframing" className="dropdown-item">Wireframing & IA</a>
-                <a href="#visual-design" className="dropdown-item">Visual Design & Systems</a>
-                <a href="#motion" className="dropdown-item">Animation & Micro-interactions</a>
+                <a href={getLink('#user-journey')} className="dropdown-item">User Journeys</a>
+                <a href={getLink('#wireframing')} className="dropdown-item">Wireframing & IA</a>
+                <a href={getLink('#visual-design')} className="dropdown-item">Visual Design & Systems</a>
+                <a href={getLink('#motion')} className="dropdown-item">Animation & Micro-interactions</a>
               </div>
             </div>
           </div>
@@ -81,7 +84,7 @@ export default function Navbar() {
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <button 
-              className="nav-link has-dropdown"
+              className="nav-link has-dropdown" 
               onClick={() => toggleDropdown('clients')}
               aria-expanded={activeDropdown === 'clients'}
             >
@@ -89,26 +92,26 @@ export default function Navbar() {
             </button>
             <div className="nav-dropdown-menu">
               <div className="dropdown-group-title">Key Industries</div>
-              <a href="#fintech" className="dropdown-item">BFSI & Fintech</a>
-              <a href="#enterprise" className="dropdown-item">Enterprise & SaaS</a>
-              <a href="#retail" className="dropdown-item">Retail & E-commerce</a>
-              <a href="#healthcare" className="dropdown-item">Healthcare & MedTech</a>
-              <a href="#impact" className="dropdown-item">Client Impact Stories</a>
+              <a href={getLink('#fintech')} className="dropdown-item">BFSI & Fintech</a>
+              <a href={getLink('#enterprise')} className="dropdown-item">Enterprise & SaaS</a>
+              <a href={getLink('#retail')} className="dropdown-item">Retail & E-commerce</a>
+              <a href={getLink('#healthcare')} className="dropdown-item">Healthcare & MedTech</a>
+              <a href={getLink('#impact')} className="dropdown-item">Client Impact Stories</a>
             </div>
           </div>
 
-          <a href="#about" className="nav-link">
+          <a href={getLink('#about')} className="nav-link">
             About
           </a>
 
-          <a href="#blogs" className="nav-link">
+          <a href={getLink('#blogs')} className="nav-link">
             Blogs
           </a>
         </nav>
 
         {/* Contact CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <a href="#contact" className="nav-contact-btn">
+          <a href={getLink('#contact')} className="nav-contact-btn">
             Contact
           </a>
 
@@ -128,15 +131,15 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       <div className={`mobile-drawer ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-nav-links">
-          <a href="#work" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Work</a>
-          <a href="#services" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Services</a>
-          <a href="#clients" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Clients</a>
-          <a href="#about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
-          <a href="#blogs" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Blogs</a>
+          <a href={getLink('#work')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Work</a>
+          <a href={getLink('#services')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Services</a>
+          <a href={getLink('#clients')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Clients</a>
+          <a href={getLink('#about')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
+          <a href={getLink('#blogs')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Blogs</a>
         </div>
         <div>
           <a 
-            href="#contact" 
+            href={getLink('#contact')} 
             className="nav-contact-btn" 
             style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }}
             onClick={() => setMobileMenuOpen(false)}
