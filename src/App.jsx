@@ -14,6 +14,7 @@ import ChatWidget from './components/ChatWidget';
 import GlobalAmbientOrbs from './components/GlobalAmbientOrbs';
 import ProjectCaseStudy from './pages/ProjectCaseStudy';
 import Contact from './pages/Contact';
+import { PageTransitionProvider } from './components/PageTransition';
 
 function HomePage() {
   const location = useLocation();
@@ -75,24 +76,26 @@ function HomePage() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/kore" element={<ProjectCaseStudy slug="kore" />} />
-      <Route path="/kore-mobile" element={<ProjectCaseStudy slug="kore" />} />
-      <Route path="/eddies" element={<ProjectCaseStudy slug="eddies" />} />
-      <Route path="/eddies-liquor" element={<ProjectCaseStudy slug="eddies" />} />
-      <Route path="/benoy" element={<ProjectCaseStudy slug="benoy" />} />
-      <Route path="/benoy-arch" element={<ProjectCaseStudy slug="benoy" />} />
-      <Route path="/transportx" element={<ProjectCaseStudy slug="transportx" />} />
-      <Route path="/shree-rudra" element={<ProjectCaseStudy slug="shree-rudra" />} />
-      <Route path="/shree-rudra-divine" element={<ProjectCaseStudy slug="shree-rudra" />} />
-      <Route path="/maxo" element={<ProjectCaseStudy slug="maxo" />} />
-      <Route path="/maxo-architecture" element={<ProjectCaseStudy slug="maxo" />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/contact-us" element={<Contact />} />
-      <Route path="/work/:projectSlug" element={<ProjectCaseStudy />} />
-      <Route path="/:projectSlug" element={<ProjectCaseStudy />} />
-    </Routes>
+    <PageTransitionProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/kore" element={<ProjectCaseStudy slug="kore" />} />
+        <Route path="/kore-mobile" element={<ProjectCaseStudy slug="kore" />} />
+        <Route path="/eddies" element={<ProjectCaseStudy slug="eddies" />} />
+        <Route path="/eddies-liquor" element={<ProjectCaseStudy slug="eddies" />} />
+        <Route path="/benoy" element={<ProjectCaseStudy slug="benoy" />} />
+        <Route path="/benoy-arch" element={<ProjectCaseStudy slug="benoy" />} />
+        <Route path="/transportx" element={<ProjectCaseStudy slug="transportx" />} />
+        <Route path="/shree-rudra" element={<ProjectCaseStudy slug="shree-rudra" />} />
+        <Route path="/shree-rudra-divine" element={<ProjectCaseStudy slug="shree-rudra" />} />
+        <Route path="/maxo" element={<ProjectCaseStudy slug="maxo" />} />
+        <Route path="/maxo-architecture" element={<ProjectCaseStudy slug="maxo" />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact-us" element={<Contact />} />
+        <Route path="/work/:projectSlug" element={<ProjectCaseStudy />} />
+        <Route path="/:projectSlug" element={<ProjectCaseStudy />} />
+      </Routes>
+    </PageTransitionProvider>
   );
 }
 

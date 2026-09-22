@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, X, ArrowUpRight } from 'lucide-react';
+import { usePageTransition } from './PageTransition';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const { navigateWithTransition } = usePageTransition();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +27,17 @@ export default function Navbar() {
     <header className={`nb-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
         {/* Brand Logo */}
-        <a href="/" className="nav-brand" aria-label="Brandboosters Home">
+        <a 
+          href="/" 
+          className="nav-brand" 
+          aria-label="Brandboosters Home"
+          onClick={(e) => {
+            if (window.location.pathname !== '/') {
+              e.preventDefault();
+              navigateWithTransition('/');
+            }
+          }}
+        >
           <img 
             src="/brandboosters-logo-opt.png" 
             alt="Brandboosters" 
@@ -111,9 +123,13 @@ export default function Navbar() {
 
         {/* Contact CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <a href="/contact" className="nav-contact-btn">
+          <button 
+            type="button" 
+            onClick={() => navigateWithTransition('/contact')} 
+            className="nav-contact-btn"
+          >
             Contact
-          </a>
+          </button>
 
           {/* Mobile Hamburger Toggle */}
           <button 
@@ -138,14 +154,17 @@ export default function Navbar() {
           <a href={getLink('#blogs')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Blogs</a>
         </div>
         <div>
-          <a 
-            href="/contact" 
+          <button 
+            type="button" 
             className="nav-contact-btn" 
             style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }}
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => {
+              setMobileMenuOpen(false);
+              navigateWithTransition('/contact');
+            }}
           >
             Contact Us
-          </a>
+          </button>
         </div>
       </div>
     </header>

@@ -12,10 +12,12 @@ import {
 import { PROJECTS, getProjectBySlug } from '../data/projectsData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { usePageTransition } from '../components/PageTransition';
 
 export default function ProjectCaseStudy({ slug: propSlug }) {
   const { projectSlug } = useParams();
   const navigate = useNavigate();
+  const { navigateWithTransition } = usePageTransition();
   const activeSlug = propSlug || projectSlug;
 
   const project = getProjectBySlug(activeSlug) || PROJECTS[0];
@@ -207,7 +209,14 @@ export default function ProjectCaseStudy({ slug: propSlug }) {
             <span className="cta-kicker">Ready For Exponential Growth?</span>
             <h2 className="cta-headline">Let’s build your brand’s next breakthrough case study.</h2>
             <div className="cta-action-row">
-              <a href="/contact" className="cta-primary-btn">
+              <a 
+                href="/contact" 
+                className="cta-primary-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateWithTransition('/contact');
+                }}
+              >
                 <span>Book a Discovery Call</span>
                 <ArrowUpRight size={16} />
               </a>

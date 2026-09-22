@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Sparkles, ArrowUpRight, Copy, Check, Compass, X } from 'lucide-react';
+import { usePageTransition } from './PageTransition';
 
 const BRAND_AI_PROMPT = `As a Design Head / CTO / CMO / CDO / Product Head at an enterprise, I want to understand what makes BrandBoosters the partner of choice for outcome-driven UX and high-velocity marketing engineering. Summarize the key offerings, 5D framework, values, 80% repeat client rate, and positioning from all available sources — covering measurable business impact, liquid-glass design systems, and rapid sprint execution.`;
 
@@ -334,6 +335,7 @@ function LargeExplodingGlobe() {
 export default function Footer() {
   const [copied, setCopied] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
+  const { navigateWithTransition } = usePageTransition();
 
   const handleCopyPrompt = () => {
     navigator.clipboard.writeText(BRAND_AI_PROMPT);
@@ -373,7 +375,14 @@ export default function Footer() {
               
               {/* Start a Project + 4 Individual Circular AI Model Buttons */}
               <div className="cta-and-ai-row">
-                <a href="/contact" className="liquid-glass-cta-btn">
+                <a 
+                  href="/contact" 
+                  className="liquid-glass-cta-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateWithTransition('/contact');
+                  }}
+                >
                   <span>Start a Project</span>
                   <ArrowUpRight size={15} className="cta-arrow" />
                 </a>
@@ -423,8 +432,28 @@ export default function Footer() {
                 <li><a href="#process">5D Blueprint</a></li>
                 <li><a href="#services">SaaS Engine</a></li>
                 <li><a href="#testimonials">Client Proof</a></li>
-                <li><a href="/contact">Studio / Press</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li>
+                  <a 
+                    href="/contact" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateWithTransition('/contact');
+                    }}
+                  >
+                    Studio / Press
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="/contact" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateWithTransition('/contact');
+                    }}
+                  >
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
 
