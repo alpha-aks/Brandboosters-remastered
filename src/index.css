@@ -9023,8 +9023,8 @@ button {
 }
 
 @keyframes energyWireFlow {
-  0% { stroke-dashoffset: 28; }
-  100% { stroke-dashoffset: 0; }
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -28; }
 }
 
 /* 3D Cut Plate Card Housing */
@@ -10248,7 +10248,7 @@ button {
   cursor: pointer;
   user-select: none;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .yellow-blue-rocket-stage:hover {
@@ -10261,11 +10261,33 @@ button {
 }
 
 .yellow-blue-rocket-stage.hyperdrive-mode {
-  border-color: rgba(255, 209, 5, 0.6);
+  border-color: rgba(255, 209, 5, 0.8);
   box-shadow: 
-    0 24px 60px -8px rgba(37, 99, 235, 0.25),
-    0 0 35px rgba(255, 209, 5, 0.35),
+    0 26px 70px -6px rgba(37, 99, 235, 0.35),
+    0 0 40px rgba(255, 209, 5, 0.45),
     inset 0 2px 6px rgba(255, 255, 255, 0.9);
+}
+
+/* Corner breakthrough indicator arc where nose cone pierces the stage */
+.yellow-blue-rocket-stage.hyperdrive-mode::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 120px;
+  height: 120px;
+  border-top: 3px solid #ffd105;
+  border-right: 3px solid #ffd105;
+  border-top-right-radius: 32px;
+  filter: drop-shadow(0 0 12px #ffd105);
+  pointer-events: none;
+  animation: breakoutCornerPulse 0.5s ease-in-out infinite alternate;
+  z-index: 20;
+}
+
+@keyframes breakoutCornerPulse {
+  0% { opacity: 0.6; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1.04); }
 }
 
 /* Flight Arena Canvas */
@@ -10275,7 +10297,7 @@ button {
   height: 250px;
   background: radial-gradient(ellipse at 85% 30%, rgba(37, 99, 235, 0.12) 0%, rgba(255, 209, 5, 0.08) 55%, rgba(0, 31, 63, 0.04) 100%), #f8fafc;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10286,10 +10308,11 @@ button {
   background: radial-gradient(ellipse at 85% 30%, rgba(37, 99, 235, 0.22) 0%, rgba(255, 209, 5, 0.16) 60%, rgba(0, 31, 63, 0.08) 100%), #f1f5f9;
 }
 
-/* Cosmic Backdrop: Stars and Speedlines */
+/* Cosmic Backdrop: Stars and Speedlines (Cleanly Clipped Inside Arena) */
 .rocket-cosmic-backdrop {
   position: absolute;
   inset: 0;
+  border-radius: 20px;
   pointer-events: none;
   overflow: hidden;
   z-index: 1;
@@ -10333,60 +10356,100 @@ button {
 /* Moving Cosmic Speedlines */
 .speedline {
   position: absolute;
-  height: 2px;
+  height: 2.5px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent 0%, rgba(37, 99, 235, 0.75) 50%, rgba(255, 209, 5, 0.95) 100%);
-  animation: speedlineStreak 2.4s linear infinite;
-  opacity: 0.45;
+  background: linear-gradient(90deg, transparent 0%, rgba(37, 99, 235, 0.4) 20%, rgba(255, 209, 5, 0.95) 85%, #ffffff 100%);
+  transform-origin: center;
+  pointer-events: none;
+  opacity: 0.55;
+  box-shadow: 0 0 10px rgba(255, 209, 5, 0.35);
 }
 
 .speedline-1 {
-  top: 30%;
+  top: 55%;
+  left: 15%;
   width: 140px;
-  animation-delay: 0.2s;
-  animation-duration: 2.2s;
+  animation: streamThrustForward1 2.2s linear infinite;
+  animation-delay: 0.1s;
 }
 
 .speedline-2 {
-  top: 55%;
-  width: 220px;
-  animation-delay: 1s;
-  animation-duration: 1.8s;
+  top: 35%;
+  left: 25%;
+  width: 200px;
+  animation: streamThrustForward2 1.8s linear infinite;
+  animation-delay: 0.8s;
 }
 
 .speedline-3 {
-  top: 80%;
+  top: 70%;
+  left: 8%;
   width: 170px;
-  animation-delay: 0.6s;
-  animation-duration: 2.6s;
+  animation: streamThrustForward3 2.5s linear infinite;
+  animation-delay: 1.4s;
 }
 
 .yellow-blue-rocket-stage.hyperdrive-mode .speedline {
-  height: 3px;
-  opacity: 0.85;
+  height: 3.5px;
+  opacity: 0.9;
   animation-duration: 0.9s !important;
-  background: linear-gradient(90deg, transparent 0%, #38bdf8 30%, #ffd105 100%);
-  box-shadow: 0 0 10px rgba(255, 209, 5, 0.7);
+  background: linear-gradient(90deg, transparent 0%, #38bdf8 30%, #ffd105 85%, #ffffff 100%);
+  box-shadow: 0 0 14px rgba(255, 209, 5, 0.7);
 }
 
-@keyframes speedlineStreak {
+/* Aerodynamic Slipstream Waves (Surging Forward with Rocket Toward Top-Right) */
+@keyframes streamThrustForward1 {
   0% {
-    transform: translateX(360px);
+    transform: translate(-140px, 90px) rotate(-35deg);
     opacity: 0;
   }
-  20% {
+  25% {
+    opacity: 0.75;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(220px, -140px) rotate(-35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes streamThrustForward2 {
+  0% {
+    transform: translate(-160px, 100px) rotate(-35deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(250px, -160px) rotate(-35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes streamThrustForward3 {
+  0% {
+    transform: translate(-150px, 95px) rotate(-35deg);
+    opacity: 0;
+  }
+  25% {
     opacity: 0.7;
   }
-  80% {
+  75% {
     opacity: 0.7;
   }
   100% {
-    transform: translateX(-380px);
+    transform: translate(240px, -150px) rotate(-35deg);
     opacity: 0;
   }
 }
 
-/* Main Rocket Craft Wrapper & Continuous Flight Movement */
+/* Main Rocket Craft Wrapper & Continuous Forward Flight Movement */
 .rocket-ship-wrapper {
   position: relative;
   z-index: 5;
@@ -10397,121 +10460,153 @@ button {
   will-change: transform;
 }
 
-/* Cruise Mode: Floating and subtle banking motion */
+/* Cruise Mode: Floating and surging forward toward top-right corner */
 .yellow-blue-rocket-stage.cruise-mode .rocket-ship-wrapper {
-  animation: rocketFloatingCruise 4.5s ease-in-out infinite;
+  animation: rocketFloatingCruise 4.2s ease-in-out infinite;
 }
 
 @keyframes rocketFloatingCruise {
   0% {
-    transform: translate(-10px, 4px) rotate(-6deg);
-  }
-  25% {
-    transform: translate(6px, -12px) rotate(-3deg);
+    transform: translate(-12px, 8px) rotate(-2deg);
   }
   50% {
-    transform: translate(14px, -6px) rotate(-8deg);
-  }
-  75% {
-    transform: translate(-4px, 8px) rotate(-5deg);
+    transform: translate(14px, -10px) rotate(2deg);
   }
   100% {
-    transform: translate(-10px, 4px) rotate(-6deg);
+    transform: translate(-12px, 8px) rotate(-2deg);
   }
 }
 
-/* Hyperdrive Mode: High-velocity thrust, engine tremor and forward surge */
+/* Hyperdrive Mode: Rocket pushes forward and partially BREAKS OUT of the container */
 .yellow-blue-rocket-stage.hyperdrive-mode .rocket-ship-wrapper {
-  animation: rocketHyperdriveThrust 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
+  z-index: 35;
+  animation: rocketBreakoutThrust 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
 }
 
-@keyframes rocketHyperdriveThrust {
+@keyframes rocketBreakoutThrust {
   0% {
-    transform: translate(18px, -14px) rotate(-10deg) scale(1.04);
+    transform: translate(52px, -44px) scale(1.22) rotate(1deg);
+  }
+  50% {
+    transform: translate(66px, -56px) scale(1.28) rotate(3.5deg);
   }
   100% {
-    transform: translate(25px, -18px) rotate(-11deg) scale(1.06);
+    transform: translate(60px, -50px) scale(1.25) rotate(2deg);
   }
 }
 
-/* Rocket SVG Graphic */
-.yellow-blue-rocket-svg {
-  width: 290px;
+/* Cartoon Sticker Rocket Graphic */
+.cartoon-sticker-rocket-stage {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartoon-rocket-sticker-img {
+  width: 225px;
   height: auto;
-  overflow: visible;
-  filter: drop-shadow(0 14px 22px rgba(0, 31, 63, 0.22));
-  transition: filter 0.3s ease;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 14px 22px rgba(0, 31, 63, 0.16));
+  transition: transform 0.35s ease, filter 0.35s ease;
 }
 
-.yellow-blue-rocket-stage.hyperdrive-mode .yellow-blue-rocket-svg {
+.yellow-blue-rocket-stage:hover .cartoon-rocket-sticker-img {
+  transform: scale(1.04);
+  filter: drop-shadow(0 18px 28px rgba(0, 31, 63, 0.22)) drop-shadow(0 0 16px rgba(255, 209, 5, 0.35));
+}
+
+/* Boosted: 3D Pop-Out Depth - Nose Cone Protruding Over Card Border */
+.yellow-blue-rocket-stage.hyperdrive-mode .cartoon-rocket-sticker-img {
+  transform: scale(1.02);
   filter: 
-    drop-shadow(0 18px 30px rgba(37, 99, 235, 0.45))
-    drop-shadow(0 0 16px rgba(255, 209, 5, 0.5));
+    drop-shadow(20px 28px 30px rgba(0, 20, 50, 0.48))
+    drop-shadow(0 0 25px rgba(255, 209, 5, 0.75))
+    drop-shadow(0 0 45px rgba(37, 99, 235, 0.55));
 }
 
-/* 2D Flat Thruster Flames Animations */
-.outer-plasma-flame {
-  transform-origin: 104px 90px;
-  animation: flameFlicker 0.22s ease-in-out infinite alternate;
+/* Engine Flame Core Glow */
+.rocket-engine-fire-glow {
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 209, 5, 0.65) 0%, rgba(249, 115, 22, 0.4) 40%, transparent 75%);
+  bottom: 8px;
+  left: 12px;
+  filter: blur(14px);
+  -webkit-filter: blur(14px);
+  z-index: 1;
+  pointer-events: none;
+  animation: engineGlowPulse 0.3s ease-in-out infinite alternate;
 }
 
-.mid-plasma-flame {
-  transform-origin: 102px 88px;
-  animation: flameMidFlicker 0.17s ease-in-out infinite alternate;
+.yellow-blue-rocket-stage.hyperdrive-mode .rocket-engine-fire-glow {
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(255, 209, 5, 0.95) 0%, rgba(56, 189, 248, 0.6) 45%, transparent 75%);
+  bottom: 2px;
+  left: 4px;
+  animation-duration: 0.12s;
 }
 
-.inner-core-flame {
-  transform-origin: 100px 86px;
-  animation: flameCoreFlicker 0.12s ease-in-out infinite alternate;
-}
-
-.yellow-blue-rocket-stage.hyperdrive-mode .outer-plasma-flame {
-  animation-duration: 0.08s;
-  transform: scale(1.35) translate(-6px, 4px);
-}
-
-.yellow-blue-rocket-stage.hyperdrive-mode .mid-plasma-flame {
-  animation-duration: 0.07s;
-  transform: scale(1.4) translate(-7px, 5px);
-}
-
-.yellow-blue-rocket-stage.hyperdrive-mode .inner-core-flame {
-  animation-duration: 0.06s;
-  transform: scale(1.45) translate(-8px, 6px);
-}
-
-@keyframes flameFlicker {
-  0% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-  100% { transform: scale(1.18, 0.92) rotate(-2deg); opacity: 1; }
-}
-
-@keyframes flameMidFlicker {
-  0% { transform: scale(1.05, 0.95) rotate(1deg); opacity: 0.95; }
-  100% { transform: scale(0.95, 1.1) rotate(-1deg); opacity: 1; }
-}
-
-@keyframes flameCoreFlicker {
-  0% { transform: scale(0.9, 1.15) rotate(1deg); opacity: 0.95; }
-  100% { transform: scale(1.15, 0.9) rotate(-1deg); opacity: 1; }
-}
-
-/* Smoke Puffs Discharged from Nozzle */
-.smoke-puff {
-  transform-origin: center;
-  animation: smokeDischarge 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-.smoke-puff.puff-1 { animation-delay: 0s; }
-.smoke-puff.puff-2 { animation-delay: 0.5s; }
-.smoke-puff.puff-3 { animation-delay: 1.0s; }
-
-@keyframes smokeDischarge {
+@keyframes engineGlowPulse {
   0% {
-    transform: translate(0, 0) scale(0.5);
-    opacity: 0.9;
+    transform: scale(0.9) translate(0, 0);
+    opacity: 0.7;
   }
   100% {
-    transform: translate(-45px, 35px) scale(2.4);
+    transform: scale(1.22) translate(-4px, 4px);
+    opacity: 1;
+  }
+}
+
+/* Pop-Art Animated Exhaust Sparkles & Bubble Particles */
+.cartoon-exhaust-particles {
+  position: absolute;
+  bottom: 20px;
+  left: 15px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flame-bubble {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid #001f3f;
+  animation: bubbleDrift 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.flame-bubble.bubble-1 {
+  width: 12px;
+  height: 12px;
+  background: #ffd105;
+  animation-delay: 0s;
+}
+
+.flame-bubble.bubble-2 {
+  width: 17px;
+  height: 17px;
+  background: #38bdf8;
+  animation-delay: 0.45s;
+}
+
+.flame-bubble.bubble-3 {
+  width: 22px;
+  height: 22px;
+  background: #fef08a;
+  animation-delay: 0.9s;
+}
+
+@keyframes bubbleDrift {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-50px, 42px) scale(1.6);
     opacity: 0;
   }
 }
@@ -10579,8 +10674,17 @@ button {
   .rocket-motion-arena {
     height: 195px;
   }
-  .yellow-blue-rocket-svg {
-    width: 210px;
+  .cartoon-rocket-sticker-img {
+    width: 160px;
+  }
+  .yellow-blue-rocket-stage.hyperdrive-mode .rocket-ship-wrapper {
+    animation: rocketBreakoutThrustMobile 0.55s ease-in-out infinite alternate;
+  }
+  .rocket-engine-fire-glow {
+    width: 70px;
+    height: 70px;
+    bottom: 5px;
+    left: 8px;
   }
   .rocket-flight-status-pill {
     bottom: 8px;
@@ -10589,6 +10693,18 @@ button {
   }
   .status-label-bold {
     font-size: 0.6rem;
+  }
+}
+
+@keyframes rocketBreakoutThrustMobile {
+  0% {
+    transform: translate(28px, -24px) scale(1.16) rotate(1deg);
+  }
+  50% {
+    transform: translate(38px, -32px) scale(1.22) rotate(2.5deg);
+  }
+  100% {
+    transform: translate(34px, -28px) scale(1.19) rotate(2deg);
   }
 }
 

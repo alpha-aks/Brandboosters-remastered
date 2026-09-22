@@ -24,6 +24,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { usePageTransition } from '../components/PageTransition';
+import cartoonRocketImg from '../assets/cartoon-rocket-sticker.png';
 
 export default function About() {
   const { navigateWithTransition } = usePageTransition();
@@ -159,131 +160,27 @@ export default function About() {
                       <div className="speedline speedline-3" />
                     </div>
 
-                    {/* The Clean 2D Flat Vector Yellow & Blue Rocket */}
+                    {/* The Authentic 2D Sticker Yellow & Blue Rocket */}
                     <div className="rocket-ship-wrapper">
-                      <svg className="yellow-blue-rocket-svg flat-2d-rocket" viewBox="0 0 340 180" fill="none">
+                      <div className="cartoon-sticker-rocket-stage">
+                        {/* Thruster Flame Core Glow Pulse */}
+                        <div className="rocket-engine-fire-glow" />
                         
-                        {/* --- 2D Animated Thruster Exhaust Flames (Layered Flat Shapes) --- */}
-                        <g className="rocket-thruster-group">
-                          {/* Outer Flat 2D Cyan Flame */}
-                          <path 
-                            className="outer-plasma-flame flat-flame-outer"
-                            d="M 104,90 C 82,102 38,118 16,128 C 42,112 70,102 96,82 Z"
-                            fill="#38bdf8"
-                            stroke="#001f3f"
-                            strokeWidth="2.5"
-                            strokeLinejoin="round"
-                          />
+                        {/* Pop-Art Animated Exhaust Sparkle & Bubble Particles */}
+                        <div className="cartoon-exhaust-particles">
+                          <span className="flame-bubble bubble-1" />
+                          <span className="flame-bubble bubble-2" />
+                          <span className="flame-bubble bubble-3" />
+                        </div>
 
-                          {/* Mid Flat 2D Yellow Flame */}
-                          <path 
-                            className="mid-plasma-flame flat-flame-mid"
-                            d="M 102,88 C 84,98 50,112 36,118 C 54,106 76,98 94,84 Z"
-                            fill="#ffd105"
-                          />
-
-                          {/* Inner Flat 2D Pure White Flame Core */}
-                          <path 
-                            className="inner-core-flame flat-flame-inner"
-                            d="M 100,86 C 86,94 62,104 54,108 C 66,100 82,94 92,86 Z"
-                            fill="#ffffff"
-                          />
-
-                          {/* 2D Flat Exhaust Smoke Puffs */}
-                          <circle cx="44" cy="120" r="9" className="smoke-puff puff-1" fill="#bae6fd" stroke="#001f3f" strokeWidth="2" />
-                          <circle cx="24" cy="132" r="13" className="smoke-puff puff-2" fill="#fef08a" stroke="#001f3f" strokeWidth="2" />
-                          <circle cx="6" cy="144" r="16" className="smoke-puff puff-3" fill="#e0f2fe" stroke="#001f3f" strokeWidth="2" />
-                        </g>
-
-                        {/* --- 2D Flat Rocket Craft Body & Wings --- */}
-
-                        {/* Metal Exhaust Nozzle (Flat Dark Slate with 2D Line) */}
-                        <polygon 
-                          points="96,82 106,92 90,100 80,90" 
-                          fill="#1e293b" 
-                          stroke="#001f3f" 
-                          strokeWidth="2.5" 
-                          strokeLinejoin="round"
+                        {/* The Exact User-Specified Rocket Graphic */}
+                        <img 
+                          src={cartoonRocketImg} 
+                          alt="BrandBoosters Yellow and Blue Rocket" 
+                          className="cartoon-rocket-sticker-img"
+                          draggable="false"
                         />
-
-                        {/* Top Stabilizer Fin (Flat Golden Yellow with Navy Stroke) */}
-                        <path 
-                          d="M 144,60 L 118,22 C 114,16 108,18 110,25 L 126,68 Z" 
-                          fill="#ffd105" 
-                          stroke="#001f3f" 
-                          strokeWidth="3" 
-                          strokeLinejoin="round"
-                        />
-                        {/* Top Fin Accent Stripe */}
-                        <polygon points="124,32 118,22 114,27 121,37" fill="#f59e0b" />
-
-                        {/* Bottom Stabilizer Fin (Flat Golden Yellow with Navy Stroke) */}
-                        <path 
-                          d="M 122,98 L 94,136 C 88,142 82,138 86,131 L 106,94 Z" 
-                          fill="#ffd105" 
-                          stroke="#001f3f" 
-                          strokeWidth="3" 
-                          strokeLinejoin="round"
-                        />
-                        {/* Bottom Fin Accent Stripe */}
-                        <polygon points="100,126 94,136 88,131 94,121" fill="#f59e0b" />
-
-                        {/* Fuselage - Lower Tone (Deep Navy #001f3f) */}
-                        <path 
-                          d="M 245,36 C 228,32 152,60 102,92 C 98,96 100,100 104,102 C 138,110 210,88 245,36 Z" 
-                          fill="#001f3f" 
-                          stroke="#001f3f" 
-                          strokeWidth="3" 
-                          strokeLinejoin="round"
-                        />
-
-                        {/* Fuselage - Upper Half Tone (Flat Royal Blue #2563eb for 2D Cel-Shaded Depth) */}
-                        <path 
-                          d="M 245,36 C 228,32 152,60 102,92 C 136,78 198,54 245,36 Z" 
-                          fill="#2563eb" 
-                        />
-
-                        {/* 2D Flat Racing Stripes (Yellow & White) */}
-                        <path d="M 166,62 L 152,76 C 155,78 158,78 161,76 L 174,62 Z" fill="#ffd105" stroke="#001f3f" strokeWidth="2" />
-                        <path d="M 152,70 L 140,82 C 143,84 146,84 149,82 L 160,70 Z" fill="#ffffff" stroke="#001f3f" strokeWidth="2" />
-
-                        {/* 2D Flat Nose Cone (Solid Golden Yellow #ffd105) */}
-                        <path 
-                          d="M 245,36 C 230,41 214,48 206,53 C 220,66 234,74 245,36 Z" 
-                          fill="#ffd105" 
-                          stroke="#001f3f" 
-                          strokeWidth="3" 
-                          strokeLinejoin="round"
-                        />
-                        {/* Nose Cone 2D Tip Highlight */}
-                        <circle cx="242" cy="39" r="2.5" fill="#ffffff" />
-
-                        {/* 2D Flat Center Keel Fin (Vibrant Golden Yellow) */}
-                        <path 
-                          d="M 142,82 L 116,114 C 112,118 108,116 110,110 L 130,78 Z" 
-                          fill="#ffd105" 
-                          stroke="#001f3f" 
-                          strokeWidth="3" 
-                          strokeLinejoin="round"
-                        />
-
-                        {/* 2D Flat Circular Porthole Window */}
-                        {/* Outer Yellow Bezel Ring */}
-                        <circle cx="184" cy="62" r="16" fill="#ffd105" stroke="#001f3f" strokeWidth="3" />
-                        {/* Inner Dark Rim */}
-                        <circle cx="184" cy="62" r="12" fill="#001f3f" />
-                        {/* Flat Cyan Glass Disc */}
-                        <circle cx="184" cy="62" r="10" fill="#38bdf8" />
-                        {/* Iconic 2D Diagonal Flat Glass Glare */}
-                        <path d="M 178,56 L 188,66 A 10 10 0 0 0 190,62 L 182,54 A 10 10 0 0 0 178,56 Z" fill="#ffffff" opacity="0.85" />
-                        <circle cx="180" cy="65" r="1.5" fill="#ffffff" opacity="0.9" />
-
-                        {/* Flat Rivet Dots along Fuselage */}
-                        <circle cx="204" cy="54" r="1.8" fill="#ffd105" />
-                        <circle cx="152" cy="74" r="1.8" fill="#ffd105" />
-                        <circle cx="118" cy="88" r="1.8" fill="#ffd105" />
-
-                      </svg>
+                      </div>
                     </div>
 
                     {/* Dynamic Flight Status Badge */}
@@ -358,7 +255,7 @@ export default function About() {
                       </linearGradient>
                     </defs>
                     <path 
-                      d="M 380,60 C 260,60 180,10 0,60" 
+                      d="M 0,60 C 180,10 260,60 380,60" 
                       fill="none" 
                       stroke={knobMode === 1 ? 'url(#microwaveBeam1)' : 'url(#microwaveBeam2)'} 
                       strokeWidth={knobMode === 2 ? '4.5' : '3.5'}
