@@ -9308,101 +9308,179 @@ button {
   opacity: 0.75;
 }
 
-/* Tactile Selector Buttons Row */
-.knob-tactile-selector-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  background: rgba(0, 31, 63, 0.04);
-  padding: 0.5rem 0.65rem;
-  border-radius: 999px;
-  border: 1.5px solid rgba(0, 31, 63, 0.08);
+/* Microwave Unit Modifications */
+.retro-knob-plate-card.microwave-unit {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tactile-step-pill {
-  flex: 1;
+.retro-knob-plate-card.microwave-unit.turbo-overdrive {
+  border-color: rgba(255, 209, 5, 0.4);
+  box-shadow: 
+    inset 0 6px 16px rgba(0, 20, 50, 0.1),
+    inset 0 -6px 14px rgba(255, 255, 255, 0.9),
+    0 24px 60px -15px rgba(255, 209, 5, 0.25),
+    0 8px 20px rgba(0, 31, 63, 0.08);
+}
+
+.microwave-timer-lcd {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.45rem;
-  padding: 0.55rem 0.75rem;
-  border-radius: 999px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.78rem;
+  background: #00132b;
+  color: #38bdf8;
+  padding: 0.32rem 0.85rem;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 0.72rem;
   font-weight: 750;
-  color: #475569;
-  transition: all 0.25s ease;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  letter-spacing: 0.04em;
 }
 
-.tactile-step-pill .step-num-bubble {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(0, 31, 63, 0.08);
-  color: #001f3f;
-  display: inline-flex;
+.turbo-overdrive .microwave-timer-lcd {
+  color: #ffd105;
+  border-color: rgba(255, 209, 5, 0.4);
+}
+
+/* Microwave Chamber Viewing Portal */
+.microwave-chamber-portal {
+  width: 100%;
+  height: 116px;
+  border-radius: 20px;
+  margin-bottom: 1.6rem;
+  background: radial-gradient(circle at 50% 120%, #1e293b 0%, #0f172a 60%, #020617 100%);
+  border: 2px solid rgba(0, 31, 63, 0.18);
+  position: relative;
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 800;
-}
-
-.tactile-step-pill.active {
-  background: #ffffff;
-  color: #001f3f;
-  box-shadow: 0 4px 12px rgba(0, 31, 63, 0.12);
-}
-
-.tactile-step-pill.active .step-num-bubble {
-  background: #001f3f;
-  color: #ffffff;
-}
-
-.knob-switch-toggle-icon {
-  width: 32px;
-  height: 20px;
-  background: #cbd5e1;
-  border-radius: 999px;
-  padding: 2px;
   cursor: pointer;
+  box-shadow: 
+    inset 0 10px 24px rgba(0, 0, 0, 0.75),
+    inset 0 -4px 10px rgba(255, 255, 255, 0.1),
+    0 4px 12px rgba(0, 31, 63, 0.05);
+  user-select: none;
+}
+
+/* Glass Glare Sheen */
+.microwave-chamber-portal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Microwave Heating Coils at Top */
+.microwave-glow-coils {
+  position: absolute;
+  top: 6px;
+  left: 15%;
+  right: 15%;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.3);
+  transition: all 0.3s ease;
+}
+
+.microwave-chamber-portal.heating-active .microwave-glow-coils {
+  background: linear-gradient(90deg, #ef4444 0%, #ffd105 50%, #ef4444 100%);
+  box-shadow: 
+    0 0 16px rgba(255, 209, 5, 0.9),
+    0 4px 20px rgba(239, 68, 68, 0.8);
+  height: 4px;
+  animation: coilGlowAnim 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes coilGlowAnim {
+  0% { opacity: 0.8; filter: drop-shadow(0 0 6px #ffd105); }
+  100% { opacity: 1; filter: drop-shadow(0 0 16px #ef4444); }
+}
+
+/* Microwave Mesh Pattern Glass */
+.microwave-mesh-glass {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 6px 6px;
+  pointer-events: none;
+}
+
+/* Turntable Stage */
+.microwave-turntable-stage {
+  position: relative;
   display: flex;
-  align-items: center;
-}
-
-.switch-rocker {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.switch-rocker.toggled-right {
-  transform: translateX(12px);
-  background: #ffd105;
-}
-
-.knob-interactive-hint {
-  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  margin-top: 1rem;
-  font-size: 0.73rem;
-  font-weight: 650;
-  color: #64748b;
+  z-index: 2;
 }
 
-.hint-indicator-pulse {
-  width: 6px;
-  height: 6px;
+.turntable-disc {
+  position: absolute;
+  bottom: -6px;
+  width: 140px;
+  height: 20px;
   border-radius: 50%;
-  background: #2563eb;
-  animation: liveDotPulse 2s infinite;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.chamber-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  animation: chamberItemEntrance 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes chamberItemEntrance {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.chamber-item-idea .chamber-icon-bulb {
+  color: #38bdf8;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.8));
+  animation: bulbLevitate 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes bulbLevitate {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+.chamber-item-rocket .chamber-icon-rocket {
+  color: #ffd105;
+  filter: drop-shadow(0 0 16px rgba(255, 209, 5, 0.95)) drop-shadow(0 0 28px rgba(239, 68, 68, 0.6));
+  animation: rocketOverdrive 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes rocketOverdrive {
+  0% { transform: translateY(1px) scale(0.98); }
+  100% { transform: translateY(-4px) scale(1.04); }
+}
+
+.chamber-item-label {
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.chamber-item-idea .chamber-item-label {
+  color: #94a3b8;
+}
+
+.chamber-item-rocket .chamber-item-label {
+  color: #ffd105;
+  text-shadow: 0 0 10px rgba(255, 209, 5, 0.6);
 }
 
 /* ==========================================================================

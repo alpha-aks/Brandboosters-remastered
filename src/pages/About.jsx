@@ -36,29 +36,55 @@ export default function About() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Physical synth click audio effect for retro knob feel
+  // Physical synth click audio effect & microwave bell chime for retro knob feel
   const playClickSound = (mode) => {
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return;
       const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
 
-      osc.type = mode === 1 ? 'sine' : 'triangle';
-      osc.frequency.setValueAtTime(mode === 1 ? 480 : 640, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(mode === 1 ? 220 : 310, ctx.currentTime + 0.06);
+      if (mode === 2) {
+        // Microwave Bell "DING!" Chime (1480Hz with metallic harmonic)
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1480, ctx.currentTime);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.85);
 
-      gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(2960, ctx.currentTime);
+        gain2.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.5);
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
 
-      osc.start();
-      osc.stop(ctx.currentTime + 0.07);
+        osc.start();
+        osc2.start();
+        osc.stop(ctx.currentTime + 0.9);
+        osc2.stop(ctx.currentTime + 0.55);
+      } else {
+        // Mechanical relay / dial click
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(420, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(160, ctx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.06);
+      }
     } catch {
-      // Audio context restricted or unavailable; visual feedback is sufficient
+      // Audio context fallback
     }
   };
 
@@ -91,7 +117,7 @@ export default function About() {
 
       <main className="about-page-main">
         {/* ==========================================================================
-           1. HERO SECTION: CLEAN, UNCLUTTERED WITH RETRO 3D CUT MICROWAVE KNOB (1 & 2)
+           1. HERO SECTION: 3D CUT-INTO-WEBSITE RECESSED WITH RETRO MICROWAVE KNOB
            ========================================================================== */}
         <section className="about-hero-section" aria-label="About BrandBoosters Studio">
           
@@ -103,152 +129,80 @@ export default function About() {
             
             <div className="about-hero-grid">
               
-              {/* Left Column: Dynamic Hero Content Controlled by the Knob */}
+              {/* Left Column: Clean, Uncluttered Studio Hero Copy (Matching Reference Design) */}
               <div className="about-hero-info-col">
                 
-                {/* Active Mode Pill Tag */}
-                <div className={`about-channel-badge ${knobMode === 1 ? 'channel-1' : 'channel-2'}`}>
-                  <span className="channel-live-dot" />
-                  <span className="channel-tag-text">
-                    {knobMode === 1 ? 'CHANNEL 01 // CREATIVE DIRECTION' : 'CHANNEL 02 // SCALABLE ENGINEERING'}
-                  </span>
+                {/* About Us Pill Badge */}
+                <div className="section-pill-tag">
+                  <span className="tag-accent-circle" />
+                  <span>About Us</span>
                 </div>
 
-                {/* Animated Dynamic Headline */}
-                <div className="about-headline-viewport">
-                  {knobMode === 1 ? (
-                    <div className="about-mode-content mode-fade-in" key="mode-1-heading">
-                      <h1 className="about-main-title">
-                        We're a Creative Team on a Mission to{' '}
-                        <span className="about-title-gradient-creative">Build What Matters</span>
-                      </h1>
-                      <p className="about-main-lead">
-                        We are BrandBoosters — a digital studio focused on turning bold ideas 
-                        into beautiful, high-performing digital experiences. We combine creativity, 
-                        technology and strategy to help brands grow and dominate their markets.
-                      </p>
+                <h1 className="about-main-title">
+                  We're a Creative Team on a Mission to{' '}
+                  <span className="about-title-gradient-creative">Build What Matters</span>
+                </h1>
 
-                      {/* Creative Mode Feature Highlights */}
-                      <div className="about-hero-pills-row">
-                        <span className="hero-feature-pill">
-                          <Palette size={14} className="pill-icon" /> Category-Defining UI/UX
-                        </span>
-                        <span className="hero-feature-pill">
-                          <Sparkles size={14} className="pill-icon" /> Bespoke Brand Identity
-                        </span>
-                        <span className="hero-feature-pill">
-                          <HeartHandshake size={14} className="pill-icon" /> Human-First Psychology
-                        </span>
-                      </div>
+                <p className="about-main-lead">
+                  We are BrandBoosters — a digital studio focused on turning bold ideas 
+                  into beautiful, high-performing digital experiences. We combine creativity, 
+                  technology and strategy to help brands grow.
+                </p>
 
-                      {/* Call-to-Action Group */}
-                      <div className="about-hero-actions-group">
-                        <button 
-                          type="button" 
-                          className="about-primary-btn"
-                          onClick={() => navigateWithTransition('/work')}
-                        >
-                          <span>Our Work</span>
-                          <ArrowRight size={17} />
-                        </button>
-                        
-                        <a 
-                          href="#story" 
-                          className="about-secondary-pill-btn"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' });
-                          }}
-                        >
-                          <span className="play-circle-icon">
-                            <Play size={13} fill="#001f3f" />
-                          </span>
-                          <span className="story-btn-text">
-                            <strong>Watch Our Story</strong>
-                            <small>1:48 min</small>
-                          </span>
-                        </a>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="about-mode-content mode-fade-in" key="mode-2-heading">
-                      <h1 className="about-main-title">
-                        Engineered for Velocity.{' '}
-                        <span className="about-title-gradient-tech">Built for Scale</span>
-                      </h1>
-                      <p className="about-main-lead">
-                        Precision engineering meets fluid digital craft. We architect ultra-responsive 
-                        web platforms, high-throughput cloud microservices, and AI-powered interfaces 
-                        that handle millions of concurrent users without skipping a frame.
-                      </p>
-
-                      {/* Tech Mode Feature Highlights */}
-                      <div className="about-hero-pills-row">
-                        <span className="hero-feature-pill tech-pill">
-                          <Zap size={14} className="pill-icon tech-icon" /> Sub-Second Core Web Vitals
-                        </span>
-                        <span className="hero-feature-pill tech-pill">
-                          <ShieldCheck size={14} className="pill-icon tech-icon" /> Enterprise Architecture
-                        </span>
-                        <span className="hero-feature-pill tech-pill">
-                          <Code2 size={14} className="pill-icon tech-icon" /> Modern Reactive Stacks
-                        </span>
-                      </div>
-
-                      {/* Call-to-Action Group */}
-                      <div className="about-hero-actions-group">
-                        <button 
-                          type="button" 
-                          className="about-primary-btn tech-btn"
-                          onClick={() => navigateWithTransition('/contact')}
-                        >
-                          <span>Start a Project</span>
-                          <ArrowRight size={17} />
-                        </button>
-                        
-                        <button 
-                          type="button" 
-                          className="about-secondary-pill-btn"
-                          onClick={() => navigateWithTransition('/work')}
-                        >
-                          <span className="play-circle-icon tech-circle">
-                            <ExternalLink size={13} />
-                          </span>
-                          <span className="story-btn-text">
-                            <strong>Explore Portfolio</strong>
-                            <small>65+ Projects</small>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                {/* Call-to-Action Group matching reference design */}
+                <div className="about-hero-actions-group">
+                  <button 
+                    type="button" 
+                    className="about-primary-btn"
+                    onClick={() => navigateWithTransition('/work')}
+                  >
+                    <span>Our Work</span>
+                    <ArrowRight size={17} />
+                  </button>
+                  
+                  <a 
+                    href="#story" 
+                    className="about-secondary-pill-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    <span className="play-circle-icon">
+                      <Play size={13} fill="#001f3f" />
+                    </span>
+                    <span className="story-btn-text">
+                      <strong>Watch Our Story</strong>
+                      <small>1:48 min</small>
+                    </span>
+                  </a>
                 </div>
 
               </div>
 
-              {/* Right Column: Retro 3D Cut Microwave Knob Unit */}
+              {/* Right Column: Retro 3D Cut Microwave Idea Accelerator Unit */}
               <div className="about-hero-knob-col">
                 
-                {/* Visual Connection Wire spanning between Knob & Content */}
+                {/* Visual Laser Connection Wire spanning between Microwave & Website */}
                 <div className={`retro-circuit-line-bridge ${lineActive ? 'pulsing' : ''}`}>
                   <svg className="circuit-svg-wire" viewBox="0 0 400 120" preserveAspectRatio="none">
                     <defs>
-                      <linearGradient id="wireGradient1" x1="100%" y1="0%" x2="0%" y2="0%">
-                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.9" />
-                        <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.75" />
-                        <stop offset="100%" stopColor="#ec4899" stopOpacity="0.9" />
-                      </linearGradient>
-                      <linearGradient id="wireGradient2" x1="100%" y1="0%" x2="0%" y2="0%">
-                        <stop offset="0%" stopColor="#ffd105" stopOpacity="0.9" />
-                        <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.75" />
+                      <linearGradient id="microwaveBeam1" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.9" />
+                        <stop offset="50%" stopColor="#818cf8" stopOpacity="0.75" />
                         <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.9" />
+                      </linearGradient>
+                      <linearGradient id="microwaveBeam2" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" stopColor="#ffd105" stopOpacity="0.95" />
+                        <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.85" />
+                        <stop offset="100%" stopColor="#ef4444" stopOpacity="0.95" />
                       </linearGradient>
                     </defs>
                     <path 
                       d="M 380,60 C 260,60 180,10 0,60" 
                       fill="none" 
-                      stroke={knobMode === 1 ? 'url(#wireGradient1)' : 'url(#wireGradient2)'} 
-                      strokeWidth="3.5"
+                      stroke={knobMode === 1 ? 'url(#microwaveBeam1)' : 'url(#microwaveBeam2)'} 
+                      strokeWidth={knobMode === 2 ? '4.5' : '3.5'}
                       strokeDasharray="8 6"
                       className="live-pulse-path"
                     />
@@ -256,17 +210,44 @@ export default function About() {
                 </div>
 
                 {/* Physical 3D Cutout Plate Box */}
-                <div className="retro-knob-plate-card">
+                <div className={`retro-knob-plate-card microwave-unit ${knobMode === 2 ? 'turbo-overdrive' : ''}`}>
                   
-                  {/* Plate Header with Status Label */}
+                  {/* Plate Header with Retro Brand Name & Digital Timer */}
                   <div className="knob-plate-header">
                     <div className="knob-brand-stamp">
                       <SlidersHorizontal size={14} />
-                      <span>STUDIO FREQUENCY DIAL</span>
+                      <span>IDEA ACCELERATOR 2026</span>
                     </div>
-                    <div className="knob-lcd-readout">
+                    <div className="microwave-timer-lcd">
                       <span className="lcd-indicator-led active" />
-                      <span className="lcd-channel-text">CH-{knobMode === 1 ? '01 // CREATIVE' : '02 // TECH'}</span>
+                      <span className="lcd-channel-text">
+                        {knobMode === 1 ? '01:00 // 300W DEFROST' : '02:00 // 1200W TURBO ⚡'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Microwave Chamber Viewing Portal */}
+                  <div 
+                    className={`microwave-chamber-portal ${knobMode === 2 ? 'heating-active' : ''}`} 
+                    onClick={toggleDial} 
+                    title="Click to turn knob / heat idea"
+                  >
+                    <div className="microwave-glow-coils" />
+                    <div className="microwave-mesh-glass" />
+                    
+                    <div className="microwave-turntable-stage">
+                      <div className="turntable-disc" />
+                      {knobMode === 1 ? (
+                        <div className="chamber-item chamber-item-idea">
+                          <Lightbulb size={36} className="chamber-icon-bulb" />
+                          <span className="chamber-item-label">Raw Spark & Strategy</span>
+                        </div>
+                      ) : (
+                        <div className="chamber-item chamber-item-rocket">
+                          <Rocket size={36} className="chamber-icon-rocket" />
+                          <span className="chamber-item-label">1200W Velocity Launch! 🔔</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -276,27 +257,27 @@ export default function About() {
                     {/* Tick Mark Graduation Ring */}
                     <div className="dial-graduation-ring">
                       
-                      {/* Position 1 Button & Tick */}
+                      {/* Position 1: Defrost / Raw Idea */}
                       <button 
                         type="button"
                         className={`dial-position-mark mark-1 ${knobMode === 1 ? 'selected' : ''}`}
                         onClick={() => handleDialTurn(1)}
-                        title="Turn Dial to Channel 1 (Creative)"
+                        title="Turn Dial to 1: Defrost (Raw Idea)"
                       >
                         <span className="mark-number">1</span>
-                        <span className="mark-label">CREATIVE</span>
+                        <span className="mark-label">DEFROST</span>
                         <span className="mark-led" />
                       </button>
 
-                      {/* Position 2 Button & Tick */}
+                      {/* Position 2: 1200W Turbo Overdrive */}
                       <button 
                         type="button"
                         className={`dial-position-mark mark-2 ${knobMode === 2 ? 'selected' : ''}`}
                         onClick={() => handleDialTurn(2)}
-                        title="Turn Dial to Channel 2 (Tech)"
+                        title="Turn Dial to 2: 1200W Turbo Overdrive"
                       >
                         <span className="mark-number">2</span>
-                        <span className="mark-label">TECH</span>
+                        <span className="mark-label">TURBO</span>
                         <span className="mark-led" />
                       </button>
 
@@ -321,7 +302,7 @@ export default function About() {
                       aria-valuenow={knobMode}
                       aria-valuemin="1"
                       aria-valuemax="2"
-                      aria-label="Studio Mode Knob"
+                      aria-label="Microwave Power Dial"
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -346,37 +327,6 @@ export default function About() {
                       </div>
                     </div>
 
-                  </div>
-
-                  {/* Tactile Step Buttons Under Knob */}
-                  <div className="knob-tactile-selector-row">
-                    <button 
-                      type="button"
-                      className={`tactile-step-pill ${knobMode === 1 ? 'active' : ''}`}
-                      onClick={() => handleDialTurn(1)}
-                    >
-                      <span className="step-num-bubble">01</span>
-                      <span className="step-text">Creative Vision</span>
-                    </button>
-
-                    <div className="knob-switch-toggle-icon" onClick={toggleDial} title="Click to toggle dial">
-                      <div className={`switch-rocker ${knobMode === 2 ? 'toggled-right' : 'toggled-left'}`} />
-                    </div>
-
-                    <button 
-                      type="button"
-                      className={`tactile-step-pill ${knobMode === 2 ? 'active' : ''}`}
-                      onClick={() => handleDialTurn(2)}
-                    >
-                      <span className="step-num-bubble">02</span>
-                      <span className="step-text">High-Velocity Tech</span>
-                    </button>
-                  </div>
-
-                  {/* Micro Hint Tag */}
-                  <div className="knob-interactive-hint">
-                    <span className="hint-indicator-pulse" />
-                    <span>Click knob or press 1 & 2 to switch modes</span>
                   </div>
 
                 </div>
