@@ -191,10 +191,10 @@ export default function Contact() {
         </section>
 
         {/* ==========================================================================
-           2. MAIN "GET IN TOUCH" CONTAINER (Full Edge-to-Edge)
+           2. MAIN "GET IN TOUCH" CONTAINER (Floating Glass Card)
            ========================================================================== */}
-        <section className="contact-form-section edge-to-edge" id="contact-form-section">
-          <div className="contact-card-outer edge-to-edge">
+        <section className="contact-form-section" id="contact-form-section">
+          <div className="contact-card-outer">
             <div className="contact-card-glass-specular" />
 
             <div className="contact-card-inner-grid">
