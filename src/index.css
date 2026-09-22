@@ -8685,19 +8685,62 @@ button {
 }
 
 /* ==========================================================================
-   1. HERO SECTION: DECLUTTERED WITH RETRO 3D CUT MICROWAVE KNOB (1 & 2)
+   1. HERO SECTION: 3D CUT-INTO-WEBSITE RECESSED WITH RETRO MICROWAVE KNOB
    ========================================================================== */
 .about-hero-section {
-  padding: 4.5rem 2rem 5.5rem;
+  width: min(100vw - 3rem, 1380px);
+  margin: 1.5rem auto 4.5rem;
+  padding: clamp(3.5rem, 5vw, 5rem) clamp(2rem, 4.5vw, 4.2rem);
   position: relative;
   overflow: hidden;
+  border-radius: 36px;
+  background: linear-gradient(180deg, #edf3fa 0%, #f4f8fc 30%, #ffffff 100%);
+  border: 2px solid rgba(0, 31, 63, 0.09);
+  /* 3D Cut-Into-Website Physical Inset Depth Shadows */
+  box-shadow: 
+    inset 0 16px 36px -4px rgba(0, 31, 63, 0.24),
+    inset 0 6px 14px rgba(0, 31, 63, 0.18),
+    inset 0 -6px 14px rgba(255, 255, 255, 0.95),
+    inset 8px 0 22px rgba(0, 31, 63, 0.1),
+    inset -8px 0 22px rgba(0, 31, 63, 0.1),
+    0 20px 50px -15px rgba(0, 31, 63, 0.08);
+}
+
+/* 3D Inset Beveled Cutout Frame */
+.about-hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  pointer-events: none;
+  z-index: 6;
+  box-shadow: 
+    inset 0 14px 30px rgba(0, 20, 50, 0.22),
+    inset 0 3px 6px rgba(0, 20, 50, 0.26),
+    inset 0 -4px 10px rgba(255, 255, 255, 0.75);
+  border: 2px solid rgba(0, 31, 63, 0.12);
+}
+
+/* 3D Depth Top Gradient Shadow Lip */
+.about-hero-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  background: linear-gradient(180deg, rgba(0, 20, 50, 0.22) 0%, rgba(0, 20, 50, 0.05) 75%, transparent 100%);
+  pointer-events: none;
+  z-index: 7;
+  border-top-left-radius: 36px;
+  border-top-right-radius: 36px;
 }
 
 .about-hero-container {
   max-width: 1360px;
   margin: 0 auto;
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 
 .about-hero-grid {
@@ -8961,8 +9004,8 @@ button {
 .retro-circuit-line-bridge {
   position: absolute;
   top: 50%;
-  left: -220px;
-  width: 260px;
+  left: -170px;
+  width: 210px;
   height: 80px;
   transform: translateY(-50%);
   pointer-events: none;
@@ -9888,198 +9931,7 @@ button {
 }
 
 /* ==========================================================================
-   4. SECTION: OUR TEAM (MATCHING REFERENCE DESIGN)
-   ========================================================================== */
-.about-team-section {
-  padding: 6.5rem 2rem;
-  background: #f8fafc;
-  position: relative;
-  border-top: 1px solid rgba(0, 31, 63, 0.06);
-}
-
-.about-team-header {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 3.5rem;
-  align-items: flex-end;
-  margin-bottom: 4rem;
-}
-
-.team-section-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.4rem, 3.8vw, 3.4rem);
-  font-weight: 850;
-  line-height: 1.12;
-  color: #001f3f;
-  letter-spacing: -0.03em;
-  margin: 0;
-}
-
-.team-title-highlight {
-  background: linear-gradient(135deg, #001f3f 0%, #2563eb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.team-header-desc-side {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.team-lead-text {
-  font-size: 1.08rem;
-  line-height: 1.7;
-  color: #475569;
-  font-weight: 500;
-  margin: 0;
-}
-
-.meet-team-text-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #2563eb;
-  font-size: 0.95rem;
-  font-weight: 750;
-  padding: 0;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.meet-team-text-btn:hover {
-  color: #1d4ed8;
-  transform: translateX(3px);
-}
-
-/* 4 Team Cards Grid */
-.team-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.8rem;
-}
-
-.team-member-card {
-  background: #ffffff;
-  border-radius: 28px;
-  padding: 1.8rem 1.6rem;
-  border: 1.5px solid rgba(0, 31, 63, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 31, 63, 0.04);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-}
-
-.team-member-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 48px rgba(0, 31, 63, 0.1);
-  border-color: rgba(37, 99, 235, 0.25);
-}
-
-.member-avatar-box {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin-bottom: 1.4rem;
-}
-
-.member-halo-glow {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  opacity: 0.25;
-  filter: blur(10px);
-}
-
-.member-photo-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  position: relative;
-  z-index: 2;
-  border: 3.5px solid #ffffff;
-  box-shadow: 0 8px 20px rgba(0, 31, 63, 0.15);
-}
-
-.member-initials-badge {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 800;
-  border: 2.5px solid #ffffff;
-  z-index: 3;
-}
-
-.member-content-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.member-name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: #001f3f;
-  margin: 0 0 0.3rem;
-}
-
-.member-role {
-  font-size: 0.85rem;
-  font-weight: 750;
-  margin: 0 0 0.8rem;
-}
-
-.member-bio {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #64748b;
-  margin: 0 0 1.4rem;
-  min-height: 40px;
-}
-
-.member-social-row {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.member-social-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #f1f5f9;
-  color: #64748b;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.member-social-icon:hover {
-  background: #001f3f;
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-/* ==========================================================================
-   5. SECTION: OUR IMPACT (BOTTOM GLOWING BANNER - NUMBERS THAT SPEAK FOR US)
+   4. SECTION: OUR IMPACT (BOTTOM GLOWING BANNER - NUMBERS THAT SPEAK FOR US)
    ========================================================================== */
 .about-impact-banner-section {
   padding: 3rem 2rem 7rem;
@@ -10209,10 +10061,25 @@ button {
    ABOUT PAGE RESPONSIVE MEDIA QUERIES
    ========================================================================== */
 @media (max-width: 1024px) {
+  .about-hero-section {
+    width: min(100vw - 2rem, 100%);
+    margin: 1rem auto 3rem;
+    border-radius: 28px;
+    padding: 3.5rem 1.75rem 4rem;
+  }
+
+  .about-hero-section::before {
+    border-radius: 28px;
+  }
+
+  .about-hero-section::after {
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+  }
+
   .about-hero-grid,
   .about-story-grid,
-  .about-why-grid,
-  .about-team-header {
+  .about-why-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
@@ -10223,10 +10090,6 @@ button {
 
   .retro-circuit-line-bridge {
     display: none;
-  }
-
-  .team-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .about-impact-banner-card {
@@ -10247,7 +10110,19 @@ button {
 
 @media (max-width: 640px) {
   .about-hero-section {
-    padding: 3.5rem 1.25rem 4rem;
+    width: calc(100vw - 1.25rem);
+    margin: 0.75rem auto 2.5rem;
+    border-radius: 22px;
+    padding: 2.8rem 1.25rem 3.2rem;
+  }
+
+  .about-hero-section::before {
+    border-radius: 22px;
+  }
+
+  .about-hero-section::after {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
   }
 
   .retro-knob-plate-card {
@@ -10267,10 +10142,6 @@ button {
   .story-metrics-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-  }
-
-  .team-cards-grid {
-    grid-template-columns: 1fr;
   }
 
   .about-impact-banner-card {
