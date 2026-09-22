@@ -153,7 +153,7 @@ export default function Work() {
         const deltaY = e.clientY - eyeCenterY;
 
         const angle = Math.atan2(deltaY, deltaX);
-        const distance = Math.min(Math.hypot(deltaX, deltaY) / 12, 22);
+        const distance = Math.min(Math.hypot(deltaX, deltaY) / 12, 26);
 
         const pupilX = Math.cos(angle) * distance;
         const pupilY = Math.sin(angle) * distance;
@@ -249,13 +249,6 @@ export default function Work() {
 
             </div>
 
-          </div>
-
-          {/* Bottom Curved Wave Transition to White Grid */}
-          <div className="yellow-hero-wave-divider" aria-hidden="true">
-            <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-              <path d="M0,0 C320,60 1120,60 1440,0 L1440,80 L0,80 Z" fill="#ffffff" />
-            </svg>
           </div>
         </section>
 
