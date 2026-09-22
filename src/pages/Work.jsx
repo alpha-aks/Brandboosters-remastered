@@ -218,11 +218,6 @@ export default function Work() {
               {/* Right Column: 2 Interactive Eyes with Mouse-Tracking Animation */}
               <div className="yellow-hero-eyes-stage">
                 
-                {/* Playful Floating Speech Bubble */}
-                <div className="eyes-speech-bubble">
-                  <span>Hover around! We're watching 👁️</span>
-                </div>
-
                 {/* The 2 Eyes Mascot Card Container */}
                 <div className={`two-eyes-mascot-card ${isBlinking ? 'blinking' : ''}`}>
                   
@@ -250,8 +245,6 @@ export default function Work() {
 
                 </div>
 
-                {/* Subtitle tag below eyes */}
-                <span className="eyes-caption-tag">Eye for extraordinary detail</span>
               </div>
 
             </div>
@@ -440,7 +433,7 @@ export default function Work() {
               </div>
 
               <h2 className="impact-title">
-                Trusted by 10+ clients<br />around the world
+                Trusted by 30+ clients<br />around the world
               </h2>
               <p className="impact-desc">
                 We're proud to have partnered with amazing brands and start-ups to bring their ideas to life.
@@ -450,15 +443,15 @@ export default function Work() {
             {/* Middle Stats Columns */}
             <div className="impact-stats-group">
               <div className="impact-stat-item">
-                <span className="stat-number">10+</span>
+                <span className="stat-number">30+</span>
                 <span className="stat-label">Happy Clients</span>
               </div>
 
               <div className="stat-divider" aria-hidden="true" />
 
               <div className="impact-stat-item">
-                <span className="stat-number">25+</span>
-                <span className="stat-label">Projects Completed</span>
+                <span className="stat-number">65+</span>
+                <span className="stat-label">Projects Delivered</span>
               </div>
 
               <div className="stat-divider" aria-hidden="true" />
