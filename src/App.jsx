@@ -14,6 +14,7 @@ import ChatWidget from './components/ChatWidget';
 import GlobalAmbientOrbs from './components/GlobalAmbientOrbs';
 import ProjectCaseStudy from './pages/ProjectCaseStudy';
 import Contact from './pages/Contact';
+import Work from './pages/Work';
 import { PageTransitionProvider } from './components/PageTransition';
 
 function HomePage() {
@@ -92,6 +93,8 @@ function App() {
         <Route path="/maxo-architecture" element={<ProjectCaseStudy slug="maxo" />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/contact-us" element={<Contact />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/works" element={<Work />} />
         <Route path="/work/:projectSlug" element={<ProjectCaseStudy />} />
         <Route path="/:projectSlug" element={<ProjectCaseStudy />} />
       </Routes>

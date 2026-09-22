@@ -7688,6 +7688,897 @@ button {
   100% { transform: translateX(250%); }
 }
 
+/* ==========================================================================
+   WORK / PORTFOLIO PAGE STYLES (MATCHING REFERENCE DESIGN + 2 EYES ON YELLOW HERO)
+   ========================================================================== */
+.work-page-wrapper {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0f172a;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.work-page-main {
+  position: relative;
+  z-index: 2;
+}
+
+/* 1. Yellow Hero Section with 2 Interactive Eyes */
+.work-hero-yellow-section {
+  background: #ffd105;
+  color: #001f3f;
+  padding: 6.5rem 2rem 6.5rem;
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.yellow-hero-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.yellow-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.38rem 1rem;
+  border-radius: 999px;
+  background: rgba(0, 31, 63, 0.08);
+  border: 1.5px solid rgba(0, 31, 63, 0.16);
+  color: #001f3f;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+
+.yellow-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #001f3f;
+}
+
+.yellow-hero-layout-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.yellow-hero-main-title {
+  font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+  font-size: clamp(2.8rem, 5.2vw, 4.6rem);
+  font-weight: 850;
+  color: #001f3f;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+
+.yellow-hero-navy-highlight {
+  color: #001f3f;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, #001f3f 0%, #1e3a8a 70%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.yellow-hero-lead {
+  font-size: 1.15rem;
+  line-height: 1.68;
+  color: rgba(0, 31, 63, 0.85);
+  font-weight: 500;
+  max-width: 560px;
+  margin-top: 1.4rem;
+}
+
+/* 2 Interactive Eyes Mascot Stage */
+.yellow-hero-eyes-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.eyes-speech-bubble {
+  background: #001f3f;
+  color: #ffffff;
+  padding: 0.55rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 750;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 10px 25px rgba(0, 31, 63, 0.25);
+  animation: floatEyesBubble 3s ease-in-out infinite alternate;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes floatEyesBubble {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+.two-eyes-mascot-card {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2.2rem 3rem;
+  border-radius: 46px;
+  border: 2.5px solid rgba(0, 31, 63, 0.16);
+  box-shadow: 
+    0 24px 60px -10px rgba(0, 31, 63, 0.22),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.two-eyes-mascot-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 75px -12px rgba(0, 31, 63, 0.28);
+}
+
+.eye-socket-frame {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 0 10px 22px rgba(0, 0, 0, 0.22),
+    inset 0 2px 6px rgba(0, 0, 0, 0.3),
+    0 12px 28px rgba(0, 31, 63, 0.25);
+  border: 3.5px solid #001f3f;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.two-eyes-mascot-card.blinking .eye-socket-frame {
+  transform: scaleY(0.08);
+}
+
+.eye-sclera {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye-pupil {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #001f3f;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  transition: transform 0.06s ease-out;
+}
+
+.pupil-iris {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 3.5px solid #38bdf8;
+  opacity: 0.85;
+}
+
+.pupil-glint {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.pupil-glint.glint-primary {
+  width: 12px;
+  height: 12px;
+  top: 8px;
+  right: 10px;
+}
+
+.pupil-glint.glint-secondary {
+  width: 6px;
+  height: 6px;
+  bottom: 10px;
+  left: 12px;
+  opacity: 0.8;
+}
+
+.eyes-caption-tag {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(0, 31, 63, 0.75);
+  margin-top: 1.1rem;
+}
+
+.yellow-hero-wave-divider {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.yellow-hero-wave-divider svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 2. Filter Tabs & Playful Hand-Drawn Annotation */
+.work-filter-section {
+  padding: 3.5rem 2rem 1.8rem;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.work-filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.work-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.work-filter-btn {
+  padding: 0.65rem 1.45rem;
+  border-radius: 999px;
+  background: rgba(0, 31, 63, 0.04);
+  border: 1.5px solid rgba(0, 31, 63, 0.08);
+  color: #475569;
+  font-weight: 750;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-filter-btn:hover {
+  background: rgba(0, 31, 63, 0.09);
+  color: #001f3f;
+  transform: translateY(-1px);
+}
+
+.work-filter-btn.active {
+  background: #001f3f;
+  color: #ffffff;
+  border-color: #001f3f;
+  box-shadow: 0 8px 22px rgba(0, 31, 63, 0.22);
+}
+
+.click-to-explore-annotation {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #6366f1;
+  font-family: 'Caveat', 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  user-select: none;
+}
+
+.annotation-curved-arrow {
+  width: 52px;
+  height: 36px;
+  transform: rotate(-10deg);
+}
+
+/* 3. 2-Column Portfolio Grid Matching Reference Screenshot */
+.work-portfolio-grid-section {
+  padding: 1.5rem 2rem 6.5rem;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.work-portfolio-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.8rem;
+}
+
+.work-project-card {
+  background: #ffffff;
+  border: 1.5px solid rgba(0, 31, 63, 0.08);
+  border-radius: 32px;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 16px 40px -12px rgba(0, 31, 63, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.work-project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 65px -15px rgba(0, 31, 63, 0.14);
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+.project-card-image-box {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.project-card-badge {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.4rem;
+  padding: 0.42rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  color: #001f3f;
+  font-size: 0.8rem;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  z-index: 4;
+}
+
+.project-card-hover-arrow {
+  position: absolute;
+  bottom: 1.4rem;
+  right: 1.4rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #001f3f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  transition: all 0.25s ease;
+  z-index: 4;
+}
+
+.work-project-card:hover .project-card-hover-arrow {
+  background: #2563eb;
+  color: #ffffff;
+  transform: scale(1.1) translateX(3px);
+}
+
+/* Stylized Visual Mockups inside Cards */
+.project-mockup-visual {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-project-card:hover .project-mockup-visual {
+  transform: scale(1.04);
+}
+
+.mockup-glass-sheen {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.mockup-laptop {
+  width: 82%;
+  background: rgba(15, 23, 42, 0.92);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.mockup-laptop-topbar {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.window-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.window-dot.red { background: #ef4444; }
+.window-dot.yellow { background: #eab308; }
+.window-dot.green { background: #22c55e; }
+
+.mockup-laptop-screen {
+  padding: 1.8rem 1.6rem;
+  color: #ffffff;
+}
+
+.mockup-screen-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.8rem;
+}
+
+.mockup-screen-bar {
+  height: 6px;
+  width: 60%;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  border-radius: 999px;
+  margin-bottom: 1.1rem;
+}
+
+.mockup-screen-tag {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 750;
+  padding: 0.25rem 0.65rem;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-radius: 999px;
+}
+
+.mockup-phone-twin {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.phone-screen {
+  width: 140px;
+  height: 200px;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 22px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.phone-notch {
+  width: 32px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  margin: 0 auto;
+}
+
+.phone-header-chip {
+  font-size: 0.72rem;
+  font-weight: 750;
+  color: #10b981;
+}
+
+.phone-metric-chip {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.phone-metric-sub {
+  font-size: 0.8rem;
+  font-weight: 750;
+  color: #94a3b8;
+  margin-top: auto;
+}
+
+.mockup-branding-kit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-kit-box {
+  width: 220px;
+  height: 140px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #001f3f;
+}
+
+.brand-box-logo {
+  font-size: 1.6rem;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+.brand-box-sub {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #94a3b8;
+  font-weight: 800;
+  margin-top: 0.3rem;
+}
+
+.brand-kit-tag {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.3rem 0.85rem;
+  background: rgba(245, 158, 11, 0.2);
+  color: #fef3c7;
+  border-radius: 999px;
+}
+
+.mockup-dashboard {
+  width: 86%;
+  background: rgba(15, 23, 42, 0.94);
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dashboard-header-bar {
+  height: 8px;
+  width: 45%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
+
+.dashboard-widgets-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.widget-tile {
+  height: 48px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.widget-tile.wide {
+  grid-column: span 2;
+  height: 36px;
+  background: rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.project-card-content {
+  padding: 2.2rem 2.4rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-card-title {
+  font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #001f3f;
+  margin: 0 0 0.65rem;
+  letter-spacing: -0.02em;
+}
+
+.project-card-desc {
+  font-size: 0.98rem;
+  line-height: 1.62;
+  color: #64748b;
+  margin: 0 0 1.6rem;
+  flex-grow: 1;
+}
+
+.project-card-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 31, 63, 0.06);
+  padding-top: 1.25rem;
+}
+
+.view-project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #2563eb;
+  font-weight: 800;
+  font-size: 0.94rem;
+  transition: transform 0.2s ease;
+}
+
+.work-project-card:hover .view-project-link {
+  transform: translateX(4px);
+}
+
+.project-metric-pill {
+  font-size: 0.76rem;
+  font-weight: 750;
+  color: #64748b;
+  background: rgba(0, 31, 63, 0.04);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+
+/* 4. Bottom Impact Banner (Matching Reference Screenshot) */
+.work-impact-banner-section {
+  padding: 0 2rem 5.5rem;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.work-impact-banner-card {
+  background: linear-gradient(135deg, #020c1d 0%, #07193b 45%, #001f3f 100%);
+  border-radius: 32px;
+  padding: 3.5rem 4.5rem;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 180px;
+  gap: 3.5rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 65px -12px rgba(0, 31, 63, 0.4),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.impact-ambient-glow {
+  position: absolute;
+  top: -50%;
+  right: 0;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.impact-sparkles-row {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkle-star {
+  position: absolute;
+  color: #ffd105;
+  font-size: 1rem;
+  opacity: 0.7;
+  animation: starTwinkle 3s ease-in-out infinite alternate;
+}
+.sparkle-star.s1 { top: 20%; right: 28%; font-size: 1.2rem; }
+.sparkle-star.s2 { bottom: 25%; right: 35%; font-size: 0.8rem; animation-delay: 0.8s; }
+.sparkle-star.s3 { top: 35%; right: 12%; font-size: 1rem; animation-delay: 1.4s; }
+.sparkle-star.s4 { bottom: 18%; right: 5%; font-size: 1.1rem; animation-delay: 0.4s; }
+
+@keyframes starTwinkle {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 0.4; }
+  100% { transform: scale(1.2) rotate(15deg); opacity: 0.95; }
+}
+
+.impact-content-side {
+  position: relative;
+  z-index: 2;
+}
+
+.impact-pill-badge {
+  display: inline-block;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.75rem;
+  font-weight: 750;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.1rem;
+}
+
+.impact-title {
+  font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  font-weight: 850;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 0.9rem;
+  letter-spacing: -0.025em;
+}
+
+.impact-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin: 0;
+  max-width: 440px;
+}
+
+.impact-stats-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.impact-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 850;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Glowing Saturn Orbit Planet Visual */
+.impact-planet-visual {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.planet-globe-core {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #38bdf8 0%, #1e40af 55%, #0f172a 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 35px rgba(56, 189, 248, 0.5),
+    inset 0 -8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.planet-surface-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+}
+
+.planet-orbit-ring {
+  position: absolute;
+  width: 135px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3.5px solid #38bdf8;
+  transform: rotate(-25deg);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
+  pointer-events: none;
+}
+
+.planet-glow-aura {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* Work Page Mobile Responsiveness */
+@media (max-width: 1024px) {
+  .yellow-hero-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .yellow-hero-eyes-stage {
+    order: -1;
+  }
+
+  .work-portfolio-grid-container {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+  }
+
+  .work-impact-banner-card {
+    grid-template-columns: 1fr;
+    padding: 3rem 2.2rem;
+    gap: 2.5rem;
+  }
+
+  .impact-stats-group {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .impact-planet-visual {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .work-hero-yellow-section {
+    padding: 4.5rem 1.25rem 4.5rem;
+  }
+
+  .two-eyes-mascot-card {
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+  }
+
+  .eye-socket-frame {
+    width: 85px;
+    height: 85px;
+  }
+
+  .eye-pupil {
+    width: 38px;
+    height: 38px;
+  }
+
+  .project-card-image-box {
+    height: 240px;
+  }
+
+  .project-card-content {
+    padding: 1.8rem 1.5rem;
+  }
+
+  .click-to-explore-annotation {
+    display: none;
+  }
+}
+
+
 
 
 

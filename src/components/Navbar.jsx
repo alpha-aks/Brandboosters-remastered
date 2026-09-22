@@ -47,7 +47,14 @@ export default function Navbar() {
 
         {/* Desktop Navigation Links */}
         <nav className="nav-menu-desktop" aria-label="Main Navigation">
-          <a href={getLink('#work')} className="nav-link">
+          <a 
+            href="/work" 
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateWithTransition('/work');
+            }}
+          >
             Work
           </a>
 
@@ -147,7 +154,17 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       <div className={`mobile-drawer ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-nav-links">
-          <a href={getLink('#work')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Work</a>
+          <a 
+            href="/work" 
+            className="mobile-nav-link" 
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              navigateWithTransition('/work');
+            }}
+          >
+            Work
+          </a>
           <a href={getLink('#services')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Services</a>
           <a href={getLink('#clients')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Clients</a>
           <a href={getLink('#about')} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
