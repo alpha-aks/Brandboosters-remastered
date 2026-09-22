@@ -159,128 +159,130 @@ export default function About() {
                       <div className="speedline speedline-3" />
                     </div>
 
-                    {/* The Detailed Vector Yellow & Blue Rocket */}
+                    {/* The Clean 2D Flat Vector Yellow & Blue Rocket */}
                     <div className="rocket-ship-wrapper">
-                      <svg className="yellow-blue-rocket-svg" viewBox="0 0 320 180" fill="none">
-                        <defs>
-                          {/* Gradients for Navy/Blue Fuselage */}
-                          <linearGradient id="rocketBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#001f3f" />
-                            <stop offset="50%" stopColor="#0b2e59" />
-                            <stop offset="100%" stopColor="#1e40af" />
-                          </linearGradient>
-
-                          {/* Gradients for Yellow Accents & Wings */}
-                          <linearGradient id="rocketYellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#fff085" />
-                            <stop offset="45%" stopColor="#ffd105" />
-                            <stop offset="100%" stopColor="#f59e0b" />
-                          </linearGradient>
-
-                          {/* Thruster Outer Blue Flame */}
-                          <linearGradient id="thrusterBlueFlame" x1="100%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.95" />
-                            <stop offset="60%" stopColor="#2563eb" stopOpacity="0.8" />
-                            <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0" />
-                          </linearGradient>
-
-                          {/* Thruster Inner Yellow Core Flame */}
-                          <linearGradient id="thrusterYellowFlame" x1="100%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-                            <stop offset="40%" stopColor="#ffd105" stopOpacity="0.95" />
-                            <stop offset="100%" stopColor="#ea580c" stopOpacity="0.2" />
-                          </linearGradient>
-
-                          {/* Cockpit Window Glare */}
-                          <linearGradient id="cockpitGlassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#e0f2fe" />
-                            <stop offset="40%" stopColor="#38bdf8" />
-                            <stop offset="100%" stopColor="#0284c7" />
-                          </linearGradient>
-                        </defs>
-
-                        {/* --- Animated Thruster Exhaust Flames (Behind Rocket) --- */}
+                      <svg className="yellow-blue-rocket-svg flat-2d-rocket" viewBox="0 0 340 180" fill="none">
+                        
+                        {/* --- 2D Animated Thruster Exhaust Flames (Layered Flat Shapes) --- */}
                         <g className="rocket-thruster-group">
-                          {/* Outer Cyan/Blue Plasma Flame */}
+                          {/* Outer Flat 2D Cyan Flame */}
                           <path 
-                            className="outer-plasma-flame"
-                            d="M 108,102 C 85,116 35,138 20,146 C 45,126 80,114 98,92 Z"
-                            fill="url(#thrusterBlueFlame)"
+                            className="outer-plasma-flame flat-flame-outer"
+                            d="M 104,90 C 82,102 38,118 16,128 C 42,112 70,102 96,82 Z"
+                            fill="#38bdf8"
+                            stroke="#001f3f"
+                            strokeWidth="2.5"
+                            strokeLinejoin="round"
                           />
 
-                          {/* Inner Golden/Yellow Fire Cone */}
+                          {/* Mid Flat 2D Yellow Flame */}
                           <path 
-                            className="inner-core-flame"
-                            d="M 105,100 C 88,110 52,126 44,132 C 60,118 84,110 96,94 Z"
-                            fill="url(#thrusterYellowFlame)"
+                            className="mid-plasma-flame flat-flame-mid"
+                            d="M 102,88 C 84,98 50,112 36,118 C 54,106 76,98 94,84 Z"
+                            fill="#ffd105"
                           />
 
-                          {/* Animated Exhaust Smoke Puffs */}
-                          <circle cx="48" cy="138" r="8" className="smoke-puff puff-1" fill="rgba(56, 189, 248, 0.4)" />
-                          <circle cx="28" cy="150" r="12" className="smoke-puff puff-2" fill="rgba(255, 209, 5, 0.35)" />
-                          <circle cx="10" cy="162" r="16" className="smoke-puff puff-3" fill="rgba(37, 99, 235, 0.2)" />
+                          {/* Inner Flat 2D Pure White Flame Core */}
+                          <path 
+                            className="inner-core-flame flat-flame-inner"
+                            d="M 100,86 C 86,94 62,104 54,108 C 66,100 82,94 92,86 Z"
+                            fill="#ffffff"
+                          />
+
+                          {/* 2D Flat Exhaust Smoke Puffs */}
+                          <circle cx="44" cy="120" r="9" className="smoke-puff puff-1" fill="#bae6fd" stroke="#001f3f" strokeWidth="2" />
+                          <circle cx="24" cy="132" r="13" className="smoke-puff puff-2" fill="#fef08a" stroke="#001f3f" strokeWidth="2" />
+                          <circle cx="6" cy="144" r="16" className="smoke-puff puff-3" fill="#e0f2fe" stroke="#001f3f" strokeWidth="2" />
                         </g>
 
-                        {/* --- Rocket Structure --- */}
-                        {/* Metal Exhaust Nozzle */}
-                        <polygon points="98,92 108,102 92,108 84,98" fill="#334155" stroke="#1e293b" strokeWidth="2" />
+                        {/* --- 2D Flat Rocket Craft Body & Wings --- */}
 
-                        {/* Bottom Stabilizer Fin (Vibrant Golden Yellow) */}
-                        <path 
-                          d="M 124,106 L 98,142 C 92,145 88,140 92,134 L 110,102 Z" 
-                          fill="url(#rocketYellowGrad)" 
+                        {/* Metal Exhaust Nozzle (Flat Dark Slate with 2D Line) */}
+                        <polygon 
+                          points="96,82 106,92 90,100 80,90" 
+                          fill="#1e293b" 
                           stroke="#001f3f" 
-                          strokeWidth="2.5"
+                          strokeWidth="2.5" 
+                          strokeLinejoin="round"
                         />
 
-                        {/* Top Stabilizer Fin (Vibrant Golden Yellow) */}
+                        {/* Top Stabilizer Fin (Flat Golden Yellow with Navy Stroke) */}
                         <path 
-                          d="M 148,68 L 126,30 C 122,25 116,28 118,34 L 132,74 Z" 
-                          fill="url(#rocketYellowGrad)" 
-                          stroke="#001f3f" 
-                          strokeWidth="2.5"
-                        />
-
-                        {/* Aerodynamic Fuselage Body (Deep Navy & Royal Blue) */}
-                        <path 
-                          d="M 235,42 C 220,38 150,65 106,96 C 102,100 102,104 106,106 C 138,114 205,92 235,42 Z" 
-                          fill="url(#rocketBodyGrad)" 
-                          stroke="#001f3f" 
-                          strokeWidth="3"
-                        />
-
-                        {/* Upper Surface Reflection Sheen */}
-                        <path 
-                          d="M 230,44 C 205,42 165,58 128,78 C 158,62 205,48 230,44 Z" 
-                          fill="rgba(255, 255, 255, 0.35)" 
-                        />
-
-                        {/* Nose Cone Cap (Vibrant Golden Yellow #ffd105) */}
-                        <path 
-                          d="M 235,42 C 222,46 208,52 202,56 C 214,68 226,76 235,42 Z" 
-                          fill="url(#rocketYellowGrad)" 
-                          stroke="#001f3f" 
-                          strokeWidth="2.5"
-                        />
-
-                        {/* Body Racing Stripe (Golden Yellow Accent) */}
-                        <path 
-                          d="M 172,70 L 160,82 C 163,83 166,83 169,82 L 180,70 Z" 
+                          d="M 144,60 L 118,22 C 114,16 108,18 110,25 L 126,68 Z" 
                           fill="#ffd105" 
-                        />
-
-                        {/* Circular Cockpit Porthole Glass Window */}
-                        <circle cx="178" cy="68" r="16" fill="#001f3f" stroke="#ffd105" strokeWidth="3.5" />
-                        <circle cx="178" cy="68" r="12" fill="url(#cockpitGlassGrad)" />
-                        <ellipse cx="175" cy="64" rx="6" ry="3" fill="rgba(255, 255, 255, 0.65)" transform="rotate(-30 175 64)" />
-
-                        {/* Center Stabilizer Fin (Vibrant Golden Yellow Wing) */}
-                        <path 
-                          d="M 142,88 L 118,118 C 114,122 110,120 112,114 L 132,84 Z" 
-                          fill="url(#rocketYellowGrad)" 
                           stroke="#001f3f" 
-                          strokeWidth="2.5"
+                          strokeWidth="3" 
+                          strokeLinejoin="round"
                         />
+                        {/* Top Fin Accent Stripe */}
+                        <polygon points="124,32 118,22 114,27 121,37" fill="#f59e0b" />
+
+                        {/* Bottom Stabilizer Fin (Flat Golden Yellow with Navy Stroke) */}
+                        <path 
+                          d="M 122,98 L 94,136 C 88,142 82,138 86,131 L 106,94 Z" 
+                          fill="#ffd105" 
+                          stroke="#001f3f" 
+                          strokeWidth="3" 
+                          strokeLinejoin="round"
+                        />
+                        {/* Bottom Fin Accent Stripe */}
+                        <polygon points="100,126 94,136 88,131 94,121" fill="#f59e0b" />
+
+                        {/* Fuselage - Lower Tone (Deep Navy #001f3f) */}
+                        <path 
+                          d="M 245,36 C 228,32 152,60 102,92 C 98,96 100,100 104,102 C 138,110 210,88 245,36 Z" 
+                          fill="#001f3f" 
+                          stroke="#001f3f" 
+                          strokeWidth="3" 
+                          strokeLinejoin="round"
+                        />
+
+                        {/* Fuselage - Upper Half Tone (Flat Royal Blue #2563eb for 2D Cel-Shaded Depth) */}
+                        <path 
+                          d="M 245,36 C 228,32 152,60 102,92 C 136,78 198,54 245,36 Z" 
+                          fill="#2563eb" 
+                        />
+
+                        {/* 2D Flat Racing Stripes (Yellow & White) */}
+                        <path d="M 166,62 L 152,76 C 155,78 158,78 161,76 L 174,62 Z" fill="#ffd105" stroke="#001f3f" strokeWidth="2" />
+                        <path d="M 152,70 L 140,82 C 143,84 146,84 149,82 L 160,70 Z" fill="#ffffff" stroke="#001f3f" strokeWidth="2" />
+
+                        {/* 2D Flat Nose Cone (Solid Golden Yellow #ffd105) */}
+                        <path 
+                          d="M 245,36 C 230,41 214,48 206,53 C 220,66 234,74 245,36 Z" 
+                          fill="#ffd105" 
+                          stroke="#001f3f" 
+                          strokeWidth="3" 
+                          strokeLinejoin="round"
+                        />
+                        {/* Nose Cone 2D Tip Highlight */}
+                        <circle cx="242" cy="39" r="2.5" fill="#ffffff" />
+
+                        {/* 2D Flat Center Keel Fin (Vibrant Golden Yellow) */}
+                        <path 
+                          d="M 142,82 L 116,114 C 112,118 108,116 110,110 L 130,78 Z" 
+                          fill="#ffd105" 
+                          stroke="#001f3f" 
+                          strokeWidth="3" 
+                          strokeLinejoin="round"
+                        />
+
+                        {/* 2D Flat Circular Porthole Window */}
+                        {/* Outer Yellow Bezel Ring */}
+                        <circle cx="184" cy="62" r="16" fill="#ffd105" stroke="#001f3f" strokeWidth="3" />
+                        {/* Inner Dark Rim */}
+                        <circle cx="184" cy="62" r="12" fill="#001f3f" />
+                        {/* Flat Cyan Glass Disc */}
+                        <circle cx="184" cy="62" r="10" fill="#38bdf8" />
+                        {/* Iconic 2D Diagonal Flat Glass Glare */}
+                        <path d="M 178,56 L 188,66 A 10 10 0 0 0 190,62 L 182,54 A 10 10 0 0 0 178,56 Z" fill="#ffffff" opacity="0.85" />
+                        <circle cx="180" cy="65" r="1.5" fill="#ffffff" opacity="0.9" />
+
+                        {/* Flat Rivet Dots along Fuselage */}
+                        <circle cx="204" cy="54" r="1.8" fill="#ffd105" />
+                        <circle cx="152" cy="74" r="1.8" fill="#ffd105" />
+                        <circle cx="118" cy="88" r="1.8" fill="#ffd105" />
+
                       </svg>
                     </div>
 
@@ -596,10 +598,10 @@ export default function About() {
                   products that people genuinely enjoy using.
                 </p>
 
-                {/* 3 Metrics Trio: 2020 Founded / 30+ Happy Clients / 65+ Projects Delivered */}
+                {/* 3 Metrics Trio: 2024 Founded / 30+ Happy Clients / 65+ Projects Delivered */}
                 <div className="story-metrics-grid">
                   <div className="story-metric-item">
-                    <span className="metric-number-big">2020</span>
+                    <span className="metric-number-big">2024</span>
                     <span className="metric-label-caption">Founded</span>
                   </div>
 
@@ -775,8 +777,8 @@ export default function About() {
                 <div className="stat-separator-pipe" />
 
                 <div className="impact-stat-cell">
-                  <span className="stat-big-val">4+</span>
-                  <span className="stat-sub-txt">Years of Experience</span>
+                  <span className="stat-big-val">2024</span>
+                  <span className="stat-sub-txt">Founded In</span>
                 </div>
 
               </div>

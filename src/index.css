@@ -10449,35 +10449,50 @@ button {
     drop-shadow(0 0 16px rgba(255, 209, 5, 0.5));
 }
 
-/* Thruster Flames Animations */
+/* 2D Flat Thruster Flames Animations */
 .outer-plasma-flame {
-  transform-origin: 108px 102px;
+  transform-origin: 104px 90px;
   animation: flameFlicker 0.22s ease-in-out infinite alternate;
 }
 
+.mid-plasma-flame {
+  transform-origin: 102px 88px;
+  animation: flameMidFlicker 0.17s ease-in-out infinite alternate;
+}
+
 .inner-core-flame {
-  transform-origin: 105px 100px;
-  animation: flameCoreFlicker 0.14s ease-in-out infinite alternate;
+  transform-origin: 100px 86px;
+  animation: flameCoreFlicker 0.12s ease-in-out infinite alternate;
 }
 
 .yellow-blue-rocket-stage.hyperdrive-mode .outer-plasma-flame {
-  animation-duration: 0.09s;
+  animation-duration: 0.08s;
   transform: scale(1.35) translate(-6px, 4px);
 }
 
-.yellow-blue-rocket-stage.hyperdrive-mode .inner-core-flame {
+.yellow-blue-rocket-stage.hyperdrive-mode .mid-plasma-flame {
   animation-duration: 0.07s;
+  transform: scale(1.4) translate(-7px, 5px);
+}
+
+.yellow-blue-rocket-stage.hyperdrive-mode .inner-core-flame {
+  animation-duration: 0.06s;
   transform: scale(1.45) translate(-8px, 6px);
 }
 
 @keyframes flameFlicker {
-  0% { transform: scale(1) rotate(0deg); opacity: 0.85; }
-  100% { transform: scale(1.16, 0.94) rotate(-2deg); opacity: 1; }
+  0% { transform: scale(1) rotate(0deg); opacity: 0.9; }
+  100% { transform: scale(1.18, 0.92) rotate(-2deg); opacity: 1; }
+}
+
+@keyframes flameMidFlicker {
+  0% { transform: scale(1.05, 0.95) rotate(1deg); opacity: 0.95; }
+  100% { transform: scale(0.95, 1.1) rotate(-1deg); opacity: 1; }
 }
 
 @keyframes flameCoreFlicker {
-  0% { transform: scale(0.92, 1.1) rotate(1deg); opacity: 0.9; }
-  100% { transform: scale(1.14, 0.95) rotate(-1deg); opacity: 1; }
+  0% { transform: scale(0.9, 1.15) rotate(1deg); opacity: 0.95; }
+  100% { transform: scale(1.15, 0.9) rotate(-1deg); opacity: 1; }
 }
 
 /* Smoke Puffs Discharged from Nozzle */
