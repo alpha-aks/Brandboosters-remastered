@@ -72,7 +72,7 @@ button {
 .nav-container {
   max-width: 1380px;
   margin: 0 auto;
-  padding: 1.25rem 2rem;
+  padding: 0.85rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -85,14 +85,14 @@ button {
 }
 
 .brand-logo {
-  height: 20px;
+  height: 18px;
   width: auto;
   display: block;
 }
 
 .brandboosters-logo {
-  height: 42px;
-  max-height: 46px;
+  height: 33px;
+  max-height: 35px;
   width: auto;
   object-fit: contain;
   transition: transform 0.2s ease;
@@ -3665,6 +3665,35 @@ button {
 }
 
 @media (max-width: 768px) {
+  /* Compact Sleek Navbar for Phone */
+  .nav-container {
+    padding: 0.6rem 1.15rem;
+  }
+
+  .brandboosters-logo {
+    height: 26px;
+    max-height: 28px;
+  }
+
+  .nav-contact-btn {
+    padding: 0.42rem 0.95rem;
+    font-size: 0.82rem;
+  }
+
+  .mobile-toggle {
+    width: 24px;
+    height: 20px;
+    gap: 5px;
+  }
+
+  .mobile-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
   .hero-section {
     padding: 3rem 1.25rem 4rem;
   }
