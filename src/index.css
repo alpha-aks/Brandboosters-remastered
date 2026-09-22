@@ -5727,28 +5727,25 @@ button {
   font-family: inherit;
 }
 
-/* Floating Sub-Nav Bar (below main website header) */
+/* Sub-Nav Bar (Cleanly positioned below main website header, never overlaps) */
 .case-study-subnav-bar {
-  position: sticky;
-  top: 76px; /* below main website header */
-  left: 0;
+  position: relative;
   width: 100%;
-  z-index: 95;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-  padding: 0.75rem 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 1.1rem 0;
 }
 
 .case-study-subnav-container {
-  max-width: 1240px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem;
+  flex-wrap: wrap;
 }
 
 /* Dedicated Backlink Button on White Theme */
@@ -6363,6 +6360,13 @@ button {
 }
 
 @media (max-width: 640px) {
+  .case-study-subnav-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0 1.25rem;
+  }
+
   .case-study-metrics-grid {
     grid-template-columns: 1fr;
   }
