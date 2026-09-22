@@ -1812,8 +1812,8 @@ button {
 /* ==========================================================================
    FEATURED WORK - RESPONSIVE PUZZLE BENTO GRID FOR TABLET & MOBILE
    ========================================================================== */
-/* Responsive adjustments for Tablet (<= 1024px) */
-@media (max-width: 1024px) {
+/* Tablet (901px to 1120px) */
+@media (max-width: 1120px) and (min-width: 901px) {
   .puzzle-ref-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.35rem 1.2rem;
@@ -1825,21 +1825,28 @@ button {
     grid-column: span 1;
   }
   .puzzle-ref-canvas-frame {
-    height: 260px;
+    height: 270px;
   }
 }
 
-/* Mobile Phones: Compact, Unsquished Puzzle Boxes (<= 640px) */
-@media (max-width: 640px) {
+/* Phone & Small Tablet Devices (<= 900px): Clean 1-Column Puzzle Boxes (Never Cut Off / Never Squished) */
+@media (max-width: 900px) {
   .puzzle-work-section {
-    padding: 3.5rem 1rem 4.5rem;
+    padding: 3.5rem 1.25rem 4.5rem;
+    overflow: hidden;
+  }
+
+  .puzzle-work-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
   }
 
   .puzzle-ref-grid {
-    grid-template-columns: 1fr;
-    gap: 1.1rem;
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem;
     width: 100%;
-    max-width: 440px;
+    max-width: 100%;
     margin: 0 auto;
   }
 
@@ -1847,13 +1854,19 @@ button {
   .puzzle-piece-medium,
   .puzzle-piece-compact,
   .puzzle-piece-panorama {
-    grid-column: span 1;
+    grid-column: span 1 !important;
+    width: 100%;
   }
 
-  /* Compact puzzle box height: Roomy & Unsquished */
+  .puzzle-ref-card-wrapper {
+    width: 100%;
+  }
+
+  /* Compact puzzle box height: Roomy, centered & perfectly proportioned */
   .puzzle-ref-canvas-frame {
-    height: 205px;
-    border-radius: 20px;
+    width: 100% !important;
+    height: 220px !important;
+    border-radius: 24px;
   }
 
   /* Specular Highlight on mobile */
@@ -1863,72 +1876,72 @@ button {
 
   /* Top-Left Puzzle Number Pill Badge on mobile */
   .puzzle-box-badge {
-    top: 0.9rem;
-    left: 1rem;
-    padding: 0.22rem 0.6rem;
+    top: 1rem;
+    left: 1.15rem;
+    padding: 0.24rem 0.65rem;
   }
 
   .puzzle-box-num {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
   }
 
-  /* Roomy glass logo frame sizing on phone - Never squished */
+  /* Roomy glass logo frame sizing on phone */
   .featured-glass-frame {
-    width: clamp(155px, 46vw, 195px);
-    height: 68px;
-    padding: 0.45rem 0.95rem;
-    border-radius: 17px;
+    width: clamp(160px, 50vw, 215px);
+    height: 72px;
+    padding: 0.5rem 1.1rem;
+    border-radius: 18px;
   }
 
   /* Specific Logo Scalings on phone */
   .featured-brand-caps-logo {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     letter-spacing: 0.16em;
   }
 
   .client-logo-img.logo-maxo {
-    max-width: 96px;
-    max-height: 20px;
+    max-width: 100px;
+    max-height: 22px;
   }
 
   .client-logo-img.logo-kore {
-    max-width: 120px;
-    max-height: 30px;
+    max-width: 125px;
+    max-height: 32px;
   }
 
   .client-logo-img.logo-eddies {
-    max-width: 105px;
-    max-height: 30px;
+    max-width: 110px;
+    max-height: 32px;
   }
 
   .client-logo-img.logo-transportx {
-    max-width: 105px;
-    max-height: 28px;
+    max-width: 110px;
+    max-height: 30px;
   }
 
   .client-logo-img.logo-rudra {
-    max-width: 105px;
-    max-height: 30px;
+    max-width: 110px;
+    max-height: 32px;
   }
 
   /* Ambient Orbs on mobile */
   .featured-logo-ambient-orb {
-    width: 155px;
-    height: 155px;
-    filter: blur(30px);
+    width: 170px;
+    height: 170px;
+    filter: blur(34px);
   }
 
   /* Show Overview Button on mobile */
   .card-show-overview-btn {
-    bottom: 0.85rem;
-    right: 0.9rem;
-    padding: 0.32rem 0.72rem;
+    bottom: 0.95rem;
+    right: 1.1rem;
+    padding: 0.35rem 0.8rem;
     border-radius: 999px;
     gap: 0.35rem;
   }
 
   .overview-btn-text {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
   }
 
   .overview-btn-icon {
@@ -1938,26 +1951,26 @@ button {
 
   /* Back View Content scaling on mobile */
   .card-layer-back {
-    padding: 1.1rem 1.1rem;
+    padding: 1.2rem 1.2rem;
   }
 
   .card-back-headline {
-    font-size: 0.88rem;
-    line-height: 1.35;
+    font-size: 0.92rem;
+    line-height: 1.38;
     margin-bottom: 0.5rem;
   }
 
   .card-back-metrics-row {
-    gap: 0.5rem;
+    gap: 0.55rem;
     margin-bottom: 0.5rem;
   }
 
   .back-m-val {
-    font-size: 0.95rem;
+    font-size: 0.98rem;
   }
 
   .back-m-lbl {
-    font-size: 0.62rem;
+    font-size: 0.64rem;
   }
 
   .card-back-points {
@@ -1965,8 +1978,8 @@ button {
   }
 
   .card-open-modal-btn {
-    padding: 0.35rem 0.8rem;
-    font-size: 0.72rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.74rem;
   }
 }
 
@@ -4040,25 +4053,11 @@ button {
   }
 }
 
-@media (max-width: 640px) {
-  .minimal-process-section {
-    padding: 5rem 1.25rem 5.5rem;
-  }
-  .minimal-process-header {
-    margin-bottom: 3rem;
-  }
-  .minimal-workflow-track {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  .minimal-step-meta-row {
-    margin-bottom: 1.25rem;
-  }
-  .minimal-step-name {
-    font-size: 1.35rem;
-  }
-  .minimal-step-desc {
-    font-size: 0.9rem;
+/* Completely hide Process section on mobile phone devices */
+@media (max-width: 768px) {
+  .minimal-process-section,
+  #process {
+    display: none !important;
   }
 }
 
