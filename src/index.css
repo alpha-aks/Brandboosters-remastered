@@ -9540,6 +9540,493 @@ button {
 }
 
 /* ==========================================================================
+   RETRO CRT TELEVISION & SPARKING STAR STARTUP ANIMATION ("WATCH OUR STORY")
+   ========================================================================== */
+
+/* Active toggle state for Watch Our Story button */
+.about-secondary-pill-btn.story-playing-active {
+  background: #001f3f !important;
+  color: #ffffff !important;
+  border-color: #ffd105 !important;
+  box-shadow: 0 4px 18px rgba(0, 31, 63, 0.25), 0 0 12px rgba(255, 209, 5, 0.4) !important;
+}
+
+.about-secondary-pill-btn.story-playing-active .play-circle-icon {
+  background: #ffd105 !important;
+  color: #001f3f !important;
+}
+
+.about-secondary-pill-btn.story-playing-active .story-btn-text strong {
+  color: #ffd105 !important;
+}
+
+.about-secondary-pill-btn.story-playing-active .story-btn-text small {
+  color: #cbd5e1 !important;
+}
+
+/* CRT TV Main Chassis Card */
+.story-crt-tv-card {
+  width: 100%;
+  max-width: 520px;
+  background: #111827;
+  border: 4px solid #1f2937;
+  border-radius: 28px;
+  padding: 1.25rem 1.4rem 1.15rem;
+  box-shadow: 
+    0 24px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -8px 20px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  animation: tvChassisPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tvChassisPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* TV Antenna Rig on top */
+.story-tv-antenna-rig {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.tv-antenna-stem {
+  position: absolute;
+  bottom: 0;
+  width: 3px;
+  height: 26px;
+  background: linear-gradient(180deg, #9ca3af 0%, #4b5563 100%);
+  border-radius: 2px;
+}
+
+.tv-antenna-stem::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd105;
+  box-shadow: 0 0 6px rgba(255, 209, 5, 0.7);
+}
+
+.tv-antenna-stem.tv-left {
+  left: 38%;
+  transform: rotate(-30deg);
+  transform-origin: bottom center;
+}
+
+.tv-antenna-stem.tv-right {
+  right: 38%;
+  transform: rotate(30deg);
+  transform-origin: bottom center;
+}
+
+.tv-handle-bracket {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 8px;
+  background: #374151;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+}
+
+/* TV Header / Top Bar */
+.story-tv-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  padding: 0 0.2rem;
+}
+
+.story-tv-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'SF Pro Text', 'Inter', monospace, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ef4444;
+  text-transform: uppercase;
+  background: rgba(239, 68, 68, 0.12);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.story-tv-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: liveDotPulse 1.2s infinite;
+}
+
+.story-tv-close-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.65rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.story-tv-close-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+
+/* 16:9 Curved CRT Screen Frame */
+.story-crt-screen-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.9),
+    inset 0 0 8px rgba(0, 0, 0, 0.95),
+    0 0 0 3px #1f2937,
+    0 0 0 5px #0f172a;
+}
+
+/* CRT Screen Scanlines */
+.story-crt-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 15;
+  opacity: 0.45;
+}
+
+/* CRT Screen Glare */
+.story-crt-screen-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 100%);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  z-index: 16;
+}
+
+/* YouTube Iframe inside CRT */
+.story-tv-youtube-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 10;
+  background: #000;
+}
+
+/* ==========================================================================
+   AUTHENTIC OLD TV STARTUP ANIMATION: SPARKING STAR & EXPANDING CRT BEAM
+   ========================================================================== */
+.old-tv-startup-anim {
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  animation: crtOverlayFadeOut 0.85s forwards;
+}
+
+@keyframes crtOverlayFadeOut {
+  0% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Sparking Star Burst Core */
+.sparking-star-core {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: sparkingStarBlast 0.55s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes sparkingStarBlast {
+  0% {
+    transform: scale(0.05) rotate(0deg);
+    opacity: 0;
+    filter: brightness(2) drop-shadow(0 0 20px #ffffff);
+  }
+  20% {
+    transform: scale(2.8) rotate(45deg);
+    opacity: 1;
+    filter: brightness(3) drop-shadow(0 0 40px #38bdf8);
+  }
+  50% {
+    transform: scale(1.6) rotate(90deg);
+    opacity: 1;
+    filter: brightness(2.5) drop-shadow(0 0 30px #ffffff);
+  }
+  85% {
+    transform: scale(3.5) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(5) rotate(220deg);
+    opacity: 0;
+  }
+}
+
+.star-white-hot-center {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 
+    0 0 10px #ffffff,
+    0 0 25px #38bdf8,
+    0 0 50px #60a5fa,
+    0 0 80px #ffffff;
+  animation: whiteHotPulse 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes whiteHotPulse {
+  0% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1.35);
+  }
+}
+
+/* Cross & Diagonal Star Rays */
+.star-ray {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, #ffffff 50%, transparent);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
+  border-radius: 999px;
+}
+
+.star-ray.ray-horizontal {
+  width: 160px;
+  height: 3px;
+}
+
+.star-ray.ray-vertical {
+  width: 3px;
+  height: 160px;
+  background: linear-gradient(180deg, transparent, #ffffff 50%, transparent);
+}
+
+.star-ray.ray-diagonal-1 {
+  width: 120px;
+  height: 2px;
+  transform: rotate(45deg);
+}
+
+.star-ray.ray-diagonal-2 {
+  width: 120px;
+  height: 2px;
+  transform: rotate(-45deg);
+}
+
+/* Popping sparkle particles */
+.sparkle-particle {
+  position: absolute;
+  font-size: 1rem;
+  color: #ffd105;
+  text-shadow: 0 0 8px #ffd105, 0 0 16px #fff;
+  opacity: 0;
+  animation: sparkleFly 0.5s ease-out forwards;
+}
+
+.sparkle-particle.spk-1 {
+  animation-delay: 0.05s;
+  --tx: -50px;
+  --ty: -40px;
+}
+
+.sparkle-particle.spk-2 {
+  animation-delay: 0.08s;
+  --tx: 55px;
+  --ty: -35px;
+}
+
+.sparkle-particle.spk-3 {
+  animation-delay: 0.12s;
+  --tx: -45px;
+  --ty: 45px;
+}
+
+.sparkle-particle.spk-4 {
+  animation-delay: 0.15s;
+  --tx: 50px;
+  --ty: 40px;
+}
+
+@keyframes sparkleFly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(calc(var(--tx) * 0.6), calc(var(--ty) * 0.6)) scale(1.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0.4);
+  }
+}
+
+/* Horizontal Phosphor Laser Beam Expanding to Full Tube */
+.phosphor-expanding-beam {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ffffff;
+  box-shadow: 
+    0 0 10px #38bdf8,
+    0 0 25px #60a5fa,
+    0 0 50px #ffffff;
+  transform: translateY(-50%) scaleX(0) scaleY(1);
+  animation: crtBeamExpand 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s forwards;
+  z-index: 41;
+}
+
+@keyframes crtBeamExpand {
+  0% {
+    transform: translateY(-50%) scaleX(0) scaleY(1);
+    opacity: 1;
+  }
+  35% {
+    transform: translateY(-50%) scaleX(1) scaleY(1);
+    opacity: 1;
+    height: 3px;
+  }
+  70% {
+    transform: translateY(-50%) scaleX(1) scaleY(60);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-50%) scaleX(1) scaleY(180);
+    opacity: 0;
+  }
+}
+
+/* High Voltage Flash Bloom */
+.crt-opening-bloom-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(56, 189, 248, 0.4) 60%, transparent 100%);
+  opacity: 0;
+  animation: crtBloomFlash 0.5s ease-out 0.45s forwards;
+  z-index: 42;
+}
+
+@keyframes crtBloomFlash {
+  0% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Bottom TV Control Strip */
+.story-tv-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.85rem;
+  padding: 0 0.25rem;
+}
+
+.story-tv-brand-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #94a3b8;
+  font-family: 'SF Pro Text', monospace, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.story-tv-brand-label svg {
+  color: #ffd105;
+}
+
+.story-tv-speaker-perforations {
+  display: flex;
+  gap: 3px;
+}
+
+.speaker-line {
+  width: 14px;
+  height: 3px;
+  background: #374151;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
    2. SECTION: OUR STORY (MATCHING REFERENCE DESIGN)
    ========================================================================== */
 .about-story-section {
@@ -10290,6 +10777,31 @@ button {
   /* HIDE radio button / microwave unit for mobile screen as requested */
   .about-hero-knob-col {
     display: none !important;
+  }
+
+  /* When Watch Our Story is clicked, display Retro CRT TV right in hero section on mobile */
+  .about-hero-knob-col.video-active-mode {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 1.5rem !important;
+    justify-content: center !important;
+    order: 10 !important;
+  }
+
+  .about-hero-knob-col.video-active-mode .story-crt-tv-card {
+    max-width: 100% !important;
+    padding: 1rem 0.85rem 0.9rem !important;
+    border-radius: 20px !important;
+  }
+
+  .about-hero-knob-col.video-active-mode .story-tv-antenna-rig {
+    top: -18px !important;
+    height: 18px !important;
+  }
+
+  .about-hero-knob-col.video-active-mode .tv-antenna-stem {
+    height: 18px !important;
   }
 
   .retro-circuit-line-bridge {

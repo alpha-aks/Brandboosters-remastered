@@ -19,7 +19,9 @@ import {
   HeartHandshake,
   Lightbulb,
   Palette,
-  ExternalLink
+  ExternalLink,
+  X,
+  Tv
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -33,9 +35,65 @@ export default function About() {
   const [isRotating, setIsRotating] = useState(false);
   const [lineActive, setLineActive] = useState(true);
 
+  // Watch Our Story Retro TV State
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isTvIgniting, setIsTvIgniting] = useState(false);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
+
+  // Authentic Old CRT TV ignition sound with high-voltage capacitor spark & flyback whistle
+  const playCrtIgnitionSound = () => {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+
+      // 1. High-voltage static spark / pop
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(850, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.25, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.09);
+
+      // 2. CRT Flyback high frequency 15kHz sweep whine
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(14000, ctx.currentTime);
+      osc2.frequency.exponentialRampToValueAtTime(3200, ctx.currentTime + 0.35);
+      gain2.gain.setValueAtTime(0.09, ctx.currentTime);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.5);
+
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start();
+      osc2.stop(ctx.currentTime + 0.52);
+
+      // 3. Phosphor tube warm hum
+      const osc3 = ctx.createOscillator();
+      const gain3 = ctx.createGain();
+      osc3.type = 'triangle';
+      osc3.frequency.setValueAtTime(120, ctx.currentTime);
+      gain3.gain.setValueAtTime(0.12, ctx.currentTime + 0.1);
+      gain3.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.65);
+
+      osc3.connect(gain3);
+      gain3.connect(ctx.destination);
+      osc3.start(ctx.currentTime + 0.1);
+      osc3.stop(ctx.currentTime + 0.7);
+    } catch {
+      // Audio context fallback
+    }
+  };
 
   // Physical synth click audio effect & microwave bell chime for retro knob feel
   const playClickSound = (mode) => {
@@ -109,6 +167,30 @@ export default function About() {
 
   const toggleDial = () => {
     handleDialTurn(knobMode === 1 ? 2 : 1);
+  };
+
+  // Launch Old CRT TV with Sparking Star Animation for Watch Our Story
+  const handleWatchStoryClick = (e) => {
+    if (e) e.preventDefault();
+    if (isVideoPlaying) {
+      handleCloseStory();
+      return;
+    }
+    playCrtIgnitionSound();
+    setIsVideoPlaying(true);
+    setIsTvIgniting(true);
+    setTimeout(() => {
+      setIsTvIgniting(false);
+    }, 850);
+  };
+
+  // Turn off / collapse TV back to studio
+  const handleCloseStory = () => {
+    setIsTvIgniting(true);
+    setTimeout(() => {
+      setIsVideoPlaying(false);
+      setIsTvIgniting(false);
+    }, 320);
   };
 
   return (
@@ -222,30 +304,27 @@ export default function About() {
                     <ArrowRight size={17} />
                   </button>
                   
-                  <a 
-                    href="#story" 
-                    className="about-secondary-pill-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
+                  <button 
+                    type="button" 
+                    className={`about-secondary-pill-btn ${isVideoPlaying ? 'story-playing-active' : ''}`}
+                    onClick={handleWatchStoryClick}
+                    title={isVideoPlaying ? "Close TV Video" : "Watch Our Story in Studio TV"}
                   >
                     <span className="play-circle-icon">
-                      <Play size={13} fill="#001f3f" />
+                      {isVideoPlaying ? <X size={13} /> : <Play size={13} fill="#001f3f" />}
                     </span>
                     <span className="story-btn-text">
-                      <strong>Watch Our Story</strong>
-                      <small>1:48 min</small>
+                      <strong>{isVideoPlaying ? 'Playing Story' : 'Watch Our Story'}</strong>
+                      <small>{isVideoPlaying ? 'Click to Exit ✕' : '1:48 min'}</small>
                     </span>
-                  </a>
+                  </button>
                 </div>
-
               </div>
 
-              {/* Right Column: Retro 3D Cut Microwave Idea Accelerator Unit */}
-              <div className="about-hero-knob-col">
+              {/* Right Column: Retro 3D Cut Microwave Idea Accelerator Unit OR Retro CRT Story TV */}
+              <div className={`about-hero-knob-col ${isVideoPlaying ? 'video-active-mode' : ''}`}>
                 
-                {/* Visual Laser Connection Wire spanning between Microwave & Website */}
+                {/* Visual Laser Connection Wire spanning between Microwave/TV & Website */}
                 <div className={`retro-circuit-line-bridge ${lineActive ? 'pulsing' : ''}`}>
                   <svg className="circuit-svg-wire" viewBox="0 0 400 120" preserveAspectRatio="none">
                     <defs>
@@ -271,128 +350,213 @@ export default function About() {
                   </svg>
                 </div>
 
-                {/* Physical 3D Cutout Plate Box */}
-                <div className={`retro-knob-plate-card microwave-unit ${knobMode === 2 ? 'turbo-overdrive' : ''}`}>
-                  
-                  {/* Plate Header with Retro Brand Name & Digital Timer */}
-                  <div className="knob-plate-header">
-                    <div className="knob-brand-stamp">
-                      <SlidersHorizontal size={14} />
-                      <span>IDEA ACCELERATOR 2026</span>
-                    </div>
-                    <div className="microwave-timer-lcd">
-                      <span className="lcd-indicator-led active" />
-                      <span className="lcd-channel-text">
-                        {knobMode === 1 ? '01:00 // 300W DEFROST' : '02:00 // 1200W TURBO ⚡'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Microwave Chamber Viewing Portal */}
-                  <div 
-                    className={`microwave-chamber-portal ${knobMode === 2 ? 'heating-active' : ''}`} 
-                    onClick={toggleDial} 
-                    title="Click to turn knob / heat idea"
-                  >
-                    <div className="microwave-glow-coils" />
-                    <div className="microwave-mesh-glass" />
+                {isVideoPlaying ? (
+                  /* ==========================================================
+                     RETRO CRT TELEVISION: "WATCH OUR STORY" OLD TV EXPERIENCE
+                     ========================================================== */
+                  <div className="retro-knob-plate-card story-crt-tv-card">
                     
-                    <div className="microwave-turntable-stage">
-                      <div className="turntable-disc" />
-                      {knobMode === 1 ? (
-                        <div className="chamber-item chamber-item-idea">
-                          <Lightbulb size={36} className="chamber-icon-bulb" />
-                          <span className="chamber-item-label">Raw Spark & Strategy</span>
-                        </div>
-                      ) : (
-                        <div className="chamber-item chamber-item-rocket">
-                          <Rocket size={36} className="chamber-icon-rocket" />
-                          <span className="chamber-item-label">1200W Velocity Launch! 🔔</span>
+                    {/* TV Top Vintage Dual Antenna & Carrying Handle */}
+                    <div className="story-tv-antenna-rig" aria-hidden="true">
+                      <span className="tv-antenna-stem tv-left" />
+                      <span className="tv-antenna-stem tv-right" />
+                      <div className="tv-handle-bracket" />
+                    </div>
+
+                    {/* Top TV Header Bar with Live Badge & Close Button */}
+                    <div className="story-tv-top-bar">
+                      <div className="story-tv-status-badge">
+                        <span className="story-tv-live-dot" />
+                        <span>ON AIR // STORY BROADCAST</span>
+                      </div>
+                      <button 
+                        type="button" 
+                        className="story-tv-close-btn"
+                        onClick={handleCloseStory}
+                        title="Close TV / Back to Studio"
+                      >
+                        <X size={14} />
+                        <span>CLOSE TV</span>
+                      </button>
+                    </div>
+
+                    {/* 16:9 Curved CRT Screen Container */}
+                    <div className="story-crt-screen-frame">
+                      
+                      {/* CRT Glass Scanlines Mesh & Glare Shading */}
+                      <div className="story-crt-scanlines" />
+                      <div className="story-crt-screen-glare" />
+
+                      {/* Iconic Old TV Sparking Star Startup Effect */}
+                      {isTvIgniting && (
+                        <div className="old-tv-startup-anim" aria-hidden="true">
+                          {/* Centered Blinding Sparking Star Explosion */}
+                          <div className="sparking-star-core">
+                            <div className="star-white-hot-center" />
+                            <div className="star-ray ray-horizontal" />
+                            <div className="star-ray ray-vertical" />
+                            <div className="star-ray ray-diagonal-1" />
+                            <div className="star-ray ray-diagonal-2" />
+                            <span className="sparkle-particle spk-1">✦</span>
+                            <span className="sparkle-particle spk-2">✦</span>
+                            <span className="sparkle-particle spk-3">✦</span>
+                            <span className="sparkle-particle spk-4">✦</span>
+                          </div>
+                          {/* Horizontal Phosphor Laser Beam Expanding to Full Tube */}
+                          <div className="phosphor-expanding-beam" />
+                          {/* High-Voltage Phosphor Tube Opening Flash */}
+                          <div className="crt-opening-bloom-flash" />
                         </div>
                       )}
+
+                      {/* The Specified YouTube Video Embed */}
+                      <iframe
+                        src="https://www.youtube-nocookie.com/embed/YhAG7kk9No8?autoplay=1&rel=0&modestbranding=1"
+                        title="BrandBoosters Studio Story"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="story-tv-youtube-iframe"
+                      />
                     </div>
-                  </div>
 
-                  {/* Main Dial Chamber: 3D Recessed Well with Physical Depth */}
-                  <div className="knob-recessed-chamber">
-                    
-                    {/* Tick Mark Graduation Ring */}
-                    <div className="dial-graduation-ring">
-                      
-                      {/* Position 1: Defrost / Raw Idea */}
-                      <button 
-                        type="button"
-                        className={`dial-position-mark mark-1 ${knobMode === 1 ? 'selected' : ''}`}
-                        onClick={() => handleDialTurn(1)}
-                        title="Turn Dial to 1: Defrost (Raw Idea)"
-                      >
-                        <span className="mark-number">1</span>
-                        <span className="mark-label">DEFROST</span>
-                        <span className="mark-led" />
-                      </button>
-
-                      {/* Position 2: 1200W Turbo Overdrive */}
-                      <button 
-                        type="button"
-                        className={`dial-position-mark mark-2 ${knobMode === 2 ? 'selected' : ''}`}
-                        onClick={() => handleDialTurn(2)}
-                        title="Turn Dial to 2: 1200W Turbo Overdrive"
-                      >
-                        <span className="mark-number">2</span>
-                        <span className="mark-label">TURBO</span>
-                        <span className="mark-led" />
-                      </button>
-
-                      {/* Radial Tick Lines around Perimeter */}
-                      <div className="radial-tick-lines" aria-hidden="true">
-                        <span className="tick-notch t-1" />
-                        <span className="tick-notch t-2" />
-                        <span className="tick-notch t-3" />
-                        <span className="tick-notch t-4" />
-                        <span className="tick-notch t-5" />
-                        <span className="tick-notch t-6" />
-                        <span className="tick-notch t-7" />
-                        <span className="tick-notch t-8" />
+                    {/* Bottom TV Control Strip */}
+                    <div className="story-tv-bottom-bar">
+                      <div className="story-tv-brand-label">
+                        <Tv size={14} />
+                        <span>BRANDBOOSTERS TUBE-77</span>
+                      </div>
+                      <div className="story-tv-speaker-perforations" aria-hidden="true">
+                        <span className="speaker-line" />
+                        <span className="speaker-line" />
+                        <span className="speaker-line" />
+                        <span className="speaker-line" />
                       </div>
                     </div>
 
-                    {/* Central 3D Rotatable Knurled Metallic Knob */}
-                    <div 
-                      className={`retro-physical-knob ${isRotating ? 'rotating' : ''} ${knobMode === 2 ? 'knob-turned-2' : 'knob-turned-1'}`}
-                      onClick={toggleDial}
-                      role="slider"
-                      aria-valuenow={knobMode}
-                      aria-valuemin="1"
-                      aria-valuemax="2"
-                      aria-label="Microwave Power Dial"
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          toggleDial();
-                        }
-                      }}
-                    >
-                      {/* Knurled Outer Gripping Edge Texture */}
-                      <div className="knob-knurled-rim" />
+                  </div>
+                ) : (
+                  /* Physical 3D Cutout Plate Box */
+                  <div className={`retro-knob-plate-card microwave-unit ${knobMode === 2 ? 'turbo-overdrive' : ''}`}>
+                    
+                    {/* Plate Header with Retro Brand Name & Digital Timer */}
+                    <div className="knob-plate-header">
+                      <div className="knob-brand-stamp">
+                        <SlidersHorizontal size={14} />
+                        <span>IDEA ACCELERATOR 2026</span>
+                      </div>
+                      <div className="microwave-timer-lcd">
+                        <span className="lcd-indicator-led active" />
+                        <span className="lcd-channel-text">
+                          {knobMode === 1 ? '01:00 // 300W DEFROST' : '02:00 // 1200W TURBO ⚡'}
+                        </span>
+                      </div>
+                    </div>
 
-                      {/* Brushed Top Disc Face */}
-                      <div className="knob-brushed-face">
-                        {/* Tactile Grip Indentation */}
-                        <div className="knob-finger-dimple" />
-                        {/* Laser Pointer Notch Indicator */}
-                        <div className="knob-pointer-notch" />
-                        {/* Center Hubcap Logo */}
-                        <div className="knob-center-hub">
-                          <RotateCw size={13} className="hub-spin-icon" />
+                    {/* Microwave Chamber Viewing Portal */}
+                    <div 
+                      className={`microwave-chamber-portal ${knobMode === 2 ? 'heating-active' : ''}`} 
+                      onClick={toggleDial} 
+                      title="Click to turn knob / heat idea"
+                    >
+                      <div className="microwave-glow-coils" />
+                      <div className="microwave-mesh-glass" />
+                      
+                      <div className="microwave-turntable-stage">
+                        <div className="turntable-disc" />
+                        {knobMode === 1 ? (
+                          <div className="chamber-item chamber-item-idea">
+                            <Lightbulb size={36} className="chamber-icon-bulb" />
+                            <span className="chamber-item-label">Raw Spark & Strategy</span>
+                          </div>
+                        ) : (
+                          <div className="chamber-item chamber-item-rocket">
+                            <Rocket size={36} className="chamber-icon-rocket" />
+                            <span className="chamber-item-label">1200W Velocity Launch! 🔔</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Main Dial Chamber: 3D Recessed Well with Physical Depth */}
+                    <div className="knob-recessed-chamber">
+                      
+                      {/* Tick Mark Graduation Ring */}
+                      <div className="dial-graduation-ring">
+                        
+                        {/* Position 1: Defrost / Raw Idea */}
+                        <button 
+                          type="button"
+                          className={`dial-position-mark mark-1 ${knobMode === 1 ? 'selected' : ''}`}
+                          onClick={() => handleDialTurn(1)}
+                          title="Turn Dial to 1: Defrost (Raw Idea)"
+                        >
+                          <span className="mark-number">1</span>
+                          <span className="mark-label">DEFROST</span>
+                          <span className="mark-led" />
+                        </button>
+
+                        {/* Position 2: 1200W Turbo Overdrive */}
+                        <button 
+                          type="button"
+                          className={`dial-position-mark mark-2 ${knobMode === 2 ? 'selected' : ''}`}
+                          onClick={() => handleDialTurn(2)}
+                          title="Turn Dial to 2: 1200W Turbo Overdrive"
+                        >
+                          <span className="mark-number">2</span>
+                          <span className="mark-label">TURBO</span>
+                          <span className="mark-led" />
+                        </button>
+
+                        {/* Radial Tick Lines around Perimeter */}
+                        <div className="radial-tick-lines" aria-hidden="true">
+                          <span className="tick-notch t-1" />
+                          <span className="tick-notch t-2" />
+                          <span className="tick-notch t-3" />
+                          <span className="tick-notch t-4" />
+                          <span className="tick-notch t-5" />
+                          <span className="tick-notch t-6" />
+                          <span className="tick-notch t-7" />
+                          <span className="tick-notch t-8" />
                         </div>
                       </div>
+
+                      {/* Central 3D Rotatable Knurled Metallic Knob */}
+                      <div 
+                        className={`retro-physical-knob ${isRotating ? 'rotating' : ''} ${knobMode === 2 ? 'knob-turned-2' : 'knob-turned-1'}`}
+                        onClick={toggleDial}
+                        role="slider"
+                        aria-valuenow={knobMode}
+                        aria-valuemin="1"
+                        aria-valuemax="2"
+                        aria-label="Microwave Power Dial"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleDial();
+                          }
+                        }}
+                      >
+                        {/* Knurled Outer Gripping Edge Texture */}
+                        <div className="knob-knurled-rim" />
+
+                        {/* Brushed Top Disc Face */}
+                        <div className="knob-brushed-face">
+                          {/* Tactile Grip Indentation */}
+                          <div className="knob-finger-dimple" />
+                          {/* Laser Pointer Notch Indicator */}
+                          <div className="knob-pointer-notch" />
+                          {/* Center Hubcap Logo */}
+                          <div className="knob-center-hub">
+                            <RotateCw size={13} className="hub-spin-icon" />
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
 
                   </div>
-
-                </div>
-
+                )}
               </div>
 
             </div>
