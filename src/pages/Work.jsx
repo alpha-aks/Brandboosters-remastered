@@ -162,8 +162,20 @@ export default function Work() {
       });
     };
 
+    const handleTouch = (e) => {
+      if (e.touches && e.touches[0]) {
+        handleMouseMove(e.touches[0]);
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchstart', handleTouch, { passive: true });
+    window.addEventListener('touchmove', handleTouch, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouch);
+      window.removeEventListener('touchmove', handleTouch);
+    };
   }, []);
 
   // Trigger playful eye blink on click

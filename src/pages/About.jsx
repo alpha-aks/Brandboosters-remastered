@@ -199,6 +199,12 @@ export default function About() {
                   </h1>
                 </div>
 
+                {/* Mobile Hero Headline shown on mobile when rocket is hidden */}
+                <h1 className="about-hero-mobile-headline">
+                  We're a Creative Studio on a Mission to{' '}
+                  <span className="about-mobile-headline-highlight">Build What Matters</span>
+                </h1>
+
                 <p className="about-main-lead">
                   We are BrandBoosters — a digital studio focused on turning bold ideas 
                   into beautiful, high-performing digital experiences. We combine creativity, 
